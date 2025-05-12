@@ -1,0 +1,44 @@
+@import "tailwindcss";
+:root {}
+
+.hidden-item-parent .hidden-item-children {
+  cursor: pointer;
+  display: none;
+}
+
+.hidden-item-parent:hover .hidden-item-children {
+  display: inline;
+}
+
+
+
+/* ButtonIcon */
+.ButtonIcon {
+  fill: #334155;
+  cursor: pointer;
+}
+
+.ButtonIcon:hover {
+  fill: #22c55e;
+}
+
+
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #1e9746;
+  border-radius: 2px;
+  border: 0px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #1e9746;
+}

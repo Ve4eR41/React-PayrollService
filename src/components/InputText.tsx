@@ -2,10 +2,10 @@ import classNames from "classnames"
 import React from "react";
 
 interface InputTextProps {
-    textInput?: string;
-    onInput: (newValue: string) => void;
+    textInput?: string | number | Date;
+    onInput: <T = string | number | Date>(newValue: T) => void;
     label?: string;
-    type: string ;
+    type: string;
     isDisabled?: boolean;
     className?: string;
 }

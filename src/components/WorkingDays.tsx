@@ -5,6 +5,7 @@ import InputText from "./InputText";
 import Panel from "./Panel"
 import { BiArrowFromLeft, BiArrowFromRight, BiCalendar } from "react-icons/bi";
 import { useState } from "react";
+import WorkingDaysFormAdd from "./WorkingDaysFormAdd";
 
 interface WorkingDaysProps {
     className?: string,
@@ -19,6 +20,7 @@ interface WorkingDaysProps {
 
 function WorkingDays({ workingDays, className }: WorkingDaysProps) {
     const [startDate, setStartDate] = useState(new Date());
+    const [newShiftInfo, setNewShiftInfo] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: "", revenue: 0, cheks: 0 });
     const styleWorkingDay = 'bg-white rounded-full my-4 grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 border-green-100 border-1 px-3 p-1'
     const styleWorkingDayInput = 'w-20 rounded-full text-center hover:bg-green-100'
 
@@ -40,6 +42,7 @@ function WorkingDays({ workingDays, className }: WorkingDaysProps) {
 
 
 
+
     return (
         <Panel className={"border-0 relative"}>
 
@@ -53,24 +56,8 @@ function WorkingDays({ workingDays, className }: WorkingDaysProps) {
 
             <Button className="text-center m-0 rounded-full w-full">Добавить смену</Button>
 
-            {/* 
-            <form
-                onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); }}
-                className='absolute bg-white p-4 flex flex-col w-[90%] left-0 mx-[5%] mt-4 shadow-md rounded-md z-10'>
-                <h3 className="text-xl mb-2">Добавление смены</h3>
-                <InputText onInput={(e) => { console.log(e); e.change(); }} type="datetime-local" label="Приход" />
-                <InputText type="datetime-local" label="Уход" />
-                <InputText type="string" label="Магазин" />
-                <InputText type="number" label="Выручка" />
-                <InputText type="number" label="Чеки" />
 
-                <input type="datetime-local" />
-                <Button
-                    onClick={() => { }}
-                    className="text-center m-0 rounded-md w-full">
-                    Подтвердить
-                </Button>
-            </form> */}
+            <WorkingDaysFormAdd hSetNewShiftInfo={setNewShiftInfo} newShiftInfo={newShiftInfo} />
 
         </Panel >
     )

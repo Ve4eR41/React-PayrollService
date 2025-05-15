@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Auth from "./pages/Auth/Auth.tsx";
 import Root from "./pages/Root.tsx";
 import UserMain from "./pages/UserMain/UserMain.tsx";
+import AdminMain from "./pages/AdminMain/AdminMain.tsx";
+import ShopMain from "./pages/ShopMain/ShopMain.tsx";
 
 
 const router = createBrowserRouter(
@@ -18,6 +20,18 @@ const router = createBrowserRouter(
         path: "/main",
         index: true,
         element: <UserMain />,
+        // loader: ...Loader,
+      },
+      {
+        path: "/AdminMain",
+        index: true,
+        element: <AdminMain />,
+        // loader: ...Loader,
+      },
+      {
+        path: "/ShopMain",
+        index: true,
+        element: <ShopMain />,
         // loader: ...Loader,
       },
     ],

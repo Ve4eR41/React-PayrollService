@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 :root {}
 
 .hidden-item-parent .hidden-item-children {
@@ -41,4 +42,26 @@
 
 *::-webkit-scrollbar-thumb:hover {
   background-color: #1e9746;
+}
+
+
+/* table */
+th {
+  font-size: small;
+  border-bottom: solid 1px rgb(153, 153, 153);
+  border-right: solid 1px rgb(202, 202, 202);
+  border-left: solid 1px rgb(202, 202, 202);
+}
+
+td {
+  padding: 0 10px 0 10px;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+tr {
+  text-align: center;
+  margin: 4px;
 }

@@ -8,18 +8,15 @@ export default function ShopMain() {
     const year = date.getFullYear();
     const month = date.getMonth();
     const preDay = new Date(year, month, 1).getDay() - 1;
-    const postDay = (7 - new Date(year, month + 1, 0).getDay());
-    const postDay2 = (new Date(year, month + 1, 0).getDay());
+    const postDay2 = -Math.floor((new Date(year, month, 0).getTime() - date.getTime()) / 1000 / 60 / 60 / 24);
+    const postDay = (7 - new Date(year, month + 1, 0).getDay()) + postDay2;
 
 
     const printFakeDays = (fakeDays: number) => {
-        let result = [];
+        const result = [];
         let i = 0;
         while (i < fakeDays) {
-            i++
-            result.push(
-                <div>{i}</div>
-            )
+            i++; result.push(<div></div>)
         }
         return result
     }
@@ -64,7 +61,7 @@ export default function ShopMain() {
     return (
         <div className="min-h-[100vh]  flex justify-center  bg-green-50  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
-                <h3 className=" text-white bg-green-600  w-full rounded-b-full rounded-l-full p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь  {postDay2}  </h3>
+                <h3 className=" text-white bg-green-600  w-full rounded-b-full rounded-l-full p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь  </h3>
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-4">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                     {printFakeDays(preDay)}

@@ -3,15 +3,14 @@ import Panel from "../../components/Panel";
 import UserHeader from "../../components/UserHeader"
 import WorkingDays from "../../components/WorkingDays";
 
-// const dateSettings = { hour: 'numeric', hour: 'numeric', hour: 'numeric' }
 
 function UserMain() {
     const { name, jobTitle, shopName } = { name: 'Дудка Виктор', jobTitle: 'Помощник', shopName: 'Госпиталь', }
     const workingDays = [
-        { timeStart: 'Tue May 06 2025 09:00:00 GMT+0300', timeEnd: 'Tue May 06 2025 20:00:00 GMT+0300', shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: 'Tue May 07 2025 09:00:00 GMT+0300', timeEnd: 'Tue May 07 2025 20:00:00 GMT+0300', shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: 'Tue May 08 2025 09:00:00 GMT+0300', timeEnd: 'Tue May 09 2025 20:00:00 GMT+0300', shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-    ];
+        { timeStart: new Date('Tue May 06 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 06 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
+        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
+        { timeStart: new Date('Tue May 08 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 09 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
+    ];//for test
 
 
 
@@ -26,6 +25,19 @@ function UserMain() {
                     <WorkingDays className='w-[70%]' workingDays={workingDays} />
 
                     <Panel>
+                        <h3>Полная ЗП</h3>
+                        Больничный
+                        Доп. Выплаты
+                        Отпускные
+                        Итог
+                        Отпускные на карту
+                        Аванс наличные
+                        Аванс Карта
+                        ЗП карта
+                        НДФЛ
+                        Прогул
+                        Сбор на ДР
+                        Итог
                     </Panel>
 
                 </div>

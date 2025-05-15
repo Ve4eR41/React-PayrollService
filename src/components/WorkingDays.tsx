@@ -1,9 +1,8 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
-import InputText from "./InputText";
 import Panel from "./Panel"
-import { BiArrowFromLeft, BiArrowFromRight, BiCalendar } from "react-icons/bi";
+import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 import { useState } from "react";
 import WorkingDaysFormAdd from "./WorkingDaysFormAdd";
 
@@ -18,8 +17,9 @@ interface WorkingDaysProps {
     }[]
 }
 
-function WorkingDays({ workingDays, className }: WorkingDaysProps) {
-    const [startDate, setStartDate] = useState(new Date());
+function WorkingDays({ workingDays }: WorkingDaysProps) {
+    const [startDate, setStartDate] = useState(new Date()); //for test
+    const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
     const [newShiftInfo, setNewShiftInfo] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: "", revenue: 0, cheks: 0 });
     const styleWorkingDay = 'bg-white rounded-full my-4 grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 border-green-100 border-1 px-3 p-1'
     const styleWorkingDayInput = 'w-20 rounded-full text-center hover:bg-green-100'
@@ -54,11 +54,11 @@ function WorkingDays({ workingDays, className }: WorkingDaysProps) {
 
             {printWorkingDays}
 
-            <Button className="text-center m-0 rounded-full w-full">Добавить смену</Button>
+            <Button className="text-center m-0 rounded-full w-full" onClick={() => { setIsVisibleAddForm(!isVisibleAddForm) }}>{isVisibleAddForm ? "Закрыть окно" : "Добавить смену"}</Button>
 
+            <WorkingDaysFormAdd isVisible={isVisibleAddForm} hSetNewShiftInfo={setNewShiftInfo} newShiftInfo={newShiftInfo} />
 
-            <WorkingDaysFormAdd hSetNewShiftInfo={setNewShiftInfo} newShiftInfo={newShiftInfo} />
-
+       
         </Panel >
     )
 }

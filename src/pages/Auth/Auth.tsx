@@ -1,10 +1,10 @@
 import Panel from "../../components/Panel";
 import Button from "../../components/Button";
-import { useLoginMutation } from "c:/Users/Терентий/Documents/1-Proj/rp-front-ts/src/store/store.ts";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputText from "../../components/InputText";
 import logo from "../../assets/logo.png"
+import { useLoginMutation } from "../../store/store";
 
 interface RequestLogin {
     data: { token: string };
@@ -13,7 +13,7 @@ interface RequestLogin {
 
 
 function Auth() {
-    const [email, setEmail] = useState("");
+    const [fio, setFio] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState("");
     const [Login, login_result] = useLoginMutation()
@@ -23,7 +23,7 @@ function Auth() {
 
     const onSub = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const res = await Login({ email, password }) as RequestLogin
+        const res = await Login({ fio, password }) as RequestLogin
 
         if (res.error) {
             const err = res.error.data.message || Object(res.error.data)
@@ -55,7 +55,7 @@ function Auth() {
 
                 <form onSubmit={onSub} className="w-[60%] flex flex-col p-2 items-center  max-sm:w-[100%] max-sm:h-fit">
 
-                    <InputText type="text" label="Email" textInput={email} onInput={setEmail} ></InputText>
+                    <InputText type="text" label="Email" textInput={fio} onInput={setFio} ></InputText>
 
                     <InputText type="password" label="Password" textInput={password} onInput={setPassword} ></InputText>
 

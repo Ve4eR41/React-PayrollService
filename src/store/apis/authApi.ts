@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface UserAuthDetail {
-    email: string;
+    fio: string;
     password: string;
 }
 
 const authApi = createApi({
     reducerPath: 'auth',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5001/auth',
+        baseUrl: 'http://localhost:4000/auth',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("token")
             if (token) {
@@ -28,7 +28,7 @@ const authApi = createApi({
                         Connection: "keep-alive",
                         method: 'POST',
                         body: {
-                            email: data.email,
+                            fio: data.fio,
                             password: data.password,
                         },
                     }
@@ -43,7 +43,7 @@ const authApi = createApi({
                         url: '/registration',
                         method: 'POST',
                         body: {
-                            email: data.email,
+                            fio: data.fio,
                             password: data.password,
                         },
                     }

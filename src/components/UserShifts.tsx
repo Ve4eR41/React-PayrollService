@@ -17,7 +17,7 @@ interface WorkingDaysProps {
     }[]
 }
 
-function WorkingDays({ workingDays }: WorkingDaysProps) {
+function UserShifts({ workingDays }: WorkingDaysProps) {
     const [startDate, setStartDate] = useState(new Date()); //for test
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
     const [newShiftInfo, setNewShiftInfo] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: "", revenue: 0, cheks: 0 });
@@ -62,7 +62,7 @@ function WorkingDays({ workingDays }: WorkingDaysProps) {
         </Panel >
     )
 }
-export default WorkingDays
+export default UserShifts
 
 
 

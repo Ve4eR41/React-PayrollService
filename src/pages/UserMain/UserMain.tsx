@@ -1,25 +1,14 @@
+import { useLoaderData } from "react-router-dom";
 import defaultAva from "../../assets/defaultAva.jpg"
 import Panel from "../../components/Panel";
 import UserHeader from "../../components/UserHeader"
-import WorkingDays from "../../components/WorkingDays";
+import UserShifts from "../../components/UserShifts";
 
 
 function UserMain() {
     const { name, jobTitle, shopName } = { name: 'Дудка Виктор', jobTitle: 'Помощник', shopName: 'Госпиталь', }
-
-    //for test
-    const workingDays = [
-        { timeStart: new Date('Tue May 06 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 06 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 07 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 07 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-        { timeStart: new Date('Tue May 08 2025 09:00:00 GMT+0300'), timeEnd: new Date('Tue May 09 2025 20:00:00 GMT+0300'), shopName: 'Госпиталь', revenue: 12000, cheks: 10 },
-    ];
+    const { shifts } = useLoaderData();
+    
     //for test
     const salaryInfo = [
         { value: 0, lable: "Полная ЗП", },
@@ -48,9 +37,9 @@ function UserMain() {
 
                 <UserHeader name={name} jobTitle={jobTitle} shopName={shopName} defaultAva={defaultAva} />
 
-                <div className="flex gap-4">
+                <div className="flex gap-1">
 
-                    <WorkingDays className='w-[70%]' workingDays={workingDays} />
+                    <UserShifts className='w-[100%]' workingDays={shifts} />
 
                     <Panel >
                         <h3 className="text-2xl ">Зарплата</h3>

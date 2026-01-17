@@ -55,9 +55,9 @@ function Auth() {
 
                 <form onSubmit={onSub} className="w-[60%] flex flex-col p-2 items-center  max-sm:w-[100%] max-sm:h-fit">
 
-                    <InputText type="text" label="Email" textInput={fio} onInput={setFio} ></InputText>
+                    <InputText type="text" label="Фамилия" textInput={fio} onInput={setFio} ></InputText>
 
-                    <InputText type="password" label="Password" textInput={password} onInput={setPassword} ></InputText>
+                    <InputText type="password" label="Пароль" textInput={password} onInput={setPassword} ></InputText>
 
                     <div className="w-full leading-3">
                         <span className="p-0 text-xs text-red-600">{err}</span>
@@ -65,7 +65,7 @@ function Auth() {
 
                     <div className="flex justify-end items-end my-2 w-full">
                         <Button loading={login_result.isLoading} className="rounded-md text-xs mx-2" secondary> Sign in </Button>
-                        <Button loading={login_result.isLoading} className="rounded-md text-xs " secondary> Create </Button>
+                        {/* <Button loading={login_result.isLoading} className="rounded-md text-xs " secondary> Create </Button> */}
                     </div>
 
                 </form>

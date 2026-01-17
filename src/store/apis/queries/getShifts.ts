@@ -1,8 +1,8 @@
 
-export async function getPersons() {
+export async function getShifts() {
     const token = localStorage.getItem('token')
 
-    const res = await fetch(`http://localhost:5001/Person`,
+    const res = await fetch(`http://localhost:4000/shifts`,
         {
             headers: {
                 method: "GET",

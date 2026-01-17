@@ -3,7 +3,7 @@ import React from "react";
 
 interface InputTextProps {
     textInput?: string | number | string[] | undefined;
-    onInput: <T = string | number | Date>(newValue: T) => void;
+    onInput: React.Dispatch<React.SetStateAction<string>>;
     label?: string;
     type: string;
     isDisabled?: boolean;

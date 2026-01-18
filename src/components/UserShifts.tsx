@@ -1,7 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
 import Panel from "./Panel"
-import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
+import { BiArrowFromLeft, BiArrowFromRight, BiTrash } from "react-icons/bi";
 import { useState } from "react";
 import FormCreateShift from "./FormCreateShift";
 import { DateInput } from "./DateInput";
@@ -20,15 +20,15 @@ interface UserShiftsProps {
 
 function UserShifts({ shift }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
-    const styleWorkingDay = 'bg-white rounded-full my-4 grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 border-green-100 border-1 px-3 p-1'
-    const styleWorkingDayInput = 'w-32 rounded-full text-center hover:bg-green-100'
+    const styleWorkingDayInput = 'w-24 rounded-full text-center hover:bg-green-100'
 
 
 
     const printWorkingDays = shift.map(workingDay => {
         const { timeStart, timeEnd, shopName, revenue, cheks } = workingDay;
-
-        return <div className={styleWorkingDay}>
+        // grid grid-cols-[0fr_1fr_1fr_1fr_1fr]
+        return <div className='bg-white rounded-full my-4 flex justify-around gap-2 border-green-100 border-1 px-3 p-1 text-xs'>
+            <BiTrash className="ButtonIcon h-full w-4 " />
             <div className="flex items-center">
                 <DateInput dateDefault={new Date(timeStart)} />
                 —

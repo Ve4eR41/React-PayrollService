@@ -14,7 +14,12 @@
 
 
 /* ButtonIcon */
+div:hover>.ButtonIcon{
+  opacity: 100;
+}
+
 .ButtonIcon {
+  opacity: 0;
   fill: #334155;
   cursor: pointer;
 }

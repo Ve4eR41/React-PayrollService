@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface UserAuthDetail {
-    fio: string;
-    password: string;
-}
+import { getShopId } from "../../utils/getShopName";
 
 const authApi = createApi({
     reducerPath: 'auth',
@@ -53,10 +49,21 @@ const authApi = createApi({
 
 
 
+
         }
     },
-
 })
 
+
 export const { useLoginMutation, useRegistrationMutation } = authApi
-export { authApi } 
+// console.log(authApi);
+
+export { authApi }
+
+
+export interface UserAuthDetail {
+    fio: string;
+    password: string;
+}
+
+

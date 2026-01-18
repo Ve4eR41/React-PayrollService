@@ -65,3 +65,23 @@ tr {
   text-align: center;
   margin: 4px;
 }
+
+
+
+/* date picker */
+.react-datepicker{
+  border: #1e9746 solid 2px  !important;
+}
+
+.react-datepicker__header--has-time-select, .react-datepicker__header--time  {
+  background-color: #f0fdf4 !important;
+}
+
+.react-datepicker__day--selected,.react-datepicker__time-list-item--selected {
+  background-color: #1e9746 !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #1e974688 !important;
+}
+

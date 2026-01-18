@@ -8,7 +8,7 @@ interface UserAuthDetail {
 const authApi = createApi({
     reducerPath: 'auth',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:4000/auth',
+        baseUrl: 'http://localhost:4000/shifts',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("token")
             if (token) {
@@ -21,34 +21,23 @@ const authApi = createApi({
         return {
 
 
-            login: builder.mutation({
-                query: (data) => {
+            createShift: builder.mutation<string, CreateShiftDetail>({
+                query: ({ timeStart, timeEnd, shopName, revenue, cheks }) => {
                     return {
-                        url: '/login',
-                        Connection: "keep-alive",
+                        url: '/create',
                         method: 'POST',
                         body: {
-                            fio: data.fio,
-                            password: data.password,
+                            timeStart,
+                            timeEnd,
+                            shopName,
+                            revenue,
+                            cheks,
                         },
                     }
                 }
             }),
 
 
-
-            registration: builder.mutation<string, UserAuthDetail>({
-                query: (data) => {
-                    return {
-                        url: '/registration',
-                        method: 'POST',
-                        body: {
-                            fio: data.fio,
-                            password: data.password,
-                        },
-                    }
-                }
-            }),
 
 
 
@@ -58,5 +47,14 @@ const authApi = createApi({
 
 })
 
-export const { useLoginMutation, useRegistrationMutation } = authApi
-export { authApi } 
+export const { useCreateShiftMutation } = authApi
+export { authApi }
+
+
+export interface CreateShiftDetail {
+    timeStart: Date
+    timeEnd: Date
+    shopName: number
+    revenue: number
+    cheks: number
+}

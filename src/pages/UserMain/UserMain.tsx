@@ -18,7 +18,7 @@ function UserMain() {
 
 
     return (
-        <div className="h-[100vh]  flex justify-center  bg-green-50  max-sm:p-1 " >
+        <div className="h-[100vh]  flex justify-center  bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw]  max-[1100px]:w-[99vw]">
 
                 <div className="flex flex-col gap-8">

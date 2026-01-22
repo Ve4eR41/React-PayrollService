@@ -14,7 +14,7 @@ interface FormCreateShiftProps {
 function FormCreateShift({ isVisible }: FormCreateShiftProps) {
     const defaultShiftParams = { timeStart: new Date(), timeEnd: new Date(), shopName: "", revenue: 0, cheks: 0 }
     const [shiftParams, setShiftParams] = useState(defaultShiftParams);
-    const [createShift, createShiftResponse] = useCreateShiftMutation()
+    const [createShift, creShiftResponse] = useCreateShiftMutation()
 
     const onSub = async () => {
         for (const value in Object.values(shiftParams))

@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface UserAuthDetail {
-    fio: string;
-    password: string;
-}
+
 
 const authApi = createApi({
     reducerPath: 'auth',
@@ -39,6 +36,20 @@ const authApi = createApi({
 
 
 
+            deleteShift: builder.mutation<string, DeleteShiftDetail>({
+                query: ({ shiftId }) => {
+                    return {
+                        url: '/delete',
+                        method: 'POST',
+                        body: {
+                            shiftId
+                        },
+                    }
+                }
+            }),
+
+
+
 
 
 
@@ -47,7 +58,7 @@ const authApi = createApi({
 
 })
 
-export const { useCreateShiftMutation } = authApi
+export const { useCreateShiftMutation, useDeleteShiftMutation } = authApi
 export { authApi }
 
 
@@ -57,4 +68,8 @@ export interface CreateShiftDetail {
     shopName: number
     revenue: number
     cheks: number
+}
+
+export interface DeleteShiftDetail {
+    shiftId: number
 }

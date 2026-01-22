@@ -21,6 +21,6 @@ export function DateInput({ dateDefault, className, wrapperClassName }: DateInpu
         timeCaption="Время"
         timeIntervals={1}
         placeholderText="Выберите дату и время"
-        className={className || 'w-24 rounded-full text-center hover:bg-green-100'}
+        className={className || 'w-24 rounded text-center hover:bg-green-100'}
         onChange={(date) => setDate(date)} />
 }

@@ -1,10 +1,10 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
 import Panel from "./Panel"
-import { BiArrowFromLeft, BiArrowFromRight, BiTrash } from "react-icons/bi";
+import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 import { useState } from "react";
 import FormCreateShift from "./FormCreateShift";
-import { DateInput } from "./DateInput";
+import Shift from "./shift";
 
 
 interface UserShiftsProps {
@@ -14,30 +14,18 @@ interface UserShiftsProps {
         timeEnd: Date,
         shopName: string,
         revenue: number,
-        cheks: number
+        cheks: number,
+        id: number,
     }[]
 }
 
 function UserShifts({ shift }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
-    const styleWorkingDayInput = 'w-24 rounded-full text-center hover:bg-green-100'
 
 
 
     const printWorkingDays = shift.map(workingDay => {
-        const { timeStart, timeEnd, shopName, revenue, cheks } = workingDay;
-        // grid grid-cols-[0fr_1fr_1fr_1fr_1fr]
-        return <div className='bg-white rounded-full my-4 flex justify-around gap-2 border-green-100 border-1 px-3 p-1 text-xs'>
-            <BiTrash className="ButtonIcon h-full w-4 " />
-            <div className="flex items-center">
-                <DateInput dateDefault={new Date(timeStart)} />
-                —
-                <DateInput dateDefault={new Date(timeEnd)} />
-            </div>
-            <input className={styleWorkingDayInput} type="text" disabled value={shopName} />
-            <input className={styleWorkingDayInput} type="value" disabled value={revenue} />
-            <input className={styleWorkingDayInput} type="value" disabled value={cheks} />
-        </div>
+        return (<Shift key={workingDay.id} data={workingDay}></Shift>)
     })
 
 
@@ -53,7 +41,7 @@ function UserShifts({ shift }: UserShiftsProps) {
 
             {printWorkingDays}
 
-            <Button className="text-center m-0 rounded-full w-full" onClick={() => { setIsVisibleAddForm(!isVisibleAddForm) }}>{isVisibleAddForm ? "Закрыть окно" : "Добавить смену"}</Button>
+            <Button className="text-center m-0 rounded w-full" onClick={() => { setIsVisibleAddForm(!isVisibleAddForm) }}>{isVisibleAddForm ? "Закрыть окно" : "Добавить смену"}</Button>
 
             <FormCreateShift isVisible={isVisibleAddForm} />
         </Panel >

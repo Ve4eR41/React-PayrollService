@@ -14,7 +14,7 @@ interface ShiftsType {
 
 export async function getShifts() {
     const token = localStorage.getItem('token')
-    const res = await fetch(`http://localhost:4000/shifts`,
+    const res = await fetch(`http://192.168.0.27:4000/shifts`,
         {
             headers: {
                 method: "GET",

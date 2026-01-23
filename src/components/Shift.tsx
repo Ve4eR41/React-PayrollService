@@ -18,15 +18,13 @@ export default function Shift({ data }: ShiftProps) {
     const styleWorkingDayInput = 'bg-green-50 w-24 rounded text-center hover:bg-green-200'
     const [deleteShift, deleteShiftResponse] = useDeleteShiftMutation();
 
-    const handlerDelete = async () => {
-        await deleteShift({ shiftId: id })
-    }
+    const handlerDelete = async () => { await deleteShift({ shiftId: id }) }
 
     return (
         // grid grid-cols-[0fr_1fr_1fr_1fr_1fr]
         <div className='bg-white rounded my-4 flex justify-between gap-2 border-green-100 border-1 pr-5 p-1 text-xs relative'>
             <div className="flex items-center">
-                <BiTrash onClick={handlerDelete} className="ButtonIcon BI2 styleWorkingDayInput mr-1 h-full" />
+                <BiTrash size={18} onClick={handlerDelete} className="ButtonIcon BI2 styleWorkingDayInput mr-1 " />
                 <DateInput className={styleWorkingDayInput} dateDefault={new Date(timeStart)} />
                 —
                 <DateInput className={styleWorkingDayInput} dateDefault={new Date(timeEnd)} />

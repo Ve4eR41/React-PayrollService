@@ -5,6 +5,8 @@ import UserMain from "./pages/UserMain/UserMain.tsx";
 import AdminMain from "./pages/AdminMain/AdminMain.tsx";
 import ShopMain from "./pages/ShopMain/ShopMain.tsx";
 import loaderUserMain from "./pages/UserMain/loaderUserMain.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store.ts";
 
 
 const router = createBrowserRouter(
@@ -43,7 +45,10 @@ const router = createBrowserRouter(
 
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>)
 }
 
 export default App

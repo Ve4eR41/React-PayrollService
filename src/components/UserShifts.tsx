@@ -4,12 +4,12 @@ import Panel from "./Panel"
 import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 import { useState } from "react";
 import FormCreateShift from "./FormCreateShift";
-import Shift from "./shift";
+import Shift from "./Shift";
 
 
 interface UserShiftsProps {
     className?: string,
-    shift: {
+    shifts: {
         timeStart: Date,
         timeEnd: Date,
         shopName: string,
@@ -19,13 +19,13 @@ interface UserShiftsProps {
     }[]
 }
 
-function UserShifts({ shift }: UserShiftsProps) {
+function UserShifts({ shifts }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
 
 
 
-    const printWorkingDays = shift.map(workingDay => {
-        return (<Shift key={workingDay.id} data={workingDay}></Shift>)
+    const printWorkingDays = shifts.map(shift => {
+        return (<Shift key={shift.id} data={shift}></Shift>)
     })
 
 

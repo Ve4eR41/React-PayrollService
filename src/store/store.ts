@@ -1,15 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "./apis/authApi.ts";
+import { shiftsApi } from "./apis/shifts.ts";
 
 export const store = configureStore(
     {
         reducer: {
             [authApi.reducerPath]: authApi.reducer,
+            [shiftsApi.reducerPath]: shiftsApi.reducer,
         },
         middleware: (grtDefaulMiddleware) => {
             return grtDefaulMiddleware()
                 .concat(authApi.middleware)
+                .concat(shiftsApi.middleware)
         }
     }
 )

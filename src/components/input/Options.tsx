@@ -7,12 +7,12 @@ interface OptionsProps {
     callback: (e: string | number) => void;
     value: string | number;
     label: string;
-    otions: (string | number)[];
+    options: (string | number)[];
 }
 
 
 
-export default function Options({ callback, value, otions, label }: OptionsProps) {
+export default function Options({ callback, value, options: otions, label }: OptionsProps) {
     const [isVisible, setIsVisible] = useState(false);
     const visible = isVisible ? "" : "hidden"
     const toggel = () => { setIsVisible(!isVisible) }

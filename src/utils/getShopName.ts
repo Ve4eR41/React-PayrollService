@@ -4,11 +4,14 @@ export const SHOP_NAMES = {
     3: 'Евразия',
 }
 
+
+
 export const getShopName = (shopId: number): string => {
     return SHOP_NAMES[shopId as keyof typeof SHOP_NAMES] || '';
 };
 
 
+
 export const getShopId = (shopNames: string) => {
-    return Number(Object.keys(SHOP_NAMES).find(value => shopNames === value) || 0);
+    return Number(Object.entries(SHOP_NAMES).find(([, name]) => shopNames === name)?.[0] || 0);
 };

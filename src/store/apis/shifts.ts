@@ -55,6 +55,26 @@ const shiftsApi = createApi({
 
 
 
+            editShift: builder.mutation<string, EditShiftDetail>({
+                query: ({ timeStart, timeEnd, shopName, revenue, cheks, shiftId }) => {
+                    return {
+                        url: '/edit',
+                        method: 'POST',
+                        body: {
+                            timeStart,
+                            timeEnd,
+                            shopName,
+                            revenue,
+                            cheks,
+                            shiftId,
+                        },
+                    }
+                },
+                invalidatesTags: ['Shift']
+            }),
+
+
+
             deleteShift: builder.mutation<string, DeleteShiftDetail>({
                 query: ({ shiftId }) => {
                     return {
@@ -80,7 +100,8 @@ const shiftsApi = createApi({
 export const {
     useCreateShiftMutation,
     useDeleteShiftMutation,
-    useGetShiftsQuery
+    useGetShiftsQuery,
+    useEditShiftMutation,
 } = shiftsApi
 
 export { shiftsApi }
@@ -121,11 +142,17 @@ export interface CreateShiftDetail {
     revenue: number
     cheks: number
 }
-
+export interface EditShiftDetail {
+    timeStart: Date
+    timeEnd: Date
+    shopName: number
+    revenue: number
+    cheks: number
+    shiftId: number
+}
 export interface DeleteShiftDetail {
     shiftId: number
 }
-
 export interface ShiftRaw {
     id: number
     timeStart: Date

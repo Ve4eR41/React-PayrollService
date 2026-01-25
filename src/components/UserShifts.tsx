@@ -21,10 +21,10 @@ interface UserShiftsProps {
 }
 
 function UserShifts({ shifts }: UserShiftsProps) {
-    const [isVisibleAddForm, setIsVisibleAddForm] = useState(true);
+    const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
 
     if (!shifts) return <Error />
-    const printWorkingDays = shifts.map(shift => {
+    const printShifts = shifts.map(shift => {
         return (<Shift key={shift.id} data={shift}></Shift>)
     })
 
@@ -38,11 +38,11 @@ function UserShifts({ shifts }: UserShiftsProps) {
                 <BiArrowFromLeft className="ButtonIcon" size={20} />
             </div>
 
-            {printWorkingDays}
+            {printShifts}
 
             <Button className="text-center m-0 rounded w-full" onClick={() => { setIsVisibleAddForm(!isVisibleAddForm) }}>{isVisibleAddForm ? "Закрыть окно" : "Добавить смену"}</Button>
 
-            <FormCreateShift isVisible={isVisibleAddForm} />
+            <FormCreateShift visibleToggle={setIsVisibleAddForm} isVisible={isVisibleAddForm} />
         </Panel >
     )
 }

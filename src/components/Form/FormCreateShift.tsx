@@ -1,8 +1,9 @@
 import { useState } from "react";
-import Button from "./Button";
-import InputText from "./InputText";
-import { getShopId } from "../utils/getShopName";
-import { useCreateShiftMutation } from "../store/apis/shifts";
+import Button from "../Button";
+import Input from "../input/Input";
+import { getShopId, SHOP_NAMES } from "../../utils/getShopName";
+import { useCreateShiftMutation } from "../../store/apis/shifts";
+import Options from "../input/Options";
 
 
 
@@ -12,17 +13,15 @@ interface FormCreateShiftProps {
 
 
 function FormCreateShift({ isVisible }: FormCreateShiftProps) {
-    const defaultShiftParams = { timeStart: new Date(), timeEnd: new Date(), shopName: "", revenue: 0, cheks: 0 }
-    const [shiftParams, setShiftParams] = useState(defaultShiftParams);
-    const [createShift, creShiftResponse] = useCreateShiftMutation()
+    const [shiftParams, setShiftParams] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: SHOP_NAMES[1], revenue: 0, cheks: 0 });
+    const [createShift] = useCreateShiftMutation()
 
     const onSub = async () => {
-        for (const value in Object.values(shiftParams))
-            if (!value && value != '0') return console.log(`err`)
+        // for (const value in Object.values(shiftParams))
+        //     if (!value || value === '0') return console.log(`err`)
+        console.log(shiftParams);
 
-        await createShift({ ...shiftParams, shopName: getShopId(shiftParams.shopName) }).then(() => {
-            setShiftParams(defaultShiftParams)
-        })
+        await createShift({ ...shiftParams, shopName: getShopId(shiftParams.shopName) })
     }
 
 
@@ -34,35 +33,36 @@ function FormCreateShift({ isVisible }: FormCreateShiftProps) {
 
             <h3 className="text-xl mb-2">Добавление смены</h3>
 
-            <InputText
+            <Input
                 onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                 textInput={shiftParams.timeStart}
                 type="DateInput"
                 label="Приход" />
 
-            <InputText
-                onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
+            <Input
+                onInput={(e) => { console.log(shiftParams); setShiftParams({ ...shiftParams, timeEnd: e as Date }) }}
                 textInput={shiftParams.timeEnd}
                 type="DateInput"
                 label="Уход" />
 
-            <InputText
-                onInput={(e) => setShiftParams({ ...shiftParams, shopName: e as string })}
-                textInput={shiftParams.shopName}
-                type="string"
+            <Options
+                callback={(e) => setShiftParams({ ...shiftParams, shopName: e as string })}
+                value={shiftParams.shopName}
+                otions={Object.values(SHOP_NAMES)}
                 label="Магазин" />
 
-            <InputText
+            <Input
                 onInput={(e) => setShiftParams({ ...shiftParams, revenue: e as number })}
                 textInput={shiftParams.revenue}
                 type="number"
                 label="Выручка" />
 
-            <InputText
+            <Input
                 onInput={(e) => setShiftParams({ ...shiftParams, cheks: e as number })}
                 textInput={shiftParams.cheks}
                 type="number"
-                label="Чеки" />
+                label="Чеки"
+            />
 
             <Button
                 className="text-center m-0 rounded-md w-full">

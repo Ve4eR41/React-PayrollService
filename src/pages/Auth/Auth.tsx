@@ -2,7 +2,7 @@ import Panel from "../../components/Panel";
 import Button from "../../components/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputText from "../../components/InputText";
+import Input from "../../components/input/Input";
 import logo from "../../assets/logo.png"
 import { useLoginMutation } from "../../store/store";
 
@@ -55,9 +55,9 @@ function Auth() {
 
                 <form onSubmit={onSub} className="w-[60%] flex flex-col p-2 items-center  max-sm:w-[100%] max-sm:h-fit">
 
-                    <InputText type="text" label="Фамилия" textInput={fio} onInput={setFio} ></InputText>
+                    <Input type="text" label="Фамилия" textInput={fio} onInput={setFio} ></Input>
 
-                    <InputText type="password" label="Пароль" textInput={password} onInput={setPassword} ></InputText>
+                    <Input type="password" label="Пароль" textInput={password} onInput={setPassword} ></Input>
 
                     <div className="w-full leading-3">
                         <span className="p-0 text-xs text-red-600">{err}</span>

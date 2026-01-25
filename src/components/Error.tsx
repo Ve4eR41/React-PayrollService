@@ -1,4 +1,4 @@
-export default function Error(refetch: any) {
+export default function Error(refetch?: any) {
     return (
         <div className="h-[100vh] flex justify-center items-center bg-green-100">
             <div className="text-center p-4 bg-red-50 rounded-lg">

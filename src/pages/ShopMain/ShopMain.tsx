@@ -1,4 +1,4 @@
-import InputText from "../../components/InputText";
+import Input from "../../components/input/Input";
 import Panel from "../../components/Panel";
 
 export default function ShopMain() {
@@ -47,12 +47,12 @@ export default function ShopMain() {
     const printdaysInShop = daysInShop.map((day) => {
         return <div className="border border-green-200 bg-white p-1 rounded-md hover:border-green-600" key={day.id}>
             <span className="bg-green-600 text-white grid justify-center rounded-t-md mb-3">{day.date.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "2-digit" })}</span>
-            <InputText onInput={() => { }} textInput={day.revenue} classesNameInput="h-7" label="Выручка" type="number" />
-            <InputText onInput={() => { }} textInput={day.cheks} classesNameInput="h-7" label="Чеки" type="number" />
-            <InputText onInput={() => { }} textInput={day.revenue / day.cheks} isDisabled classesNameInput="h-7 bg-gray-100" label="Ср.чек" type="number" />
-            <InputText onInput={() => { }} textInput={day.writeOff} classesNameInput="h-7" label="Списание" type="number" />
-            <InputText onInput={() => { }} textInput={"%" + Math.round(day.writeOff / day.revenue * 100)} isDisabled classesNameInput="h-7 bg-gray-100" label="%Списание" type="text" />
-            <InputText onInput={() => { }} textInput={day.worksHours} classesNameInput="h-7" label="Часы" type="number" />
+            <Input onInput={() => { }} textInput={day.revenue} classesNameInput="h-7" label="Выручка" type="number" />
+            <Input onInput={() => { }} textInput={day.cheks} classesNameInput="h-7" label="Чеки" type="number" />
+            <Input onInput={() => { }} textInput={day.revenue / day.cheks} isDisabled classesNameInput="h-7 bg-gray-100" label="Ср.чек" type="number" />
+            <Input onInput={() => { }} textInput={day.writeOff} classesNameInput="h-7" label="Списание" type="number" />
+            <Input onInput={() => { }} textInput={"%" + Math.round(day.writeOff / day.revenue * 100)} isDisabled classesNameInput="h-7 bg-gray-100" label="%Списание" type="text" />
+            <Input onInput={() => { }} textInput={day.worksHours} classesNameInput="h-7" label="Часы" type="number" />
         </div>
     })
 

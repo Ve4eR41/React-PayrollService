@@ -1,4 +1,4 @@
-const SHOP_NAMES = {
+export const SHOP_NAMES = {
     1: 'Камчадалочка',
     2: 'Госпиталь',
     3: 'Евразия',

@@ -4,6 +4,7 @@ import { SHOP_NAMES } from "../../../utils/getShopName";
 import Options from "../../input/Options";
 import { Shift } from "../../../store/apis/shifts";
 import { RxCross2 } from "react-icons/rx";
+import { ReactNode } from "react";
 
 
 interface FormCreateShiftProps<T> {
@@ -13,10 +14,11 @@ interface FormCreateShiftProps<T> {
     onSub: () => Promise<void>;
     shiftParams: T
     setShiftParams: React.Dispatch<React.SetStateAction<T>>
+    children?: ReactNode;
 }
 
 
-function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title }: FormCreateShiftProps<Shift>) {
+function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title, children }: FormCreateShiftProps<Shift>) {
 
 
 
@@ -37,8 +39,6 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
-                    classesNameInput="z-70"
-                    className="z-50"
                     label="Приход" />
 
                 <Input
@@ -70,6 +70,8 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                     className="text-center m-0 rounded-md w-full">
                     Подтвердить
                 </Button>
+
+                {children}
 
             </form></div>
     )

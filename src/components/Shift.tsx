@@ -1,5 +1,4 @@
-import { BiTrash, BiPen } from "react-icons/bi";
-import { DateInput } from "./input/DateInput";
+import { BiPen } from "react-icons/bi";
 import { useDeleteShiftMutation } from "../store/apis/shifts";
 import FormEditShift from "./Form/FormEditShift";
 import { useState } from "react";
@@ -18,7 +17,7 @@ interface ShiftProps {
 export default function Shift({ data }: ShiftProps) {
     const [isVisible, setisVisible] = useState(false);
     const { timeStart, timeEnd, shopName, revenue, cheks, id } = data;
-    const styleWorkingDayInput = ' text-center '
+    const styleWorkingDayInput = ' text-center content-center  '
     const [deleteShift] = useDeleteShiftMutation();
 
     const handlerDelete = async () => { await deleteShift({ shiftId: id }) }
@@ -34,22 +33,23 @@ export default function Shift({ data }: ShiftProps) {
         if (mm == 60) return `${setFormat(hh + 1)}ч 00м`
         return `${setFormat(hh)}ч ${setFormat(mm)}м`
     }
-
-
+    const formatDate = (date: Date) => date.toLocaleString('ru-RU', { day: '2-digit', hour: '2-digit', minute: '2-digit' })
     return (
         // grid grid-cols-[0fr_1fr_1fr_1fr_1fr]
-        <div className='bg-white rounded my-4 flex justify-between gap-2 border-green-100 border-1 pr-5 p-1 text-xs relative'>
-            <FormEditShift visibleToggle={setisVisible} isVisible={isVisible} shift={data} />
-            <div className="flex items-center">
-                <BiTrash size={18} onClick={handlerDelete} className="ButtonIcon BI2 mr-1 " />
-                <BiPen size={18} onClick={() => { setisVisible(!isVisible) }} className="ButtonIcon BI2 mr-1 " />
-                <DateInput onInput={() => { }} className={styleWorkingDayInput} dateDefault={timeStart} />
-                {getHoursDiff()}
-                {/* <DateInput onInput={() => { }} className={styleWorkingDayInput} dateDefault={timeEnd} /> */}
+        <div className='bg-white rounded my-3 owerflow  flex justify-between gap-2 h-8 border-green-100 border-1 px-8 py-1  text-xs relative'>
+            <FormEditShift deleteHandler={handlerDelete} visibleToggle={setisVisible} isVisible={isVisible} shift={data} />
+
+            <div className='w-8 h-full absolute left-0 top-0 bottom-0 flex items-center justify-center '>
+                {/* <BiTrash size={18} onClick={handlerDelete} className="ButtonIcon BI2  " /> */}
+                <BiPen size={18} onClick={() => { setisVisible(!isVisible) }} className="ButtonIcon BI2 " />
             </div>
-            <span><span className={'w-24' + styleWorkingDayInput} >{shopName}</span>🏪</span>
-            <span><span className={'w-12' + styleWorkingDayInput} >{revenue}</span>💲</span>
-            <span><span className={'min-w-12' + styleWorkingDayInput} >{cheks}</span>📄</span>
-        </div>
+
+            <span className={'min-w-16' + styleWorkingDayInput} > {shopName}</span>
+            <span className={'min-w-12' + styleWorkingDayInput}  > {formatDate(timeStart)} </span>
+            <span className={'min-w-12' + styleWorkingDayInput}  >  {getHoursDiff()} </span>
+            <span className={'min-w-12' + styleWorkingDayInput} > {revenue}💲</span>
+            <span className={'min-w-12' + styleWorkingDayInput} > {cheks}📄</span>
+            <span className={'min-w-12' + styleWorkingDayInput} > {'Смена'}</span>
+        </div >
     )
 }

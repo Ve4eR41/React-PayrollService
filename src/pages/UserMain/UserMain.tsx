@@ -1,4 +1,3 @@
-import React from 'react';
 import defaultAva from "../../assets/defaultAva.jpg"
 import Panel from "../../components/Panel";
 import UserHeader from "../../components/UserHeader"

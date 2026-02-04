@@ -1,4 +1,5 @@
 import { getShopName } from "../../../utils/getShopName";
+import { backend } from "../../../../const";
 
 interface ShiftsType {
     id: number;
@@ -14,7 +15,7 @@ interface ShiftsType {
 
 export async function getShifts() {
     const token = localStorage.getItem('token')
-    const res = await fetch(`http://192.168.0.27:4000/shifts`,
+    const res = await fetch(`${backend}/shifts`,
         {
             headers: {
                 method: "GET",

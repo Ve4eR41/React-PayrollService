@@ -1,72 +1,76 @@
+import Error from "../../components/Error";
 import Input from "../../components/input/Input";
+import Loader from "../../components/Loader";
 import Panel from "../../components/Panel";
+import { useShiftsByShopQuery } from "../../store/apis/shifts";
+
+
 
 export default function ShopMain() {
     const headerStyle = "text-center bg-green-600 text-white rounded-t-md"
-
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const preDay = new Date(year, month, 1).getDay() - 1;
-    const postDay2 = -Math.floor((new Date(year, month, 0).getTime() - date.getTime()) / 1000 / 60 / 60 / 24);
-    const postDay = (7 - new Date(year, month + 1, 0).getDay()) + postDay2;
-
+    const dateNow = new Date();
+    const year = dateNow.getFullYear();
+    const month = dateNow.getMonth();
+    const preDay = 6 - new Date(year, month, 1).getDay() * 7;
 
     const printFakeDays = (fakeDays: number) => {
         const result = [];
-        let i = 0;
-        while (i < fakeDays) {
-            i++; result.push(<div></div>)
-        }
+        while (result.length < fakeDays)
+            result.push(<div></div>)
         return result
     }
 
-
-
-    //for test
-    const daysInShop = [
-        { id: 1000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 1) },
-        { id: 2000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 2) },
-        { id: 3000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 3) },
-        { id: 4000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 4) },
-        { id: 5000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 5) },
-        { id: 6000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 6) },
-        { id: 7000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 7) },
-        { id: 8000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 8) },
-        { id: 9000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 9) },
-        { id: 1000, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 10) },
-        { id: 1100, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 11) },
-        { id: 1200, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 12) },
-        { id: 1010, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 13) },
-        { id: 1020, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 14) },
-        { id: 1030, revenue: 12200, cheks: 20, writeOff: 9999, worksHours: 12, date: new Date(2025, 5, 15) },
-    ];
+    const startDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
+    const endDate = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0, 23, 59, 59, 999);
+    const { data: shifts, isLoading, error, refetch } = useShiftsByShopQuery({ shopName: 1, endDate, startDate })
 
 
 
-    const printdaysInShop = daysInShop.map((day) => {
+
+
+    const printdays = (() => {
+        let shifts = []
+        const maxDays = new Date(year, month + 1, 0).getDate()
+        for (let i = 1; i <= maxDays; i++) {
+            shifts.push(
+                <div className="border border-green-200 bg-white p-1 rounded-md hover:border-green-600" key={i}>
+                    {/* <span className="bg-green-600 text-white grid justify-center rounded-t-md mb-3">{day.date.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "2-digit" })}</span> */}
+                    <Input onInput={() => { }} textInput={1} classesNameInput="h-7" label="Выручка" type="number" />
+                    <Input onInput={() => { }} textInput={1} classesNameInput="h-7" label="Чеки" type="number" />
+                    <Input onInput={() => { }} textInput={1} isDisabled classesNameInput="h-7 bg-gray-100" label="Ср.чек" type="number" />
+                    {/* <Input onInput={() => { }} textInput={day.writeOff} classesNameInput="h-7" label="Списание" type="number" /> */}
+                    {/* <Input onInput={() => { }} textInput={"%" + Math.round(day.writeOff / day.revenue * 100)} isDisabled classesNameInput="h-7 bg-gray-100" label="%Списание" type="text" /> */}
+                    {/* <Input onInput={() => { }} textInput={day.worksHours} classesNameInput="h-7" label="Часы" type="number" /> */}
+                </div>
+            )
+        }
+        return shifts
+    })()
+
+
+    const printdaysInShop = shifts ? shifts.map((day) => {
         return <div className="border border-green-200 bg-white p-1 rounded-md hover:border-green-600" key={day.id}>
-            <span className="bg-green-600 text-white grid justify-center rounded-t-md mb-3">{day.date.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "2-digit" })}</span>
+            {/* <span className="bg-green-600 text-white grid justify-center rounded-t-md mb-3">{day.date.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "2-digit" })}</span> */}
             <Input onInput={() => { }} textInput={day.revenue} classesNameInput="h-7" label="Выручка" type="number" />
             <Input onInput={() => { }} textInput={day.cheks} classesNameInput="h-7" label="Чеки" type="number" />
             <Input onInput={() => { }} textInput={day.revenue / day.cheks} isDisabled classesNameInput="h-7 bg-gray-100" label="Ср.чек" type="number" />
-            <Input onInput={() => { }} textInput={day.writeOff} classesNameInput="h-7" label="Списание" type="number" />
-            <Input onInput={() => { }} textInput={"%" + Math.round(day.writeOff / day.revenue * 100)} isDisabled classesNameInput="h-7 bg-gray-100" label="%Списание" type="text" />
-            <Input onInput={() => { }} textInput={day.worksHours} classesNameInput="h-7" label="Часы" type="number" />
+            {/* <Input onInput={() => { }} textInput={day.writeOff} classesNameInput="h-7" label="Списание" type="number" /> */}
+            {/* <Input onInput={() => { }} textInput={"%" + Math.round(day.writeOff / day.revenue * 100)} isDisabled classesNameInput="h-7 bg-gray-100" label="%Списание" type="text" /> */}
+            {/* <Input onInput={() => { }} textInput={day.worksHours} classesNameInput="h-7" label="Часы" type="number" /> */}
         </div>
-    })
+    }) : []
 
-
-
+    if (isLoading) return <Loader />
+    if (error) return <Error refetch={refetch} />
     return (
         <div className="min-h-[100vh]  flex justify-center  bg-green-50  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
-                <h3 className=" text-white bg-green-600  w-full rounded-b-full rounded-l-full p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь  </h3>
-                <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-4">
+                <h3 className=" text-white bg-green-600  w-full rounded-b p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь   </h3>
+                <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                     {printFakeDays(preDay)}
-                    {printdaysInShop}
-                    {printFakeDays(postDay)}
+                    {/* {printdaysInShop} */}
+                    {printdays}
                 </Panel>
             </div>
         </div>)

@@ -67,7 +67,7 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                 />
 
                 <Button
-                    className="text-center m-0 rounded-md w-full">
+                    className="text-center bg-green-100 m-0  border-green-700 text-green-700 rounded-md w-full">
                     Подтвердить
                 </Button>
 

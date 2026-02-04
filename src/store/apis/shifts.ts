@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getShopName } from "../../utils/getShopName";
+import { backend } from "../../../const";
 
 const shiftsApi = createApi({
     reducerPath: 'shifts',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.0.27:4000/shifts',
+        baseUrl: backend + '/shifts',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("token")
             if (token) {
@@ -13,7 +14,7 @@ const shiftsApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['Shift'],
+    tagTypes: ['Shift', 'ShiftShop'],
     endpoints(builder) {
         return {
 
@@ -89,6 +90,33 @@ const shiftsApi = createApi({
             }),
 
 
+            // ShiftShop
+            // ShiftShop
+            // ShiftShop
+
+
+            shiftsByShop: builder.query<Shift[], GetShiftsByShopDetail>({
+                query: ({ startDate, endDate, shopName }) => {
+                    return {
+                        url: '/getShiftsByShop',
+                        method: 'POST',
+                        body: { startDate, endDate, shopName },
+                    }
+                },
+
+                transformResponse: (response: ShiftRaw[]) => {
+                    return response.map((shift) => ({
+                        ...shift,
+                        timeStart: new Date(shift.timeStart),
+                        timeEnd: new Date(shift.timeEnd),
+                        shopName: getShopName(shift.shopName)
+                    }));
+                },
+
+                providesTags: ['ShiftShop']
+            }),
+
+
 
 
 
@@ -102,6 +130,7 @@ export const {
     useDeleteShiftMutation,
     useGetShiftsQuery,
     useEditShiftMutation,
+    useShiftsByShopQuery
 } = shiftsApi
 
 export { shiftsApi }
@@ -133,8 +162,11 @@ export { shiftsApi }
 
 
 
-
-
+export interface GetShiftsByShopDetail {
+    startDate: Date
+    endDate: Date
+    shopName: number
+}
 export interface CreateShiftDetail {
     timeStart: Date
     timeEnd: Date

@@ -2,9 +2,19 @@ import { JSX } from "react";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 import Panel from "../../components/Panel";
-import { Shift, useShiftsByShopQuery } from "../../store/apis/shifts";
+import { useShiftsByShopQuery } from "../../store/apis/shifts";
 import ShiftDayInfo from "../../components/ShiftDayInfo";
 
+
+export interface ShiftExtends {
+    id: number
+    timeStart: Date
+    timeEnd: Date
+    shopName: string
+    revenue: number
+    cheks: number
+    hours: number;
+}
 
 
 export default function ShopMain() {
@@ -27,23 +37,46 @@ export default function ShopMain() {
 
 
 
-    const printdays = (() => {
+    const printDays = (() => {
 
         const mapedData = (() => {
-            if (shiftsData) return shiftsData.reduce((result, shift) => {
-                const dateNum = shift.timeStart.getDate()
-                const curShift = result[dateNum]
-                if (!curShift) return result = { ...result, [dateNum]: shift }
-                const accShift = { ...curShift, revenue: curShift.revenue + shift.revenue, cheks: curShift.cheks + shift.cheks }
-                return result = { ...result, [dateNum]: accShift }
-            }, {} as { [key: number]: Shift })
-        })() || {}
+            if (!shiftsData) return {};
+
+            return shiftsData.reduce<Record<number, ShiftExtends>>((result, shift) => {
+                const dateNum = shift.timeStart.getDate();
+                const shiftHours = shift.timeEnd.getTime() - shift.timeStart.getTime();
+
+                const existingShift = result[dateNum];
+
+                if (!existingShift) {
+                    // Создаем новый объект для этого дня
+                    return {
+                        ...result,
+                        [dateNum]: {
+                            ...shift,
+                            hours: shiftHours
+                        }
+                    };
+                }
+
+                // Обновляем существующий объект
+                return {
+                    ...result,
+                    [dateNum]: {
+                        ...existingShift,
+                        revenue: existingShift.revenue + shift.revenue,
+                        cheks: existingShift.cheks + shift.cheks,
+                        hours: (existingShift.hours || 0) + shiftHours
+                    }
+                };
+            }, {});
+        })();
 
         const shifts: JSX.Element[] = []
         const maxDays = new Date(year, month + 1, 0).getDate();
         for (let i = 1; i <= maxDays; i++) {
-            const { cheks, revenue } = mapedData[i] || { cheks: 0, revenue: 0 }
-            shifts.push(<ShiftDayInfo cheks={cheks} revenue={revenue} id={i} />)
+            const { cheks, revenue, hours } = mapedData[i] || { cheks: 0, revenue: 0 }
+            shifts.push(<ShiftDayInfo cheks={cheks} revenue={revenue} id={i} hours={hours} />)
         }
         return shifts
     })()
@@ -53,13 +86,13 @@ export default function ShopMain() {
     if (isLoading) return <Loader />
     if (error) return <Error refetch={refetch} />
     return (
-        <div className="min-h-[100vh]  flex justify-center  bg-green-50  max-sm:p-1 " >
+        <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
                 <h3 className=" text-white bg-green-600  w-full rounded-b p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь   </h3>
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                     {printFakeDays(preDay)}
-                    {printdays}
+                    {printDays}
                 </Panel>
             </div>
         </div>)

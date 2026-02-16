@@ -49,7 +49,6 @@ export default function ShopMain() {
                 const existingShift = result[dateNum];
 
                 if (!existingShift) {
-                    // Создаем новый объект для этого дня
                     return {
                         ...result,
                         [dateNum]: {
@@ -59,7 +58,6 @@ export default function ShopMain() {
                     };
                 }
 
-                // Обновляем существующий объект
                 return {
                     ...result,
                     [dateNum]: {
@@ -70,6 +68,7 @@ export default function ShopMain() {
                     }
                 };
             }, {});
+
         })();
 
         const shifts: JSX.Element[] = []
@@ -88,7 +87,7 @@ export default function ShopMain() {
     return (
         <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
-                <h3 className=" text-white bg-green-600  w-full rounded-b p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь   </h3>
+                <h3 className=" text-white bg-green-600  w-full rounded-b p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь </h3>
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                     {printFakeDays(preDay)}

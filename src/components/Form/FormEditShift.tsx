@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getShopId } from "../../utils/getShopName";
 import { useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Button from "../Button";
 import { BiTrash } from "react-icons/bi";
+import Alert from "../alert";
 
 
 
@@ -17,7 +18,7 @@ interface FormCreateShiftProps {
 
 function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormCreateShiftProps) {
     const [shiftParams, setShiftParams] = useState(shift);
-    const [editShift] = useEditShiftMutation()
+    const [editShift, { isError, error, isLoading, isSuccess }] = useEditShiftMutation()
 
 
 
@@ -29,18 +30,28 @@ function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormC
     }
 
 
+    return (<>
+        <Alert
+            isVisible={isError}
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            text={error?.data?.message}
+            type={"Error"}
+        />
 
-    return (<RawFormCreateShift visibleToggle={visibleToggle}
-        title="Редактирование смены"
-        isVisible={isVisible}
-        onSub={onSub}
-        setShiftParams={setShiftParams}
-        shiftParams={shiftParams} >
-        <Button onClick={deleteHandler}
-            className="text-center m-0 mt-3 rounded-md w-full">
-            <BiTrash /> Удалить смену
-        </Button>
-    </RawFormCreateShift >
+        <RawFormCreateShift
+            visibleToggle={visibleToggle}
+            title="Редактирование смены"
+            isVisible={isVisible}
+            onSub={onSub}
+            setShiftParams={setShiftParams}
+            shiftParams={shiftParams} >
+            <Button onClick={deleteHandler}
+                className="text-center m-0 mt-3 rounded-md w-full">
+                <BiTrash /> Удалить смену
+            </Button>
+        </RawFormCreateShift >
+    </>
     )
 }
 export default FormEditShift;

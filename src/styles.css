@@ -99,3 +99,34 @@ tr {
   background-color: #1e974688 !important;
 }
 
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  95% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+}
+
+.dropdown-menu {
+  animation: slideDown 3000ms ease-in-out forwards;
+}

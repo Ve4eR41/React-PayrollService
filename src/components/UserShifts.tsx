@@ -24,9 +24,13 @@ function UserShifts({ shifts }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
 
     if (!shifts) return <Error />
-    const printShifts = shifts.map(shift => {
-        return (<Shift key={shift.id} data={shift}></Shift>)
-    })
+
+    const printShifts = shifts
+        .slice()
+        .sort((a, b) => a.timeStart.getTime() - b.timeStart.getTime())
+        .map(shift => {
+            return (<Shift key={shift.id} data={shift}></Shift>)
+        })
 
 
 

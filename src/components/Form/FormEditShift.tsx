@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getShopId } from "../../utils/getShopName";
-import { useEditShiftMutation } from "../../store/apis/shifts";
+import { useDeleteShiftMutation, useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Button from "../Button";
 import { BiTrash } from "react-icons/bi";
@@ -12,13 +12,15 @@ interface FormCreateShiftProps {
     isVisible: boolean;
     visibleToggle: React.Dispatch<React.SetStateAction<boolean>>;
     shift: { timeStart: Date, timeEnd: Date, shopName: string, revenue: number, cheks: number, id: number }
-    deleteHandler: () => void;
 }
 
 
-function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormCreateShiftProps) {
+function FormEditShift({ visibleToggle, isVisible, shift }: FormCreateShiftProps) {
     const [shiftParams, setShiftParams] = useState(shift);
-    const [editShift, { isError, error, isLoading, isSuccess }] = useEditShiftMutation()
+    const [editShift, editStatus] = useEditShiftMutation()
+    const [deleteShift, deleteStatus] = useDeleteShiftMutation();
+
+    const handlerDelete = async () => { await deleteShift({ shiftId: shift.id }) }
 
 
 
@@ -31,7 +33,9 @@ function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormC
 
 
     return (<>
-        <Alert data={{ isError, error, isLoading, isSuccess }} />
+    
+        <Alert data={editStatus} />
+        <Alert data={deleteStatus} />
 
         <RawFormCreateShift
             visibleToggle={visibleToggle}
@@ -40,7 +44,7 @@ function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormC
             onSub={onSub}
             setShiftParams={setShiftParams}
             shiftParams={shiftParams} >
-            <Button onClick={(e) => { e.preventDefault(); deleteHandler() }}
+            <Button onClick={(e) => { e.preventDefault(); visibleToggle(false); handlerDelete() }}
                 className="text-center m-0 mt-3 rounded-md w-full">
                 <BiTrash /> Удалить смену
             </Button>

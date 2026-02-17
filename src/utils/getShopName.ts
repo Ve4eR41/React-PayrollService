@@ -32,3 +32,12 @@ export function isMoreDaysLimit(timeStart: Date) {
     if (daysAgo(timeStart) <= limDays) return true
     return false
 }
+
+export async function delay(a: () => any) {
+    await new Promise(resolve => {
+        setTimeout(async () => {
+            await a();  
+            resolve();
+        }, 4999);
+    });
+}

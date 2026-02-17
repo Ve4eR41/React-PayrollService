@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getShopId } from "../../utils/getShopName";
 import { useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
@@ -31,13 +31,7 @@ function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormC
 
 
     return (<>
-        <Alert
-            isVisible={isError}
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-            text={error?.data?.message}
-            type={"Error"}
-        />
+        <Alert data={{ isError, error, isLoading, isSuccess }} />
 
         <RawFormCreateShift
             visibleToggle={visibleToggle}

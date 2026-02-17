@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getShopId, SHOP_NAMES } from "../../utils/getShopName";
 import { useCreateShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
+import Alert from "../alert";
 
 
 
@@ -13,7 +14,7 @@ interface FormCreateShiftProps {
 
 function FormCreateShift({ isVisible, visibleToggle }: FormCreateShiftProps) {
     const [shiftParams, setShiftParams] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: SHOP_NAMES[1], revenue: 0, cheks: 0, id: 1 });
-    const [createShift] = useCreateShiftMutation()
+    const [createShift, { isError, error, isLoading, isSuccess }] = useCreateShiftMutation()
 
 
 
@@ -25,6 +26,10 @@ function FormCreateShift({ isVisible, visibleToggle }: FormCreateShiftProps) {
 
 
 
-    return (<RawFormCreateShift visibleToggle={visibleToggle} isVisible={isVisible} onSub={onSub} setShiftParams={setShiftParams} shiftParams={shiftParams} />)
+    return <>
+        <Alert data={{ isError, error, isLoading, isSuccess }} />
+
+        <RawFormCreateShift visibleToggle={visibleToggle} isVisible={isVisible} onSub={onSub} setShiftParams={setShiftParams} shiftParams={shiftParams} />
+    </>
 }
 export default FormCreateShift 

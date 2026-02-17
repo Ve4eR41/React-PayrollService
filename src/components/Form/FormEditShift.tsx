@@ -40,7 +40,7 @@ function FormEditShift({ visibleToggle, isVisible, shift, deleteHandler }: FormC
             onSub={onSub}
             setShiftParams={setShiftParams}
             shiftParams={shiftParams} >
-            <Button onClick={deleteHandler}
+            <Button onClick={(e) => { e.preventDefault(); deleteHandler() }}
                 className="text-center m-0 mt-3 rounded-md w-full">
                 <BiTrash /> Удалить смену
             </Button>

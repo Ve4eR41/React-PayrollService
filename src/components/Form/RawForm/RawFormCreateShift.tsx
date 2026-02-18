@@ -4,7 +4,7 @@ import { SHOP_NAMES } from "../../../utils/getShopName";
 import Options from "../../input/Options";
 import { Shift } from "../../../store/apis/shifts";
 import { RxCross2 } from "react-icons/rx";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 
 interface FormCreateShiftProps<T> {
@@ -20,10 +20,22 @@ interface FormCreateShiftProps<T> {
 
 function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title, children }: FormCreateShiftProps<Shift>) {
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (!isVisible) return;
+
+            if (event.key === 'Escape') visibleToggle(false);
+
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => { window.removeEventListener('keydown', handleKeyDown); };
+    },);
 
 
     return (
-        <div onClick={() => { }} className={" fixed inset-0 bg-gray-800/25 flex items-center justify-center z-10 " + (isVisible ? "visible" : "hidden")}>
+        <div onKeyDown={(k) => { console.log(k) }}
+            onClick={() => { }}
+            className={" fixed inset-0 bg-gray-800/25 flex items-center justify-center z-10 " + (isVisible ? "visible" : "hidden")}>
             <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); visibleToggle(false); onSub() }}
                 className={'bg-white p-4 flex flex-col w-[90%] left-0 mx-[5%] mt-4 shadow-md rounded-md z-60 max-w-100 '}>

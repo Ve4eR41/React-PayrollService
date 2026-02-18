@@ -14,7 +14,7 @@ interface FormCreateShiftProps {
 
 function FormCreateShift({ isVisible, visibleToggle }: FormCreateShiftProps) {
     const [shiftParams, setShiftParams] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: SHOP_NAMES[1], revenue: 0, cheks: 0, id: 1 });
-    const [createShift, createStatus] = useCreateShiftMutation()
+    const [createShift, CreateStatus] = useCreateShiftMutation()
 
 
 
@@ -27,7 +27,7 @@ function FormCreateShift({ isVisible, visibleToggle }: FormCreateShiftProps) {
 
 
     return <>
-        <Alert data={createStatus} />
+        <Alert data={CreateStatus} />
 
         <RawFormCreateShift visibleToggle={visibleToggle} isVisible={isVisible} onSub={onSub} setShiftParams={setShiftParams} shiftParams={shiftParams} />
     </>

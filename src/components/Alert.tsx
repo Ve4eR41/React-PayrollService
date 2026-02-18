@@ -1,5 +1,5 @@
 import { SerializedError } from "@reduxjs/toolkit";
-import {  FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useEffect, useState } from "react";
 import { BiSolidMessageAltError } from "react-icons/bi";
 import { BsBookmarkCheckFill } from "react-icons/bs";
@@ -10,7 +10,7 @@ import { PiFlowerBold } from "react-icons/pi";
 //     'Alert': <BiSolidMessageAltError size={32} color={'#c1dc00'} />
 // };
 
-export interface AlertProps {
+interface AlertProps {
     data: {
         isError?: boolean;
         isSuccess?: boolean;
@@ -37,7 +37,7 @@ export default function Alert({ data }: AlertProps) {
             if (!isLoading) {
                 const timer = setTimeout(() => {
                     setShowAlert(false);
-                }, 5000);
+                }, 7000);
                 return () => clearTimeout(timer);
             }
         } else {

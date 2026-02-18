@@ -5,12 +5,13 @@ import UserShifts from "../../components/UserShifts";
 import { useGetShiftsQuery } from "../../store/apis/shifts"; // Импортируйте Shift
 import Loader from '../../components/Loader';
 import Error from '../../components/Error';
+import { getEndDate, getStartDate } from "../../utils/getShopName";
 
 function UserMain() {
     //for test
     const { name, jobTitle, shopName } = { name: 'Дудка Виктор', jobTitle: 'Помощник', shopName: 'Госпиталь', };
     const salaryInfo = [{ value: 0, label: "Полная ЗП" }, { value: 0, label: "Больничный" }, { value: 0, label: "Доп.Выплаты" }, { value: 0, label: "Отпускные" }, { value: 0, label: "Итог" }, { value: 0, label: "Отпускные на карту" }, { value: 0, label: "Аванс наличные" }, { value: 0, label: "Аванс Карта" }, { value: 0, label: "ЗП карта" }, { value: 0, label: "НДФЛ" }, { value: 0, label: "Прогул" }, { value: 0, label: "Сбор на ДР" }, { value: 0, label: "Итог" }];
-    const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery();
+    const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({ timeEnd: getEndDate(), timeStart: getStartDate() });
 
 
 

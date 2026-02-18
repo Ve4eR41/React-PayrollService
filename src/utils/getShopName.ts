@@ -33,11 +33,6 @@ export function isMoreDaysLimit(timeStart: Date) {
     return false
 }
 
-export async function delay(a: () => any) {
-    await new Promise(resolve => {
-        setTimeout(async () => {
-            await a();  
-            resolve();
-        }, 4999);
-    });
-}
+export const getStartDate = (() => { const dateNow = new Date(); return new Date(dateNow.getFullYear(), dateNow.getMonth(), 1) })
+
+export const getEndDate = (() => { const dateNow = new Date(); return new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0, 23, 59, 59, 999) });

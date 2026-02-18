@@ -20,8 +20,8 @@ const shiftsApi = createApi({
 
 
 
-            getShifts: builder.query<Shift[], void>({
-                query: () => ({ url: '', method: 'GET', }),
+            getShifts: builder.query<Shift[], GetUsersShifts>({
+                query: (params) => ({ url: '', method: 'GET', params }),
 
                 transformResponse: (response: ShiftRaw[]) => {
                     return response.map((shift) => ({
@@ -155,8 +155,10 @@ export { shiftsApi }
 
 
 
-
-
+export interface GetUsersShifts {
+    timeStart?: Date
+    timeEnd?: Date
+}
 
 
 

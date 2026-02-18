@@ -4,6 +4,8 @@ import Loader from "../../components/Loader";
 import Panel from "../../components/Panel";
 import { useShiftsByShopQuery } from "../../store/apis/shifts";
 import ShiftDayInfo from "../../components/ShiftDayInfo";
+import Options from "../../components/input/Options";
+import { MM, SHOP_NAMES } from "../../utils/getShopName";
 
 
 export interface ShiftExtends {
@@ -87,7 +89,26 @@ export default function ShopMain() {
     return (
         <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
-                <h3 className=" text-white bg-green-600  w-full rounded-b p-2  flex justify-center items-center  text-center text-xl mb-4"> Госпиталь </h3>
+                <h3 className="  bg-green-600   text-white w-full rounded-b p-2 flex justify-center items-center gap-10 text-center text-xl mb-4">
+                    <Options
+                        classesNameInput='border-0'
+                        callback={(e) => { }}
+                        value={SHOP_NAMES[1]}
+                        options={Object.values(SHOP_NAMES)} />
+
+                    <Options
+                        classesNameInput='border-0'
+                        callback={(e) => { }}
+                        value={MM[1]}
+                        options={MM} />
+
+                    <Options
+                        classesNameInput='border-0'
+                        callback={(e) => { }}
+                        value={2025}
+                        options={[2025, 2026]} />
+                </h3>
+
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                     {printFakeDays(preDay)}

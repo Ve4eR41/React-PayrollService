@@ -5,6 +5,9 @@ export const SHOP_NAMES = {
 }
 
 
+export const MM = [`Январь`, `Февраль`, `Март`, `Фпрель`, `Май`, `Июнь`, `Июль`, `Фвгуст`, `Сентябрь`, `Октябрь`, `Ноябрь`, `Декабрь`]
+
+
 
 export const getShopName = (shopId: number): string => {
     return SHOP_NAMES[shopId as keyof typeof SHOP_NAMES] || '';

@@ -7,7 +7,7 @@ interface InputWrapperProps {
     children: ReactNode;
     className?: string;
     classesNameInput?: string;
-    label: string;
+    label?: string;
 }
 
 
@@ -20,7 +20,7 @@ export default function InputWrapper({ children, className, classesNameInput, la
     return (
         <div className={classes}>
             <div className={classesInput}>
-                <label className='z-2  absolute text-gray-400 bg-white rounded-2xl bg-2 text-xs left-3 top-[-0.5rem]'>{label}</label>
+                {label && <label className='z-2  absolute text-gray-400 bg-white rounded-2xl bg-2 text-xs left-3 top-[-0.5rem]'>{label}</label>}
                 {children}
             </div>
         </div>

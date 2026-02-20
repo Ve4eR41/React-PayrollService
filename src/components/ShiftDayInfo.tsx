@@ -9,7 +9,7 @@ interface ShiftDayInfoProps {
 }
 
 export default function ShiftDayInfo({ revenue, cheks, id, hours }: ShiftDayInfoProps) {
-    const classesParams = classNames("relative mb-4 w-[100%] border-b border-gray-100 last:border-b-0 last:mb-0")
+    const classesParams = classNames("relative mb-4 w-[100%] border-b border-gray-200 last:border-b-0 last:mb-0")
 
 
     const Params = (data: string | number | undefined | null, label: string) =>
@@ -21,7 +21,7 @@ export default function ShiftDayInfo({ revenue, cheks, id, hours }: ShiftDayInfo
 
 
     return (
-        <div className="  bg-gray-50 p-1 rounded hover:border-green-600" key={id}>
+        <div className="  bg-gray-100 p-1 rounded hover:border-green-600" key={id}>
             <span className="bg-green-600 text-white grid justify-center rounded mb-3">{id}</span>
 
             {Params(revenue, 'Выручка')}

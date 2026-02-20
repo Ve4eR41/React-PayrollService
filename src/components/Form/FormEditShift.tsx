@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { getShopId } from "../../utils/getShopName";
+import { getShopId, isMoreDaysLimit } from "../../utils/getShopName";
 import { useDeleteShiftMutation, useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Button from "../Button";
 import { BiTrash } from "react-icons/bi";
-import Alert from "../alert";
+import Alert from "../Alert";
 
 
 
@@ -19,6 +19,7 @@ function FormEditShift({ visibleToggle, isVisible, shift }: FormCreateShiftProps
     const [shiftParams, setShiftParams] = useState(shift);
     const [editShift, editStatus] = useEditShiftMutation()
     const [deleteShift, deleteStatus] = useDeleteShiftMutation();
+    const disabled = !isMoreDaysLimit(shift.timeStart)
 
     const handlerDelete = async () => { await deleteShift({ shiftId: shift.id }) }
 
@@ -33,21 +34,26 @@ function FormEditShift({ visibleToggle, isVisible, shift }: FormCreateShiftProps
 
 
     return (<>
-    
+
         <Alert data={editStatus} />
         <Alert data={deleteStatus} />
 
         <RawFormCreateShift
+            disabled={disabled}
             visibleToggle={visibleToggle}
             title="Редактирование смены"
             isVisible={isVisible}
             onSub={onSub}
             setShiftParams={setShiftParams}
             shiftParams={shiftParams} >
-            <Button onClick={(e) => { e.preventDefault(); visibleToggle(false); handlerDelete() }}
-                className="text-center m-0 mt-3 rounded-md w-full">
-                <BiTrash /> Удалить смену
-            </Button>
+            {
+                disabled ||
+                <Button onClick={(e) => { e.preventDefault(); visibleToggle(false); handlerDelete() }}
+                    className="text-center m-0 mt-3 rounded-md w-full">
+                    <BiTrash /> Удалить смену
+                </Button>
+            }
+
         </RawFormCreateShift >
     </>
     )

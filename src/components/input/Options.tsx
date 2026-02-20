@@ -9,14 +9,16 @@ interface OptionsProps {
     label?: string;
     classesNameInput?: string;
     options: (string | number)[];
+    disabled?: boolean
 }
 
 
 
-export default function Options({ callback, value, options: otions, label ,classesNameInput}: OptionsProps) {
+
+export default function Options({ callback, value, options: otions, label, classesNameInput, disabled }: OptionsProps) {
     const [isVisible, setIsVisible] = useState(false);
     const visible = isVisible ? "" : "hidden"
-    const toggel = () => { setIsVisible(!isVisible) }
+    const toggel = () => { if (!disabled) setIsVisible(!isVisible) }
 
     const optionsList = otions.map(el => { return (<div onClick={() => { toggel(); callback(el) }} className="hover:bg-green-100 border-t-1 first:border-t-0 border-green-300 cursor-pointer py-1">{el}</div>) })
 

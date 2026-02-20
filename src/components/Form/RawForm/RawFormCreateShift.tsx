@@ -15,10 +15,11 @@ interface FormCreateShiftProps<T> {
     shiftParams: T
     setShiftParams: React.Dispatch<React.SetStateAction<T>>
     children?: ReactNode;
+    disabled?: boolean;
 }
 
 
-function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title, children }: FormCreateShiftProps<Shift>) {
+function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title, children, disabled }: FormCreateShiftProps<Shift>) {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -37,7 +38,7 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
             onClick={() => { }}
             className={" fixed inset-0 bg-gray-800/25 flex items-center justify-center z-10 " + (isVisible ? "visible" : "hidden")}>
             <form
-                onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); visibleToggle(false); onSub() }}
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) => { if (disabled) return; e.preventDefault(); visibleToggle(false); onSub() }}
                 className={'bg-white p-4 flex flex-col w-[90%] left-0 mx-[5%] mt-4 shadow-md rounded-md z-60 max-w-100 '}>
 
 
@@ -48,40 +49,48 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                 </h3>
 
                 <Input
+                    disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
                     label="Приход" />
 
                 <Input
+                    disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
                     textInput={shiftParams.timeEnd}
                     type="DateInput"
                     label="Уход" />
 
                 <Options
+                    disabled={disabled}
                     callback={(e) => setShiftParams({ ...shiftParams, shopName: e as string })}
                     value={shiftParams.shopName}
                     options={Object.values(SHOP_NAMES)}
                     label="Магазин" />
 
                 <Input
+                    disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, revenue: e as number })}
                     textInput={shiftParams.revenue}
                     type="number"
                     label="Выручка" />
 
                 <Input
+                    disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, cheks: e as number })}
                     textInput={shiftParams.cheks}
                     type="number"
                     label="Чеки"
                 />
 
-                <Button
-                    className="text-center bg-green-100 m-0  border-green-700 text-green-700 rounded-md w-full">
-                    Подтвердить
-                </Button>
+                {
+                    disabled ||
+                    <Button
+                        className="text-center bg-green-100 m-0  border-green-700 text-green-700 rounded-md w-full">
+                        Подтвердить
+                    </Button>
+                }
 
                 {children}
 

@@ -5,13 +5,32 @@ import UserShifts from "../../components/UserShifts";
 import { useGetShiftsQuery } from "../../store/apis/shifts"; // Импортируйте Shift
 import Loader from '../../components/Loader';
 import Error from '../../components/Error';
-import { getEndDate, getStartDate } from "../../utils/getShopName";
+import { getEndMouth, getStartMouth } from "../../utils/utils";
+import { useState } from "react";
 
 function UserMain() {
     //for test
     const { name, jobTitle, shopName } = { name: 'Дудка Виктор', jobTitle: 'Помощник', shopName: 'Госпиталь', };
     const salaryInfo = [{ value: 0, label: "Полная ЗП" }, { value: 0, label: "Больничный" }, { value: 0, label: "Доп.Выплаты" }, { value: 0, label: "Отпускные" }, { value: 0, label: "Итог" }, { value: 0, label: "Отпускные на карту" }, { value: 0, label: "Аванс наличные" }, { value: 0, label: "Аванс Карта" }, { value: 0, label: "ЗП карта" }, { value: 0, label: "НДФЛ" }, { value: 0, label: "Прогул" }, { value: 0, label: "Сбор на ДР" }, { value: 0, label: "Итог" }];
-    const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({ timeEnd: getEndDate(), timeStart: getStartDate() });
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({
+        timeEnd: getEndMouth(selectedDate),
+        timeStart: getStartMouth(selectedDate)
+    });
+
+    const goToPreviousMonth = () => {
+        const prevMonth = new Date(selectedDate);
+        prevMonth.setMonth(prevMonth.getMonth() - 1);
+        setSelectedDate(prevMonth);
+    };
+
+    const goToNextMonth = () => {
+        const nextMonth = new Date(selectedDate);
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        setSelectedDate(nextMonth);
+    };
+
 
 
 
@@ -25,6 +44,7 @@ function UserMain() {
         <div className="h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
             <div className="w-[60vw] max-[1100px]:w-[99vw]">
                 <div className="flex flex-col gap-8">
+
                     <UserHeader
                         name={name}
                         jobTitle={jobTitle}
@@ -32,7 +52,7 @@ function UserMain() {
                         defaultAva={defaultAva}
                     />
 
-                    <UserShifts className='w-[100%]' shifts={shifts} />
+                    <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} goToPreviousMonth={goToPreviousMonth} goToNextMonth={goToNextMonth} />
 
                     <Panel>
                         <h3 className="text-2xl">Зарплата</h3>
@@ -41,6 +61,7 @@ function UserMain() {
                             {printSalaryInfo}
                         </div>
                     </Panel>
+
                 </div>
             </div>
         </div>

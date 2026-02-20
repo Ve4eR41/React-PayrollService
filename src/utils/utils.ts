@@ -36,6 +36,6 @@ export function isMoreDaysLimit(timeStart: Date) {
     return false
 }
 
-export const getStartDate = (() => { const dateNow = new Date(); return new Date(dateNow.getFullYear(), dateNow.getMonth(), 1) })
+export const getStartMouth = ((date?: Date) => { const _date = (date && new Date(date)) || new Date(); return new Date(_date.getFullYear(), _date.getMonth(), 1) })
 
-export const getEndDate = (() => { const dateNow = new Date(); return new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0, 23, 59, 59, 999) });
+export const getEndMouth = ((date?: Date) => { const _date = (date && new Date(date)) || new Date(); return new Date(_date.getFullYear(), _date.getMonth() + 1, 0, 23, 59, 59, 999) });

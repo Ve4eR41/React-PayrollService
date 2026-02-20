@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getShopName } from "../../utils/getShopName";
+import { getShopName } from "../../utils/utils";
 import { backend } from "../../../const";
 
 const shiftsApi = createApi({

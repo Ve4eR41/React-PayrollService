@@ -10,6 +10,9 @@ import Error from "./Error";
 
 interface UserShiftsProps {
     className?: string,
+    selectedDate: Date,
+    goToPreviousMonth: () => void;
+    goToNextMonth: () => void;
     shifts: {
         timeStart: Date,
         timeEnd: Date,
@@ -20,10 +23,12 @@ interface UserShiftsProps {
     }[] | undefined
 }
 
-function UserShifts({ shifts }: UserShiftsProps) {
+function UserShifts({ shifts, goToPreviousMonth, goToNextMonth, selectedDate }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
 
     if (!shifts) return <Error />
+
+    const activeMonth = selectedDate.toLocaleString('ru', { month: "long", year: "numeric" })
 
     const printShifts = shifts
         .slice()
@@ -37,9 +42,9 @@ function UserShifts({ shifts }: UserShiftsProps) {
     return (
         <Panel className={"border-0 relative"}>
             <div className="flex items-center justify-center mb-2">
-                <BiArrowFromRight className="ButtonIcon" size={20} />
-                <h3 className="text-center mx-4 text-xl">Данные за Апрель 2025</h3>
-                <BiArrowFromLeft className="ButtonIcon" size={20} />
+                <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon" size={20} />
+                <h3 className="text-center mx-4 text-xl">Данные за {activeMonth}</h3>
+                <BiArrowFromLeft onClick={goToNextMonth} className="ButtonIcon" size={20} />
             </div>
 
             {printShifts}

@@ -5,7 +5,7 @@ import Panel from "../../components/Panel";
 import { useShiftsByShopQuery } from "../../store/apis/shifts";
 import ShiftDayInfo from "../../components/ShiftDayInfo";
 import Options from "../../components/input/Options";
-import { MM, SHOP_NAMES } from "../../utils/getShopName";
+import { MM, SHOP_NAMES } from "../../utils/utils";
 
 
 export interface ShiftExtends {

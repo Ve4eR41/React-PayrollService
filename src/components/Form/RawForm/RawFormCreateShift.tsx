@@ -1,6 +1,6 @@
 import Button from "../../Button";
 import Input from "../../input/Input";
-import { SHOP_NAMES } from "../../../utils/getShopName";
+import { SHOP_NAMES } from "../../../utils/utils";
 import Options from "../../input/Options";
 import { Shift } from "../../../store/apis/shifts";
 import { RxCross2 } from "react-icons/rx";

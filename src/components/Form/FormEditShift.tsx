@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getShopId, isMoreDaysLimit } from "../../utils/getShopName";
+import { getShopId, isMoreDaysLimit } from "../../utils/utils";
 import { useDeleteShiftMutation, useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Button from "../Button";

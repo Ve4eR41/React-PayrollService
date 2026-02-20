@@ -1,4 +1,4 @@
-import { getShopName } from "../../../utils/getShopName";
+import { getShopName } from "../../../utils/utils";
 import { backend } from "../../../../const";
 
 interface ShiftsType {

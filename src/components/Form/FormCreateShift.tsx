@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  getShopId, SHOP_NAMES } from "../../utils/getShopName";
+import {  getShopId, SHOP_NAMES } from "../../utils/utils";
 import { useCreateShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Alert from "../Alert";

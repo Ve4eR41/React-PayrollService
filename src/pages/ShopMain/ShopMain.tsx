@@ -20,8 +20,12 @@ export interface ShiftExtends {
 
 
 export default function ShopMain() {
-    const headerStyle = "text-center bg-green-600 text-white rounded-t-md"
     const dateNow = new Date();
+    const startDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
+    const endDate = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0, 23, 59, 59, 999);
+    const { data: shiftsData, isLoading, error, refetch } = useShiftsByShopQuery({ shopName: 1, endDate, startDate })
+
+    const headerStyle = "text-center bg-green-600 text-white rounded-t-md"
     const year = dateNow.getFullYear();
     const month = dateNow.getMonth();
     const preDay = 6 - new Date(year, month, 1).getDay() * 7;
@@ -33,10 +37,7 @@ export default function ShopMain() {
         return result
     }
 
-    const startDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
-    const endDate = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0, 23, 59, 59, 999);
-    const { data: shiftsData, isLoading, error, refetch } = useShiftsByShopQuery({ shopName: 1, endDate, startDate })
-
+    
 
 
     const printDays = (() => {
@@ -85,7 +86,7 @@ export default function ShopMain() {
 
 
     if (isLoading) return <Loader />
-    if (error) return <Error refetch={refetch} />
+    if (error) return <Error refetch={refetch} error={error} />
     return (
         <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">

@@ -1,18 +1,17 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./Button";
 import Panel from "./Panel"
-import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 import { useState } from "react";
 import FormCreateShift from "./Form/FormCreateShift";
 import Shift from "./Shift";
 import Error from "./Error";
+import MonthToggle from "./input/MonthToggle";
 
 
 interface UserShiftsProps {
     className?: string,
     selectedDate: Date,
-    goToPreviousMonth: () => void;
-    goToNextMonth: () => void;
+    setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
     shifts: {
         timeStart: Date,
         timeEnd: Date,
@@ -23,12 +22,11 @@ interface UserShiftsProps {
     }[] | undefined
 }
 
-function UserShifts({ shifts, goToPreviousMonth, goToNextMonth, selectedDate }: UserShiftsProps) {
+function UserShifts({ shifts, setSelectedDate, selectedDate }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
 
     if (!shifts) return <Error />
 
-    const activeMonth = selectedDate.toLocaleString('ru', { month: "long", year: "numeric" })
 
     const printShifts = shifts
         .slice()
@@ -41,11 +39,7 @@ function UserShifts({ shifts, goToPreviousMonth, goToNextMonth, selectedDate }: 
 
     return (
         <Panel className={"border-0 relative"}>
-            <div className="flex items-center justify-center mb-2">
-                <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon" size={20} />
-                <h3 className="text-center mx-4 text-xl">Данные за {activeMonth}</h3>
-                <BiArrowFromLeft onClick={goToNextMonth} className="ButtonIcon" size={20} />
-            </div>
+            <MonthToggle setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
 
             {printShifts}
 

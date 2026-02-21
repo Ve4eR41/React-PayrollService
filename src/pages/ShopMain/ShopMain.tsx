@@ -6,6 +6,7 @@ import { useShiftsByShopQuery } from "../../store/apis/shifts";
 import ShiftDayInfo from "../../components/ShiftDayInfo";
 import Options from "../../components/input/Options";
 import { MM, SHOP_NAMES } from "../../utils/utils";
+import MonthToggle from "../../components/input/MonthToggle";
 
 
 export interface ShiftExtends {
@@ -37,7 +38,7 @@ export default function ShopMain() {
         return result
     }
 
-    
+
 
 
     const printDays = (() => {
@@ -97,17 +98,6 @@ export default function ShopMain() {
                         value={SHOP_NAMES[1]}
                         options={Object.values(SHOP_NAMES)} />
 
-                    <Options
-                        classesNameInput='border-0'
-                        callback={(e) => { }}
-                        value={MM[1]}
-                        options={MM} />
-
-                    <Options
-                        classesNameInput='border-0'
-                        callback={(e) => { }}
-                        value={2025}
-                        options={[2025, 2026]} />
                 </h3>
 
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">

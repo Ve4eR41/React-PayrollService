@@ -19,19 +19,6 @@ function UserMain() {
         timeStart: getStartMouth(selectedDate)
     });
 
-    const goToPreviousMonth = () => {
-        const prevMonth = new Date(selectedDate);
-        prevMonth.setMonth(prevMonth.getMonth() - 1);
-        setSelectedDate(prevMonth);
-    };
-
-    const goToNextMonth = () => {
-        const nextMonth = new Date(selectedDate);
-        nextMonth.setMonth(nextMonth.getMonth() + 1);
-        setSelectedDate(nextMonth);
-    };
-
-
 
 
     const printSalaryInfo = salaryInfo.map((salaryEl, i) => (<p key={i}> 📌 <span>{salaryEl.label}</span> : <span>{salaryEl.value}</span> </p>));
@@ -52,7 +39,7 @@ function UserMain() {
                         defaultAva={defaultAva}
                     />
 
-                    <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} goToPreviousMonth={goToPreviousMonth} goToNextMonth={goToNextMonth} />
+                    <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} setSelectedDate={setSelectedDate} />
 
                     <Panel>
                         <h3 className="text-2xl">Зарплата</h3>

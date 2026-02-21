@@ -21,6 +21,7 @@ export default function MonthToggle({ setSelectedDate, selectedDate }: MonthTogg
         setSelectedDate(nextMonth);
     }
 
+
     return (
         <div className="flex items-center justify-center mb-2">
             <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon" size={20} />

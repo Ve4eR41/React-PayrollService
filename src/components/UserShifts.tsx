@@ -39,7 +39,9 @@ function UserShifts({ shifts, setSelectedDate, selectedDate }: UserShiftsProps) 
 
     return (
         <Panel className={"border-0 relative"}>
+            
             <MonthToggle setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
+
 
             {printShifts}
 

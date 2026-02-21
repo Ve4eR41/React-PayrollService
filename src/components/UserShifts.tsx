@@ -6,6 +6,7 @@ import { useState } from "react";
 import FormCreateShift from "./Form/FormCreateShift";
 import Shift from "./Shift";
 import Error from "./Error";
+import MonthToggle from "./input/MonthToggle";
 
 
 interface UserShiftsProps {
@@ -28,7 +29,6 @@ function UserShifts({ shifts, goToPreviousMonth, goToNextMonth, selectedDate }: 
 
     if (!shifts) return <Error />
 
-    const activeMonth = selectedDate.toLocaleString('ru', { month: "long", year: "numeric" })
 
     const printShifts = shifts
         .slice()
@@ -41,11 +41,7 @@ function UserShifts({ shifts, goToPreviousMonth, goToNextMonth, selectedDate }: 
 
     return (
         <Panel className={"border-0 relative"}>
-            <div className="flex items-center justify-center mb-2">
-                <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon" size={20} />
-                <h3 className="text-center mx-4 text-xl">Данные за {activeMonth}</h3>
-                <BiArrowFromLeft onClick={goToNextMonth} className="ButtonIcon" size={20} />
-            </div>
+            <MonthToggle goToPreviousMonth={goToPreviousMonth} goToNextMonth={goToNextMonth} selectedDate={selectedDate} />
 
             {printShifts}
 

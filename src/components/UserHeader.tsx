@@ -1,3 +1,4 @@
+import { getShopId } from "../utils/utils"
 
 interface UserHeaderProps {
     defaultAva: string,
@@ -16,7 +17,7 @@ function UserHeader({ defaultAva, jobTitle, name, shopName }: UserHeaderProps) {
 
                 <div className="m-2 flex flex-col">
                     <div className="mx-2 my-0.5"> <span>{jobTitle}:</span> <span> {name}</span> </div>
-                    <div className="mx-2 my-0.5"> <span>Магазин:</span> <span> {shopName} </span> </div>
+                    <div className="mx-2 my-0.5"> <span>Магазин:</span> <a href={`/ShopMain?shop=${getShopId(shopName)}`}> {shopName} </a> </div>
                 </div>
 
             </div>

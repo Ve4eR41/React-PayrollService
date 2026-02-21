@@ -24,8 +24,8 @@ export default function Options({ callback, value, options: otions, label, class
 
     return (
         <InputWrapper classesNameInput={classesNameInput} label={label}>
-            <div onClick={toggel} className="h-6 cursor-pointer ">{value}</div>
-            <div className={visible + " text-black border-1 border-green-500 absolute bg-white z-50 w-full left-0 mt-2 p-2 rounded"}> {optionsList} </div>
+            <div onClick={toggel} className="h-6 cursor-pointer select-none ">{value}</div>
+            <div className={visible + " text-black border-1 border-green-500 absolute bg-white z-50 w-full left-0 mt-2 p-2 rounded select-none"}> {optionsList} </div>
         </InputWrapper>
     )
 }

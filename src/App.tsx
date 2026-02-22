@@ -7,12 +7,14 @@ import ShopMain from "./pages/ShopMain/ShopMain.tsx";
 import loaderUserMain from "./pages/UserMain/loaderUserMain.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
+import ErrorBoundary from "./pages/ErrorBoundary/ErrorBoundary.tsx";
 
 
 const router = createBrowserRouter(
   [{
     path: '/',
     element: <Root />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,

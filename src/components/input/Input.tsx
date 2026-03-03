@@ -39,7 +39,7 @@ export default function Input({ textInput, onInput, label, type, className, disa
 
     return (
         <div className={classes}>
-            <label className='z-1  absolute text-gray-400 bg-white rounded-2xl bg-2 text-xs left-3 top-[-0.5rem]'>{label}</label>
+            <label className='z-1 select-none absolute text-gray-400 bg-white rounded-2xl bg-2 text-xs left-3 top-[-0.5rem]'>{label}</label>
             {input}
         </div>
     )

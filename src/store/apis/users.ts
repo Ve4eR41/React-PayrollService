@@ -18,7 +18,7 @@ const userApi = createApi({
 
 
             getUser: builder.query<User[], unknown>({
-                query: (params) => ({ url: '', method: 'GET' }),
+                query: () => ({ url: '', method: 'GET' }),
                 providesTags: ['users']
             }),
 
@@ -37,21 +37,43 @@ const userApi = createApi({
 
 
 
+            editUser: builder.mutation<string, UpdateUser>({
+                query: (body) => {
+                    return {
+                        url: '/upd',
+                        method: 'POST',
+                        body
+                    }
+                },
+                invalidatesTags: ['users']
+            }),
+
+
+
+
         }
     },
 })
 
-export const { useGetUserQuery } = userApi
+export const { useGetUserQuery, useEditUserMutation, useCreateUserMutation } = userApi
 
 export { userApi }
 
 
 
+interface UpdateUser {
+    id: number;
+    fio?: string;
+    shop?: number;
+    job?: number;
+    banned?: boolean;
+    role?: number;
+}
 
-interface User {
+
+export interface User {
     id: number;
     fio: string;
-    password: string;
     banned: boolean;
     banReason: null;
     createdAt: string;

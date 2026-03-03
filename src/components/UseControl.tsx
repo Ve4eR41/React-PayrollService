@@ -1,34 +1,42 @@
-import { useGetUserQuery } from "../store/apis/users"
+import { useState } from "react"
+import { useGetUserQuery, User } from "../store/apis/users"
 import { getShopName } from "../utils/utils"
 import Button from "./Button"
 import Panel from "./Panel"
+import FormUserEdit from "./Form/User/FormUserEdit"
 
-interface UseControlProps {
-    classNames?: string
-}
+// interface UseControlProps {
+// }
 
-export default function UserControl({ classNames }: UseControlProps) {
+export default function UserControl() {
     const { data } = useGetUserQuery('')
-
+    const [selectedUser, setSelectedUser] = useState<User | boolean>(false)
 
     const users = data && (() => data
-        .map(({ banned, fio, id, roles }) =>
-            <div key={id}
-                onClick={() => { }}
+        .map((user) => {
+            const { banned, id, roles, fio } = user;
+            return <div key={id}
+                onClick={() => setSelectedUser(user)}
                 className="relative flex items-center justify-between p-4 h-9 hover:bg-green-100 rounded cursor-pointer">
-                <span>{fio}</span>
-                <span>{getShopName(1)}</span>
-                <span>{banned}</span>
-                <span>{roles.map(({ value }) => value).join(', ')}</span>
-            </div>)
+                <span className="min-w-8">{fio}</span>
+                <span className="min-w-8">{getShopName(1)}</span>
+                <span className="min-w-8">{banned}</span>
+                <span className="min-w-8">{roles.map(({ value }) => value).join(', ')}</span>
+            </div>
+        })
     )()
 
     return <Panel>
+
         <div className='flex flex-col gap-4'>
             <h3 className="w-full text-center bg-green-600 text-white p-2 text-xl rounded">Флористы</h3>
             {users}
             <Button className="w-full rounded" >Добавить флориста</Button>
         </div>
+
+        {typeof selectedUser !== 'boolean' &&
+            <FormUserEdit userCallback={setSelectedUser} userData={selectedUser} />
+        }
     </Panel>
 
 }

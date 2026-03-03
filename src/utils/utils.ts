@@ -36,6 +36,31 @@ export function isMoreDaysLimit(timeStart: Date) {
     return false
 }
 
+
+
 export const getStartMouth = ((date?: Date) => { const _date = (date && new Date(date)) || new Date(); return new Date(_date.getFullYear(), _date.getMonth(), 1) })
 
+
+
 export const getEndMouth = ((date?: Date) => { const _date = (date && new Date(date)) || new Date(); return new Date(_date.getFullYear(), _date.getMonth() + 1, 0, 23, 59, 59, 999) });
+
+
+
+export function generatePassword() {
+    const length = 9
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const separators = "-_.*$#=+";
+
+    const randomSeparator = separators[Math.floor(Math.random() * separators.length)];
+
+    let password = "";
+    const values = new Uint32Array(length);
+    window.crypto.getRandomValues(values);
+
+    for (let i = 0; i < length; i++) {
+        password += charset[values[i] % charset.length];
+    }
+
+    const parts = password.match(/.{1,3}/g);
+    return parts ? parts.join(randomSeparator) : password;
+}

@@ -3,7 +3,6 @@ import { generatePassword } from "../../../utils/utils";
 import Button from "../../Button";
 import Input from "../../input/Input";
 import FormBase from "../FormBase";
-import { useRegistrationMutation } from "../../../store/store";
 import { useCreateUserMutation } from "../../../store/apis/users";
 
 interface FormUserControl {

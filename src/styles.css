@@ -162,3 +162,25 @@ tr {
     transform: translateY(-20px) rotate(10deg);
   }
 }
+
+
+
+.skelet {
+  background: linear-gradient(75deg,
+      #eeeeef 25%,
+      #eeeeef 50%,
+      #ffffff 75%,
+      #eeeeef 95%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

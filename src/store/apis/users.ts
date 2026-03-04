@@ -24,6 +24,20 @@ const userApi = createApi({
 
 
 
+            createUser: builder.mutation<string, CreateUser>({
+                query: (body) => {
+                    return {
+                        url: '',
+                        method: 'POST',
+                        body,
+                    }
+                },
+                invalidatesTags: ['users']
+            }),
+
+
+
+
             editUser: builder.mutation<string, UpdateUser>({
                 query: (body) => {
                     return {
@@ -42,7 +56,7 @@ const userApi = createApi({
     },
 })
 
-export const { useGetUserQuery, useEditUserMutation } = userApi
+export const { useGetUserQuery, useEditUserMutation, useCreateUserMutation } = userApi
 
 export { userApi }
 
@@ -55,6 +69,12 @@ interface UpdateUser {
     job?: number;
     banned?: boolean;
     role?: number;
+}
+
+
+interface CreateUser {
+    password: string;
+    fio: string;
 }
 
 

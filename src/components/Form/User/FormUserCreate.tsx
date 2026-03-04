@@ -4,6 +4,7 @@ import Button from "../../Button";
 import Input from "../../input/Input";
 import FormBase from "../FormBase";
 import { useRegistrationMutation } from "../../../store/store";
+import { useCreateUserMutation } from "../../../store/apis/users";
 
 interface FormUserControl {
     isVisible: boolean
@@ -15,7 +16,7 @@ interface FormUserControl {
 export default function FormUserCreate({ isVisible, visibleToggle }: FormUserControl) {
     const [user, setUser] = useState({ fio: 'Фамилия Имя', password: generatePassword() })
     const disabled = false
-    const [createUser] = useRegistrationMutation()
+    const [createUser] = useCreateUserMutation()
 
 
 
@@ -34,14 +35,14 @@ export default function FormUserCreate({ isVisible, visibleToggle }: FormUserCon
             type="text"
         />
 
-        <Input label="Ф.И."
+        <Input label="Пароль"
             onInput={(e) => { setUser({ ...user, password: e as string }) }}
             textInput={user.password}
             disabled={disabled}
             type="text"
         />
 
-        <Button onClick={(e) => { e.preventDefault(); setUser({ ...user, password: generatePassword()}) }} secondary className="rounded">Создать пароль</Button>
+        <Button onClick={(e) => { e.preventDefault(); setUser({ ...user, password: generatePassword() }) }} secondary className="rounded">Создать пароль</Button>
         <Button className="rounded mt-3">Добавить</Button>
 
     </FormBase>

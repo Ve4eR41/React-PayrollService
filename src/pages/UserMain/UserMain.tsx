@@ -1,4 +1,3 @@
-import defaultAva from "../../assets/defaultAva.jpg"
 import Panel from "../../components/Panel";
 import UserHeader from "../../components/UserHeader"
 import UserShifts from "../../components/UserShifts";
@@ -10,7 +9,6 @@ import { useState } from "react";
 
 function UserMain() {
     //for test
-    const { name, jobTitle, shopName } = { name: 'Дудка Виктор', jobTitle: 'Помощник', shopName: 'Госпиталь', };
     const salaryInfo = [{ value: 0, label: "Полная ЗП" }, { value: 0, label: "Больничный" }, { value: 0, label: "Доп.Выплаты" }, { value: 0, label: "Отпускные" }, { value: 0, label: "Итог" }, { value: 0, label: "Отпускные на карту" }, { value: 0, label: "Аванс наличные" }, { value: 0, label: "Аванс Карта" }, { value: 0, label: "ЗП карта" }, { value: 0, label: "НДФЛ" }, { value: 0, label: "Прогул" }, { value: 0, label: "Сбор на ДР" }, { value: 0, label: "Итог" }];
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -32,12 +30,7 @@ function UserMain() {
             <div className="w-[60vw] max-[1100px]:w-[99vw]">
                 <div className="flex flex-col gap-8">
 
-                    <UserHeader
-                        name={name}
-                        jobTitle={jobTitle}
-                        shopName={shopName}
-                        defaultAva={defaultAva}
-                    />
+                    <UserHeader />
 
                     <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} setSelectedDate={setSelectedDate} />
 

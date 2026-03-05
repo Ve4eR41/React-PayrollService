@@ -1,5 +1,5 @@
 import Panel from "../../components/Panel";
-import UserControl from "../../components/UseControl";
+import UserControl from "../../components/UserControlPanel";
 
 
 

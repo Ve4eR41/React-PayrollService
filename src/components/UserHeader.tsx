@@ -1,13 +1,22 @@
+import { useGetThisUserQuery } from "../store/apis/users";
 import { getShopId } from "../utils/utils"
 
 interface UserHeaderProps {
     defaultAva: string,
     jobTitle: string,
-    name: string,
     shopName: string
 }
 
-function UserHeader({ defaultAva, jobTitle, name, shopName }: UserHeaderProps) {
+function UserHeader({ defaultAva, jobTitle, shopName }: UserHeaderProps) {
+    const style = ' text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6  pl-2 flex items-center text-sm'
+    const token = localStorage.getItem('token');
+    const { data, isLoading, isError } = useGetThisUserQuery(undefined, { skip: !token, });
+
+    if (isLoading) return <div className={"skelet" + style}> </div>;
+    if (isError || !data) return <div className={style}>Ошибка загрузки профиля</div>;
+
+    const { fio } = data
+
     return (
         <>
             <div className=" text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6  pl-2 flex items-center text-sm">
@@ -16,7 +25,7 @@ function UserHeader({ defaultAva, jobTitle, name, shopName }: UserHeaderProps) {
                 </div>
 
                 <div className="m-2 flex flex-col">
-                    <div className="mx-2 my-0.5"> <span>{jobTitle}:</span> <span> {name}</span> </div>
+                    <div className="mx-2 my-0.5"> <span>{jobTitle}:</span> <span> {fio} </span> </div>
                     <div className="mx-2 my-0.5"> <span>Магазин:</span> <a href={`/ShopMain?shop=${getShopId(shopName)}`}> {shopName} </a> </div>
                 </div>
 

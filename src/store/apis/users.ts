@@ -11,9 +11,15 @@ const userApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['users'],
+    tagTypes: ['users', 'thisUser'],
     endpoints(builder) {
         return {
+
+
+            getThisUser: builder.query<User, unknown>({
+                query: () => ({ url: '/thisUser', method: 'GET' }),
+                providesTags: ['thisUser']
+            }),
 
 
 
@@ -56,7 +62,7 @@ const userApi = createApi({
     },
 })
 
-export const { useGetUserQuery, useEditUserMutation, useCreateUserMutation } = userApi
+export const { useGetUserQuery, useEditUserMutation, useCreateUserMutation, useGetThisUserQuery } = userApi
 
 export { userApi }
 

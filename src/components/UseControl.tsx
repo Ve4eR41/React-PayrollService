@@ -14,7 +14,7 @@ export default function UserControl() {
     const [selectedUser, setSelectedUser] = useState<User | boolean>(false)
     const [isVisible, visibleToggle] = useState<boolean>(false)
 
-    const users = data && (() => data.map((user) => <UserItem isLoading={isLoading} user={user} onClick={() => { setSelectedUser(user) }} />))()
+    const users = data && (() => data.map((user) => <UserItem  user={user} onClick={() => { setSelectedUser(user) }} />))()
 
     return <Panel>
 

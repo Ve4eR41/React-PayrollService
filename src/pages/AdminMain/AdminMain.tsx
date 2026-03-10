@@ -1,5 +1,6 @@
 import Panel from "../../components/Panel";
 import UserControl from "../../components/UserControlPanel";
+import UserHeader from "../../components/UserHeader";
 
 
 
@@ -12,7 +13,6 @@ export default function AdminMain() {
     //     { id: 13, name: "Vova", shopName: "Hospital", workingTime: 142, revenue: 10000 },
     // ];
 
-
     // //for test
     // const shops = [
     //     { shopName: "Hospital", workingTime: 142, revenue: 10000 },
@@ -23,7 +23,10 @@ export default function AdminMain() {
     return (
         <div className="min-h-screen flex justify-center bg-gradient-to-br from-green-100 to-orange-50  max-sm:p-1 " >
             <div className="w-[60vw]  max-lg:w-[99vw]">
-                <h3 className=" text-white bg-green-600  w-full rounded-b-full rounded-l-full p-2  flex justify-center items-center  text-center text-xl mb-4"> Панель Администратор </h3>
+
+                <UserHeader />
+
+                {/* <h3 className=" text-white bg-green-600  w-full rounded-full p-2  flex justify-center items-center  text-center text-xl my-4"> Панель Администратор </h3> */}
 
                 <UserControl />
 
@@ -36,3 +39,5 @@ export default function AdminMain() {
         </div >
     )
 }
+
+

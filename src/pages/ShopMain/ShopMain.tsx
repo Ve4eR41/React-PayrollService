@@ -8,6 +8,7 @@ import Options from "../../components/input/Options";
 import { getEndMouth, getShopId, getShopName, getStartMouth, SHOP_NAMES } from "../../utils/utils";
 import MonthToggle from "../../components/input/MonthToggle";
 import { useSearchParams } from "react-router-dom";
+import UserHeader from "../../components/UserHeader";
 
 
 export interface ShiftExtends {
@@ -96,8 +97,9 @@ export default function ShopMain() {
     return (
         <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
             <div className="w-[60vw] max-lg:w-[99vw]">
+                <UserHeader />
 
-                <div className="  bg-green-600 text-white w-full rounded-b p-2 flex flex-col justify-center items-center text-center text-xl mb-4">
+                <div className="  bg-green-600 text-white w-full rounded-b p-2 flex flex-col justify-center items-center text-center text-xl my-4">
                     <MonthToggle selectedDate={date} setSelectedDate={setDate} />
                     <Options classesNameInput='border-0' callback={(el) => setShop(getShopId(el as string))} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
                 </div>

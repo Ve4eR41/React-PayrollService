@@ -1,4 +1,4 @@
-import { JSX, useState } from "react";
+import { JSX, useState, useMemo, useCallback } from "react";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 import Panel from "../../components/Panel";
@@ -10,7 +10,6 @@ import MonthToggle from "../../components/input/MonthToggle";
 import { useSearchParams } from "react-router-dom";
 import UserHeader from "../../components/UserHeader";
 
-
 export interface ShiftExtends {
     id: number;
     timeStart: Date;
@@ -21,87 +20,91 @@ export interface ShiftExtends {
     hours: number;
 }
 
-
 export default function ShopMain() {
     const [searchParams] = useSearchParams();
     const [date, setDate] = useState<Date>(new Date());
     const [shop, setShop] = useState<number>(Number(searchParams.get('shop')) || 1);
-    const { data: shiftsData, isLoading, error, refetch } = useShiftsByShopQuery({
+    const { data: shiftsData, isLoading, error, refetch, isFetching } = useShiftsByShopQuery({
         shopName: shop,
         startDate: getStartMouth(date),
         endDate: getEndMouth(date),
-    })
+    }, {
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+        skip: false,
+    });
 
     const headerStyle = "text-center bg-green-600 text-white rounded-t-md"
     const year = date.getFullYear();
     const month = date.getMonth();
 
-    const fakeDays = (() => {
+    const fakeDays = useMemo(() => {
         const preDay = (() => {
             const day = getStartMouth(date).getDay();
             return day === 0 ? 6 : day - 1;
-        })()
+        })();
         const result = [];
-        while (result.length < preDay)
-            result.push(<div key={`${year}_${month}_${result.length}`}></div>)
-        return result
-    })()
+        while (result.length < preDay) {
+            result.push(<div key={`${year}_${month}_${result.length}`}></div>);
+        }
+        return result;
+    }, [date, year, month]);
 
-    const printDays = (() => {
+    const mapedData = useMemo(() => {
+        if (!shiftsData) return {};
 
-        const mapedData = (() => {
-            if (!shiftsData) return {};
+        return shiftsData.reduce<Record<number, ShiftExtends>>((result, shift) => {
+            const dateNum = shift.timeStart.getDate();
+            const shiftHours = shift.timeEnd.getTime() - shift.timeStart.getTime();
 
-            return shiftsData.reduce<Record<number, ShiftExtends>>((result, shift) => {
-                const dateNum = shift.timeStart.getDate();
-                const shiftHours = shift.timeEnd.getTime() - shift.timeStart.getTime();
+            const existingShift = result[dateNum];
 
-                const existingShift = result[dateNum];
-
-                if (!existingShift) {
-                    return {
-                        ...result,
-                        [dateNum]: {
-                            ...shift,
-                            hours: shiftHours
-                        }
-                    };
-                }
-
+            if (!existingShift) {
                 return {
                     ...result,
                     [dateNum]: {
-                        ...existingShift,
-                        revenue: existingShift.revenue + shift.revenue,
-                        cheks: existingShift.cheks + shift.cheks,
-                        hours: (existingShift.hours || 0) + shiftHours
+                        ...shift,
+                        hours: shiftHours
                     }
                 };
-            }, {});
+            }
 
-        })();
+            return {
+                ...result,
+                [dateNum]: {
+                    ...existingShift,
+                    revenue: existingShift.revenue + shift.revenue,
+                    cheks: existingShift.cheks + shift.cheks,
+                    hours: (existingShift.hours || 0) + shiftHours
+                }
+            };
+        }, {});
+    }, [shiftsData]);
 
-        const shifts: JSX.Element[] = []
+    const printDays = useMemo(() => {
+        const shifts: JSX.Element[] = [];
         const maxDays = new Date(year, month + 1, 0).getDate();
         for (let i = 1; i <= maxDays; i++) {
-            const { cheks, revenue, hours } = mapedData[i] || { cheks: 0, revenue: 0 }
-            shifts.push(<ShiftDayInfo cheks={cheks} revenue={revenue} id={i} hours={hours} />)
+            const { cheks, revenue, hours } = mapedData[i] || { cheks: 0, revenue: 0 };
+            shifts.push(<ShiftDayInfo key={i} cheks={cheks} revenue={revenue} id={i} hours={hours} />);
         }
-        return shifts
-    })()
+        return shifts;
+    }, [mapedData, year, month]);
 
+    const handleShopChange = useCallback((el: string | number) => {
+        setShop(getShopId(el as string));
+    }, [setShop]);
 
-
-    if (isLoading) return <Loader />
-    if (error) return <Error refetch={refetch} error={error} />
+    if (isLoading || isFetching) return <Loader />;
+    if (error) return <Error refetch={refetch} error={error} />;
     return (
-        <div className="min-h-[100vh]  flex justify-center bg-green-100  max-sm:p-1 " >
+        <div className="min-h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
             <div className="w-[60vw] max-lg:w-[99vw]">
                 <UserHeader />
 
-                <div className="  bg-green-600 text-white w-full rounded-b p-2 flex flex-col justify-center items-center text-center text-xl my-4">
+                <div className="bg-green-600 text-white w-full rounded-b p-2 flex flex-col justify-center items-center text-center text-xl my-4">
                     <MonthToggle selectedDate={date} setSelectedDate={setDate} />
-                    <Options classesNameInput='border-0' callback={(el) => setShop(getShopId(el as string))} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
+                    <Options classesNameInput='border-0' callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
                 </div>
 
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
@@ -110,5 +113,6 @@ export default function ShopMain() {
                     {printDays}
                 </Panel>
             </div>
-        </div>)
+        </div>
+    );
 }

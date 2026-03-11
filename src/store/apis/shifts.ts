@@ -32,7 +32,11 @@ const shiftsApi = createApi({
                     }));
                 },
 
-                providesTags: ['Shift']
+                providesTags: (result) =>
+                    result
+                        ? [...result.map(({ id }) => ({ type: 'Shift' as const, id })), 'Shift']
+                        : ['Shift'],
+                keepUnusedDataFor: 300,
             }),
 
 

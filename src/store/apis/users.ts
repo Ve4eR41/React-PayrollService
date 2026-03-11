@@ -25,7 +25,11 @@ const userApi = createApi({
 
             getUser: builder.query<User[], unknown>({
                 query: () => ({ url: '', method: 'GET' }),
-                providesTags: ['users']
+                providesTags: (result) =>
+                    result
+                        ? [...result.map(({ id }) => ({ type: 'users' as const, id })), 'users']
+                        : ['users'],
+                keepUnusedDataFor: 300,
             }),
 
 

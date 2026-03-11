@@ -95,6 +95,7 @@ export interface User {
     banReason: null;
     createdAt: string;
     updatedAt: string;
+    jobs: Job[];
     roles: Role[];
 }
 
@@ -102,6 +103,10 @@ interface Role {
     value: string;
 }
 
+interface Job {
+    value: string;
+    description: string;
+}
 
 
 

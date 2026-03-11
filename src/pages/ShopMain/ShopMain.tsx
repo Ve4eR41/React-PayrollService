@@ -24,7 +24,7 @@ export default function ShopMain() {
     const [searchParams] = useSearchParams();
     const [date, setDate] = useState<Date>(new Date());
     const [shop, setShop] = useState<number>(Number(searchParams.get('shop')) || 1);
-    const { data: shiftsData, isLoading, error, refetch, isFetching } = useShiftsByShopQuery({
+    const { data: shiftsData, isLoading, error, refetch } = useShiftsByShopQuery({
         shopName: shop,
         startDate: getStartMouth(date),
         endDate: getEndMouth(date),
@@ -95,7 +95,7 @@ export default function ShopMain() {
         setShop(getShopId(el as string));
     }, [setShop]);
 
-    if (isLoading || isFetching) return <Loader />;
+    if (isLoading) return <Loader />;
     if (error) return <Error refetch={refetch} error={error} />;
     return (
         <div className="min-h-[100vh] flex justify-center bg-green-100 max-sm:p-1">

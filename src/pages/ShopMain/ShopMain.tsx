@@ -105,7 +105,7 @@ export default function ShopMain() {
 
                 <Panel className="mb-4 flex items-center justify-center flex-col">
                     <MonthToggle selectedDate={date} setSelectedDate={setDate} />
-                    <Options classesNameInput='border-1 border-green-700 hover:bg-green-100 m-0 ' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
+                    <Options classesNameInput='border-1 mb-0 border-green-700 hover:bg-green-100' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
                 </Panel>
 
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">

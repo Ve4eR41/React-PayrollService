@@ -15,7 +15,7 @@ interface ShiftProps {
 export default function Shift({ data }: ShiftProps) {
     const [isVisible, setisVisible] = useState(false);
     const { timeStart, shopName, revenue, cheks } = data;
-    const styleWorkingDayInput = ' text-center content-center  '
+    const styleWorkingDayInput = ' text-center content-center '
 
 
     const formatDate = (date: Date) => date.toLocaleString('ru-RU', { day: '2-digit', hour: '2-digit', minute: '2-digit' })

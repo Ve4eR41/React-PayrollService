@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  getShopId, SHOP_NAMES } from "../../utils/utils";
+import { getShopId, SHOP_NAMES } from "../../utils/utils";
 import { useCreateShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Alert from "../Alert";
@@ -16,12 +16,13 @@ function FormCreateShift({ isVisible, visibleToggle }: FormCreateShiftProps) {
     const [shiftParams, setShiftParams] = useState({ timeStart: new Date(), timeEnd: new Date(), shopName: SHOP_NAMES[1], revenue: 0, cheks: 0, id: 1 });
     const [createShift, CreateStatus] = useCreateShiftMutation()
 
+    console.log(shiftParams);
 
 
     const onSub = async () => {
         // for (const value in Object.values(shiftParams))
         // if (!value || value === '0') return console.log(`err ` + value)
-        await  createShift({ ...shiftParams, shopName: getShopId(shiftParams.shopName) })
+        await createShift({ ...shiftParams, shopName: getShopId(shiftParams.shopName) })
     }
 
 

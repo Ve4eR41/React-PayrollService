@@ -26,8 +26,7 @@ function UserHeader() {
                 <div className=" p-2 flex h-full w-full flex-col flex-wrap content-start">
                     <div className="mx-2 my-0.5"> <span>{jobTitle}:</span> <span> {fio} </span> </div>
                     <div className="mx-2 my-0.5"> <span>Магазин:</span> <a href={`/ShopMain?shop=${getShopId(shopName)}`}> {shopName} </a> </div>
-
-                    <div className="mx-2 my-0.5"> <span>Должность:</span> {jobTitle}</div>
+                    {/* <div className="mx-2 my-0.5"> <span>Должность:</span> {jobTitle}</div> */}
                     <div className="mx-2 my-0.5"> <span>Ставка:</span> {jobPayroll} ₽/ч</div>
                 </div>
 

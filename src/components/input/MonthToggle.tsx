@@ -23,10 +23,10 @@ export default function MonthToggle({ setSelectedDate, selectedDate }: MonthTogg
 
 
     return (
-        <div className="flex items-center justify-center mb-2 select-none">
-            <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon" size={20} />
+        <div className="flex items-center w-full relative justify-center mb-2 select-none">
+            <BiArrowFromRight onClick={goToPreviousMonth} className="ButtonIcon absolute left-0" size={20} />
             <h3 className="text-center mx-4 text-xl">Данные за {activeMonth}</h3>
-            <BiArrowFromLeft onClick={goToNextMonth} className="ButtonIcon" size={20} />
+            <BiArrowFromLeft onClick={goToNextMonth} className="ButtonIcon absolute right-0" size={20} />
         </div>
     )
 }

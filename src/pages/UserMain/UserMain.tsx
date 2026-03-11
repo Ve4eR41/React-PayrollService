@@ -47,7 +47,7 @@ function UserMain() {
 
 
 
-    if (isLoading ) return <Loader />;
+    if (isLoading) return <Loader />;
     if (error) return <Error refetch={refetch} error={error} autoRedirect="/" />;
     return (
         <PageWrapper>

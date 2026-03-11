@@ -1,15 +1,33 @@
 import Panel from "../../components/Panel";
 import UserHeader from "../../components/UserHeader"
 import UserShifts from "../../components/UserShifts";
-import { useGetShiftsQuery } from "../../store/apis/shifts"; // Импортируйте Shift
+import { useGetShiftsQuery } from "../../store/apis/shifts";
 import Loader from '../../components/Loader';
 import Error from '../../components/Error';
 import { getEndMouth, getStartMouth } from "../../utils/utils";
 import { useState } from "react";
 
+interface SalaryInfoItem {
+    value: number;
+    label: string;
+}
+
 function UserMain() {
-    //for test
-    const salaryInfo = [{ value: 0, label: "Полная ЗП" }, { value: 0, label: "Больничный" }, { value: 0, label: "Доп.Выплаты" }, { value: 0, label: "Отпускные" }, { value: 0, label: "Итог" }, { value: 0, label: "Отпускные на карту" }, { value: 0, label: "Аванс наличные" }, { value: 0, label: "Аванс Карта" }, { value: 0, label: "ЗП карта" }, { value: 0, label: "НДФЛ" }, { value: 0, label: "Прогул" }, { value: 0, label: "Сбор на ДР" }, { value: 0, label: "Итог" }];
+    const salaryInfo: SalaryInfoItem[] = [
+        { value: 0, label: "Полная ЗП" },
+        { value: 0, label: "Больничный" },
+        { value: 0, label: "Доп.Выплаты" },
+        { value: 0, label: "Отпускные" },
+        { value: 0, label: "Итог" },
+        { value: 0, label: "Отпускные на карту" },
+        { value: 0, label: "Аванс наличные" },
+        { value: 0, label: "Аванс Карта" },
+        { value: 0, label: "ЗП карта" },
+        { value: 0, label: "НДФЛ" },
+        { value: 0, label: "Прогул" },
+        { value: 0, label: "Сбор на ДР" },
+        { value: 0, label: "Итог" }
+    ];
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({
@@ -19,7 +37,9 @@ function UserMain() {
 
 
 
-    const printSalaryInfo = salaryInfo.map((salaryEl, i) => (<p key={i}> 📌 <span>{salaryEl.label}</span> : <span>{salaryEl.value}</span> </p>));
+    const printSalaryInfo = salaryInfo.map((salaryEl, i) => (
+        <p key={i}> 📌 <span>{salaryEl.label}</span> : <span>{salaryEl.value}</span> </p>
+    ));
 
 
 

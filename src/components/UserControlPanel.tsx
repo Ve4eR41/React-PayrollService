@@ -1,18 +1,15 @@
-import { useState } from "react"
-import { useGetUserQuery, User } from "../store/apis/users"
-import Button from "./Button"
-import Panel from "./Panel"
-import FormUserEdit from "./Form/User/FormUserEdit"
-import FormUserCreate from "./Form/User/FormUserCreate"
-import UserItem from "./UserItem"
-
-// interface UseControlProps {
-// }
+import { useState } from "react";
+import { useGetUserQuery, User } from "../store/apis/users";
+import Button from "./Button";
+import Panel from "./Panel";
+import FormUserEdit from "./Form/User/FormUserEdit";
+import FormUserCreate from "./Form/User/FormUserCreate";
+import UserItem from "./UserItem";
 
 export default function UserControl() {
-    const { data, isLoading } = useGetUserQuery('')
-    const [selectedUser, setSelectedUser] = useState<User | boolean>(false)
-    const [isVisible, visibleToggle] = useState<boolean>(false)
+    const { data, isLoading } = useGetUserQuery('');
+    const [selectedUser, setSelectedUser] = useState<User | boolean>(false);
+    const [isVisible, visibleToggle] = useState<boolean>(false);
 
     const users = data && (() => data.map((user) => <UserItem  user={user} onClick={() => { setSelectedUser(user) }} />))()
 

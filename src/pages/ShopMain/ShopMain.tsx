@@ -12,20 +12,20 @@ import UserHeader from "../../components/UserHeader";
 
 
 export interface ShiftExtends {
-    id: number
-    timeStart: Date
-    timeEnd: Date
-    shopName: string
-    revenue: number
-    cheks: number
+    id: number;
+    timeStart: Date;
+    timeEnd: Date;
+    shopName: string;
+    revenue: number;
+    cheks: number;
     hours: number;
 }
 
 
 export default function ShopMain() {
     const [searchParams] = useSearchParams();
-    const [date, setDate] = useState(new Date())
-    const [shop, setShop] = useState(Number(searchParams.get('shop')) || 1)
+    const [date, setDate] = useState<Date>(new Date());
+    const [shop, setShop] = useState<number>(Number(searchParams.get('shop')) || 1);
     const { data: shiftsData, isLoading, error, refetch } = useShiftsByShopQuery({
         shopName: shop,
         startDate: getStartMouth(date),

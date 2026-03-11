@@ -52,7 +52,6 @@ function UserMain() {
     return (
         <div className="h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
             <div className="w-[60vw] max-[1100px]:w-[99vw]">
-                <div className="flex flex-col gap-8">
 
                     <UserHeader />
 
@@ -66,7 +65,6 @@ function UserMain() {
                         </div>
                     </Panel>
 
-                </div>
             </div>
         </div>
     );

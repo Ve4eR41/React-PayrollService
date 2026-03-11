@@ -14,7 +14,7 @@ interface InputWrapperProps {
 
 export default function InputWrapper({ children, className, classesNameInput, label }: InputWrapperProps) {
     const classes = classNames(className, "relative w-[100%]")
-    const classesInput = classNames(classesNameInput, "border rounded-md p-1 mb-3 text-m border-gray-400 w-[100%]")
+    const classesInput = classNames("border rounded-md p-1 mb-3 text-m border-gray-400 w-[100%]", classesNameInput)
 
 
     return (

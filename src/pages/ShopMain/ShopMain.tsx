@@ -100,12 +100,13 @@ export default function ShopMain() {
     return (
         <div className="min-h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
             <div className="w-[60vw] max-lg:w-[99vw]">
+
                 <UserHeader />
 
-                <div className="bg-green-600 text-white w-full rounded-b p-2 flex flex-col justify-center items-center text-center text-xl my-4">
+                <Panel className="mb-4 flex items-center justify-center flex-col">
                     <MonthToggle selectedDate={date} setSelectedDate={setDate} />
-                    <Options classesNameInput='border-0' callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
-                </div>
+                    <Options classesNameInput='border-1 border-green-700 hover:bg-green-100 m-0 ' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
+                </Panel>
 
                 <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                     <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>

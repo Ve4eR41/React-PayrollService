@@ -8,7 +8,7 @@ export default function AdminMain() {
             <div className="w-[60vw] max-lg:w-[99vw]">
                 <UserHeader />
                 <UserControl />
-                <Panel className="h-[90vh] my-3" />
+                <Panel className="h-[90vh] my-5" />
             </div>
         </div>
     );

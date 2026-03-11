@@ -1,19 +1,15 @@
 import { useGetThisUserQuery } from "../store/apis/users";
 import { getShopId } from "../utils/utils"
 import defaultAva from "../assets/defaultAva.jpg"
-
-
-// interface UserHeaderProps {
-// }
+import NavigationPanel from "./NavigationPanel";
 
 function UserHeader() {
-    const style = ' text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6  pl-2 flex items-center text-sm'
     const token = localStorage.getItem('token');
     const { data, isLoading, isError } = useGetThisUserQuery(undefined, { skip: !token, });
     const { jobTitle, shopName } = { jobTitle: 'Помощник', shopName: 'Госпиталь', };
 
-    if (isLoading) return <div className={"skelet" + style}> </div>;
-    if (isError || !data) return <div className={style}>Ошибка загрузки профиля</div>;
+    if (isLoading) return <div className="text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6 pl-2 flex items-center text-sm">Загрузка...</div>;
+    if (isError || !data) return <div className="text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6 pl-2 flex items-center text-sm">Ошибка загрузки профиля</div>;
 
     const { fio } = data
 
@@ -30,7 +26,11 @@ function UserHeader() {
                 </div>
 
             </div>
+            
+            <NavigationPanel />
+
         </>
     )
 }
+
 export default UserHeader

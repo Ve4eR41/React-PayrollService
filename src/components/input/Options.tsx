@@ -8,6 +8,7 @@ interface OptionsProps {
     value: string | number;
     label?: string;
     classesNameInput?: string;
+    valueClassName?: string;
     options: (string | number)[] | { [key: string | number]: string | number | boolean };
     disabled?: boolean
 }
@@ -15,7 +16,7 @@ interface OptionsProps {
 
 
 
-export default function Options({ callback, value, options, label, classesNameInput, disabled }: OptionsProps) {
+export default function Options({ callback, value, options, label, classesNameInput, valueClassName, disabled }: OptionsProps) {
     const [isVisible, setIsVisible] = useState(false);
     const visible = isVisible ? "" : "hidden"
     const toggel = () => { if (!disabled) setIsVisible(!isVisible) }
@@ -25,7 +26,7 @@ export default function Options({ callback, value, options, label, classesNameIn
 
     return (
         <InputWrapper classesNameInput={classesNameInput} label={label}>
-            <div onClick={toggel} className="h-6 cursor-pointer select-none ">{value}</div>
+            <div onClick={toggel} className={"h-6 cursor-pointer select-none" + valueClassName}>{value}</div>
             <div className={visible + " text-black border-1 border-green-500 absolute bg-white z-50 w-full left-0 mt-2 p-2 rounded select-none"}> {optionsList} </div>
         </InputWrapper>
     )

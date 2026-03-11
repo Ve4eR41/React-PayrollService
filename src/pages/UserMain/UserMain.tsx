@@ -1,11 +1,11 @@
 import Panel from "../../components/Panel";
-import UserHeader from "../../components/UserHeader"
 import UserShifts from "../../components/UserShifts";
 import { useGetShiftsQuery } from "../../store/apis/shifts";
 import Loader from '../../components/Loader';
 import Error from '../../components/Error';
 import { getEndMouth, getStartMouth } from "../../utils/utils";
 import { useState } from "react";
+import PageWrapper from "../../components/PageWrapper";
 
 interface SalaryInfoItem {
     value: number;
@@ -30,7 +30,7 @@ function UserMain() {
     ];
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { data: shifts, isLoading, error, refetch, isFetching } = useGetShiftsQuery({
+    const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({
         timeEnd: getEndMouth(selectedDate),
         timeStart: getStartMouth(selectedDate)
     }, {
@@ -47,26 +47,22 @@ function UserMain() {
 
 
 
-    if (isLoading || isFetching) return <Loader />;
+    if (isLoading ) return <Loader />;
     if (error) return <Error refetch={refetch} error={error} autoRedirect="/" />;
     return (
-        <div className="h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
-            <div className="w-[60vw] max-[1100px]:w-[99vw]">
+        <PageWrapper>
 
-                    <UserHeader />
+            <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} setSelectedDate={setSelectedDate} />
 
-                    <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} setSelectedDate={setSelectedDate} />
+            <Panel>
+                <h3 className="text-2xl">Зарплата</h3>
+                <span className="text-sm">Чтобы посмотреть наведитесь на блок</span>
+                <div className="hover:blur-none blur-sm transition-all duration-300 mt-4">
+                    {printSalaryInfo}
+                </div>
+            </Panel>
 
-                    <Panel>
-                        <h3 className="text-2xl">Зарплата</h3>
-                        <span className="text-sm">Чтобы посмотреть наведитесь на блок</span>
-                        <div className="hover:blur-none blur-sm transition-all duration-300 mt-4">
-                            {printSalaryInfo}
-                        </div>
-                    </Panel>
-
-            </div>
-        </div>
+        </PageWrapper>
     );
 }
 

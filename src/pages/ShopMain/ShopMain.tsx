@@ -8,7 +8,7 @@ import Options from "../../components/input/Options";
 import { getEndMouth, getShopId, getShopName, getStartMouth, SHOP_NAMES } from "../../utils/utils";
 import MonthToggle from "../../components/input/MonthToggle";
 import { useSearchParams } from "react-router-dom";
-import UserHeader from "../../components/UserHeader";
+import PageWrapper from "../../components/PageWrapper";
 
 export interface ShiftExtends {
     id: number;
@@ -98,22 +98,19 @@ export default function ShopMain() {
     if (isLoading) return <Loader />;
     if (error) return <Error refetch={refetch} error={error} />;
     return (
-        <div className="min-h-[100vh] flex justify-center bg-green-100 max-sm:p-1">
-            <div className="w-[60vw] max-lg:w-[99vw]">
+        <PageWrapper>
 
-                <UserHeader />
+            <Panel className="mb-4 flex items-center justify-center flex-col">
+                <MonthToggle selectedDate={date} setSelectedDate={setDate} />
+                <Options classesNameInput='border-1 mb-0 border-green-700 hover:bg-green-100' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
+            </Panel>
 
-                <Panel className="mb-4 flex items-center justify-center flex-col">
-                    <MonthToggle selectedDate={date} setSelectedDate={setDate} />
-                    <Options classesNameInput='border-1 mb-0 border-green-700 hover:bg-green-100' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
-                </Panel>
+            <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
+                <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
+                {fakeDays}
+                {printDays}
+            </Panel>
 
-                <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
-                    <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
-                    {fakeDays}
-                    {printDays}
-                </Panel>
-            </div>
-        </div>
+        </PageWrapper>
     );
 }

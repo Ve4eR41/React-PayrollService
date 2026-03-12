@@ -9,6 +9,7 @@ import { getEndMouth, getShopId, getShopName, getStartMouth, SHOP_NAMES } from "
 import MonthToggle from "../../components/input/MonthToggle";
 import { useSearchParams } from "react-router-dom";
 import PageWrapper from "../../components/PageWrapper";
+import SummaryShiftPanel from "../../components/SummaryShiftPanel";
 
 export interface ShiftExtends {
     id: number;
@@ -51,9 +52,9 @@ export default function ShopMain() {
     }, [date, year, month]);
 
     const mapedData = useMemo(() => {
-        if (!shiftsData) return {};
+        if (!shiftsData) return {} as GroupedData;
 
-        return shiftsData.reduce<Record<number, ShiftExtends>>((result, shift) => {
+        return shiftsData.reduce<GroupedData>((result, shift) => {
             const dateNum = shift.timeStart.getDate();
             const shiftHours = shift.timeEnd.getTime() - shift.timeStart.getTime();
 
@@ -64,8 +65,14 @@ export default function ShopMain() {
                     ...result,
                     [dateNum]: {
                         ...shift,
-                        hours: shiftHours
-                    }
+                        hours: shiftHours,
+                    },
+                    summary: {
+                        q: result.summary.q + 1,
+                        workTime: result.summary.workTime + shiftHours,
+                        revenue: result.summary.revenue + shift.revenue,
+                        cheks: result.summary.cheks + shift.cheks
+                    },
                 };
             }
 
@@ -75,10 +82,23 @@ export default function ShopMain() {
                     ...existingShift,
                     revenue: existingShift.revenue + shift.revenue,
                     cheks: existingShift.cheks + shift.cheks,
-                    hours: (existingShift.hours || 0) + shiftHours
+                    hours: (existingShift.hours || 0) + shiftHours,
+                },
+                summary: {
+                    q: result.summary.q + 1,
+                    workTime: result.summary.workTime + shiftHours,
+                    revenue: result.summary.revenue + shift.revenue,
+                    cheks: result.summary.cheks + shift.cheks
                 }
             };
-        }, {});
+        }, {
+            summary: {
+                q: 0,
+                workTime: 0,
+                revenue: 0,
+                cheks: 0,
+            }
+        });
     }, [shiftsData]);
 
     const printDays = useMemo(() => {
@@ -105,6 +125,8 @@ export default function ShopMain() {
                 <Options classesNameInput='border-1 mb-0 border-green-700 hover:bg-green-100' valueClassName=" text-center" callback={handleShopChange} value={getShopName(shop)} options={Object.values(SHOP_NAMES)} />
             </Panel>
 
+            <SummaryShiftPanel summary={mapedData.summary} />
+
             <Panel className="min-h-[80vh] grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] grid-rows-[1fr_10fr_10fr_10fr_10fr_10fr] gap-1">
                 <span className={headerStyle}>Пн </span> <span className={headerStyle}>Вт </span> <span className={headerStyle}>Ср </span> <span className={headerStyle}>Чт </span> <span className={headerStyle}>Пт </span> <span className={headerStyle}>Сб </span> <span className={headerStyle}>Вс </span>
                 {fakeDays}
@@ -113,4 +135,27 @@ export default function ShopMain() {
 
         </PageWrapper>
     );
+}
+
+
+
+
+
+interface ShiftData {
+    timeStart: Date;
+    timeEnd: Date;
+    revenue: number;
+    cheks: number;
+}
+
+interface SummaryData {
+    q: number;
+    workTime: number;
+    revenue: number;
+    cheks: number;
+}
+
+interface GroupedData {
+    [key: number]: ShiftData & { hours: number };
+    summary: SummaryData;
 }

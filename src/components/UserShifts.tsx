@@ -6,6 +6,7 @@ import FormCreateShift from "./Form/FormCreateShift";
 import Shift from "./Shift";
 import Error from "./Error";
 import MonthToggle from "./input/MonthToggle";
+import SummaryShiftPanel from "./SummaryShiftPanel";
 
 
 interface UserShiftsProps {
@@ -47,12 +48,7 @@ function UserShifts({ shifts, setSelectedDate, selectedDate }: UserShiftsProps) 
 
             <MonthToggle setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
 
-            <Panel className="flex justify-around gap-4 my-4 text-xs sm:text-[16px] ">
-                <span className="bg-green rounded-full py-1 px-3">📆Смен: {summary.q}</span>
-                <span className="bg-green rounded-full py-1 px-3">⌛Отработанно: {Math.round(summary.workTime / (1000 * 60 * 60))}ч.</span>
-                <span className="bg-green rounded-full py-1 px-3">💲Выркучка: {summary.revenue}</span>
-                <span className="bg-green rounded-full py-1 px-3">📄Чеков: {summary.cheks}</span>
-            </Panel>
+            <SummaryShiftPanel summary={summary} />
 
             {printShifts}
 

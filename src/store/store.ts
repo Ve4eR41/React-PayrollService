@@ -3,6 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "./apis/authApi.ts";
 import { shiftsApi } from "./apis/shifts.ts";
 import { userApi } from "./apis/users.ts";
+import { jobApi } from "./apis/job.ts";
 
 export const store = configureStore(
     {
@@ -10,12 +11,14 @@ export const store = configureStore(
             [authApi.reducerPath]: authApi.reducer,
             [shiftsApi.reducerPath]: shiftsApi.reducer,
             [userApi.reducerPath]: userApi.reducer,
+            [jobApi.reducerPath]: jobApi.reducer,
         },
         middleware: (grtDefaulMiddleware) => {
             return grtDefaulMiddleware()
                 .concat(authApi.middleware)
                 .concat(shiftsApi.middleware)
                 .concat(userApi.middleware)
+                .concat(jobApi.middleware)
         }
     }
 )

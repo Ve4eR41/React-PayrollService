@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useEditUserMutation, User } from "../../../store/apis/users";
 import { SHOP_NAMES } from "../../../utils/utils";
 import Button from "../../Button";
 import Input from "../../input/Input";
 import Options from "../../input/Options";
 import FormBase from "../FormBase";
+import { useJobListQuery } from "../../../store/apis/job";
 
 interface FormUserControl {
     userData: User;
@@ -12,11 +13,15 @@ interface FormUserControl {
 }
 
 export default function FormUserEdit({ userData, userCallback }: FormUserControl) {
-    const { fio, banned, roles, id } = userData
+    const { fio, banned, roles, id, jobs } = userData
     const disabled = false
     const [editUser] = useEditUserMutation()
+    const { data: job, isLoading: isLoadingJob } = useJobListQuery('')
 
     const handlerEdit = <T extends keyof typeof userData>(k: T, value: typeof userData[T]) => userCallback({ ...userData, [k]: value })
+
+    const jobList = useMemo(() => !job ? [] : job.reduce((result, job) => { return { ...result, [job.id]: job.description } }, {}), [job])
+    
 
     return <FormBase formSettings={{
         title: 'Редактирование пользователя',
@@ -49,11 +54,11 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
         />
 
         <Options label="Должность"
-            disabled={disabled}
-            options={[]}
-            value={'Флорист'}
-            callback={() => { }}
-        />
+            isLoading={isLoadingJob}
+            disabled={isLoadingJob}
+            options={jobList}
+            value={jobs[0]?.description}
+            callback={() => { }} />
 
         <Options label="Роль"
             disabled={disabled}

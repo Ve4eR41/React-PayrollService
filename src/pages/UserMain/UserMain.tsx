@@ -33,10 +33,6 @@ function UserMain() {
     const { data: shifts, isLoading, error, refetch } = useGetShiftsQuery({
         timeEnd: getEndMouth(selectedDate),
         timeStart: getStartMouth(selectedDate)
-    }, {
-        refetchOnFocus: true,
-        refetchOnReconnect: true,
-        skip: false,
     });
 
 

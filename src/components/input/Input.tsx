@@ -29,7 +29,7 @@ export default function Input({ textInput, onInput, label, type, className, disa
 
         else return <input
             onInput={(e: React.ChangeEvent<HTMLInputElement>) => onInput(e.target.value)}
-            value={textInput as string | number | string[] | undefined}
+            value={typeof textInput === 'number' ? `${textInput}`.replace(/^0+(?=\d)/, '') : textInput as string | number | string[] | undefined}
             disabled={disabled}
             className={classesInput}
             type={type} />

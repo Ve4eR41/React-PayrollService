@@ -71,15 +71,15 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
 
                 <Input
                     disabled={disabled}
-                    onInput={(e) => setShiftParams({ ...shiftParams, revenue: Number((e as string).replace(/^0+(?=\d)/, '')) })}
-                    textInput={shiftParams.revenue}
+                    onInput={(e) => setShiftParams({ ...shiftParams, revenue: Number(e) })}
+                    textInput={`${shiftParams.revenue}`.replace(/^0+(?=\d)/, '')}
                     type="number"
                     label="Выручка" />
 
                 <Input
                     disabled={disabled}
-                    onInput={(e) => setShiftParams({ ...shiftParams, cheks: Number((e as string).replace(/^0+(?=\d)/, ''))  })}
-                    textInput={shiftParams.cheks}
+                    onInput={(e) => setShiftParams({ ...shiftParams, cheks: Number(e) })}
+                    textInput={`${shiftParams.cheks}`.replace(/^0+(?=\d)/, '')}
                     type="number"
                     label="Чеки"
                 />

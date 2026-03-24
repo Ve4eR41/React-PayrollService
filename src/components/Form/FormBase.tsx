@@ -31,8 +31,7 @@ export default function FormBase({ children, formSettings }: FormBaseProps) {
 
 
     return (
-        <div onKeyDown={(k) => { console.log(k) }}
-            onClick={() => { }}
+        <div onClick={() => { }}
             className={" fixed inset-0 bg-gray-800/25 flex items-center justify-center z-10 " + (isVisible ? "visible" : "hidden")}>
             <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => { if (disabled) return; e.preventDefault(); visibleToggle(false); onSub() }}

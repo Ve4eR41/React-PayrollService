@@ -48,8 +48,8 @@ const userApi = createApi({
 
 
 
-            editUser: builder.mutation<string, UpdateUser>({
-                query: (body) => {
+            editUser: builder.mutation<string, User>({
+                query: (body) => {;
                     return {
                         url: '/upd',
                         method: 'POST',
@@ -72,14 +72,14 @@ export { userApi }
 
 
 
-interface UpdateUser {
-    id: number;
-    fio?: string;
-    shop?: number;
-    job?: number;
-    banned?: boolean;
-    role?: number;
-}
+// interface UpdateUser {
+//     id: number;
+//     fio?: string;
+//     shop?: number;
+//     jobs?: number;
+//     banned?: boolean;
+//     role?: number;
+// }
 
 
 interface CreateUser {

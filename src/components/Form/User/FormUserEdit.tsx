@@ -21,14 +21,18 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
     const handlerEdit = <T extends keyof typeof userData>(k: T, value: typeof userData[T]) => userCallback({ ...userData, [k]: value })
 
     const jobList = useMemo(() => !job ? [] : job.reduce((result, job) => { return { ...result, [job.id]: job.description } }, {}), [job])
-    
+
+    const handleSubmit = () => {
+        console.log('userData:', userData);
+        editUser(userData);
+    }
 
     return <FormBase formSettings={{
         title: 'Редактирование пользователя',
         disabled: disabled,
         isVisible: !!userData,
         visibleToggle: () => { userCallback(false) },
-        onSub: () => { editUser(userData) },
+        onSub: handleSubmit,
     }}>
         <span className="absolute left-1 bottom-0.5 opacity-50 text-[8px] select-none">id {id}</span>
 
@@ -58,7 +62,7 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
             disabled={isLoadingJob}
             options={jobList}
             value={jobs[0]?.description}
-            callback={() => { }} />
+            callback={(e) => { const a = e as string; handlerEdit('jobs', [{ description: jobList[a as keyof typeof jobList], value: a }]) }} />
 
         <Options label="Роль"
             disabled={disabled}

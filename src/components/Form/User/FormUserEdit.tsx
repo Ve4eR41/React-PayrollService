@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useEditUserMutation, User } from "../../../store/apis/users";
 import { SHOP_NAMES } from "../../../utils/utils";
 import Button from "../../Button";
@@ -6,6 +6,8 @@ import Input from "../../input/Input";
 import Options from "../../input/Options";
 import FormBase from "../FormBase";
 import { useJobListQuery } from "../../../store/apis/job";
+import { useRoleListQuery } from "../../../store/apis/role";
+import { useCreateList } from "../../../hook/useCreateList";
 
 interface FormUserControl {
     userData: User;
@@ -16,11 +18,13 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
     const { fio, banned, roles, id, jobs } = userData
     const disabled = false
     const [editUser] = useEditUserMutation()
-    const { data: job, isLoading: isLoadingJob } = useJobListQuery('')
+    const { data: _jobList, isLoading: isLoadingJobList } = useJobListQuery('')
+    const { data: _roleList, isLoading: isLoadingRoleList } = useRoleListQuery('')
 
     const handlerEdit = <T extends keyof typeof userData>(k: T, value: typeof userData[T]) => userCallback({ ...userData, [k]: value })
 
-    const jobList = useMemo(() => !job ? [] : job.reduce((result, job) => { return { ...result, [job.id]: job.description } }, {}), [job])
+    const jobList = useCreateList(_jobList, 'id', 'description')
+    const roleList = useCreateList(_roleList, 'id', 'value')
 
     const handleSubmit = () => {
         console.log('userData:', userData);
@@ -58,15 +62,16 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
         />
 
         <Options label="Должность"
-            isLoading={isLoadingJob}
-            disabled={isLoadingJob}
+            isLoading={isLoadingJobList}
+            disabled={isLoadingJobList}
             options={jobList}
             value={jobs[0]?.description}
-            callback={(e) => { const a = e as string; handlerEdit('jobs', [{ description: jobList[a as keyof typeof jobList], value: a }]) }} />
+            callback={(e) => { const a = e as string; handlerEdit('jobs', [{ description: jobList[a], value: a }]) }} />
 
         <Options label="Роль"
-            disabled={disabled}
-            options={[]}
+            isLoading={isLoadingRoleList}
+            disabled={isLoadingRoleList}
+            options={roleList}
             value={roles[0].value}
             callback={() => { }}
         />

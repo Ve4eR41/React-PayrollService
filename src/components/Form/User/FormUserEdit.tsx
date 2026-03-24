@@ -66,14 +66,15 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
             disabled={isLoadingJobList}
             options={jobList}
             value={jobs[0]?.description}
-            callback={(e) => { const a = e as string; handlerEdit('jobs', [{ description: jobList[a], value: a }]) }} />
+            callback={(e) => { handlerEdit('jobs', [{ description: jobList[e], id: e as number, value: '' }]) }}
+        />
 
         <Options label="Роль"
             isLoading={isLoadingRoleList}
             disabled={isLoadingRoleList}
             options={roleList}
             value={roles[0].value}
-            callback={() => { }}
+            callback={(e) => { handlerEdit('roles', [{ value: roleList[e], id: e as number, description: '' }]) }}
         />
 
         <Button className="rounded">Изменить</Button>

@@ -100,10 +100,13 @@ export interface User {
 }
 
 interface Role {
+    id:number;
     value: string;
+    description: string;
 }
 
 interface Job {
+    id:number;
     value: string;
     description: string;
 }

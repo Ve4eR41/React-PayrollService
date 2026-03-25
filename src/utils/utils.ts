@@ -64,3 +64,10 @@ export function generatePassword() {
     const parts = password.match(/.{1,3}/g);
     return parts ? parts.join(randomSeparator) : password;
 }
+
+
+export function getStatusFetch(error: unknown) {
+    const isFetchBaseQueryError = typeof error === 'object' && error !== null && 'status' in error;
+    if (isFetchBaseQueryError) return error.status as number
+    return 0
+}

@@ -5,7 +5,7 @@ import UserControl from "../../components/UserControlPanel";
 export default function AdminMain() {
     return (
         <PageWrapper>
-            <UserControl />
+            <UserControl  />
             <Panel className="h-[90vh] my-5" />
         </PageWrapper>
     );

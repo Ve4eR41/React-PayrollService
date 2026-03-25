@@ -6,10 +6,9 @@ import FormUserEdit from "./Form/User/FormUserEdit";
 import FormUserCreate from "./Form/User/FormUserCreate";
 import UserItem from "./UserItem";
 import SkeletPanel from "./Loader/SkeletPanel";
-import { useAuthError } from "../hook/useAuthError";
+import { getStatusFetch } from "../utils/utils";
 
 export default function UserControl() {
-    const { handleAuthError } = useAuthError()
     const { data, isLoading: isLoadingUsers, error } = useGetUserQuery('');
     const [selectedUser, setSelectedUser] = useState<User | boolean>(false);
     const [isVisible, visibleToggle] = useState<boolean>(false);
@@ -18,7 +17,7 @@ export default function UserControl() {
     const isLoading = isLoadingUsers
 
     if (isLoading) return <SkeletPanel />
-    handleAuthError(error)
+    if ([403, 401].includes(getStatusFetch(error))) return <></>
 
     return <Panel>
 

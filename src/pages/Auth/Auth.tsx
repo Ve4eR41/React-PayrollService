@@ -64,7 +64,7 @@ function Auth() {
                     </div>
 
                     <div className="flex justify-end items-end my-2 w-full">
-                        <Button loading={login_result.isLoading} className="rounded-md text-xs mx-2" secondary> Sign in </Button>
+                        <Button loading={login_result.isLoading} className="rounded-md text-xs mx-2" secondary> Войти </Button>
                         {/* <Button loading={login_result.isLoading} className="rounded-md text-xs " secondary> Create </Button> */}
                     </div>
 

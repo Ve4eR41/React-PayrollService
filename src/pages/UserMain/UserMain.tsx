@@ -6,6 +6,7 @@ import Error from '../../components/Error';
 import { getEndMouth, getStartMouth } from "../../utils/utils";
 import { useState } from "react";
 import PageWrapper from "../../components/PageWrapper";
+import Table from "../../components/Table";
 
 interface SalaryInfoItem {
     value: number;
@@ -49,6 +50,17 @@ function UserMain() {
         <PageWrapper>
 
             <UserShifts className='w-[100%]' selectedDate={selectedDate} shifts={shifts} setSelectedDate={setSelectedDate} />
+
+            <Table arr={[
+                {
+                    'Итого': 1,
+                    'Зарплата': 1,
+                    'Часов': 1,
+                    'Премия': 1,
+                    'Чеклист': 1,
+                }
+            ]}
+                title="Зарплата на данный момент" />
 
             <Panel>
                 <h3 className="text-2xl">Зарплата</h3>

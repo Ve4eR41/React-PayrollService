@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import ErrorBoundary from "./pages/ErrorBoundary/ErrorBoundary.tsx";
 
-
 const router = createBrowserRouter(
   [{
     path: '/',
@@ -39,6 +38,12 @@ const router = createBrowserRouter(
         element: <ShopMain />,
         // loader: ...Loader,
       },
+      // {
+      //   path: "/Schedule",
+      //   index: true,
+      //   element: <SchedulePlanner />,
+      //   // loader: ...Loader,
+      // },
     ],
   }]
 );

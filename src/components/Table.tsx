@@ -1,23 +1,51 @@
+import Panel from "./Panel";
 
+interface TableProps<T extends object> {
+    arr: T[];
+    title?: string;
+    headers?: Partial<Record<keyof T, string>>;
+}
 
+export default function Table<T extends object>({ arr, title, headers }: TableProps<T>) {
+    if (arr.length === 0) return null;
 
-export default function Table({ arr, title }: { arr: object[], title?: string }) {
+    const keys = Object.keys(arr[0]) as Array<keyof T>;
+
+    const printHeader = keys.map((key) => (
+        <th key={String(key)} className="text-xs text-white bg-green-700 rounded font-medium">
+            {headers?.[key] ?? String(key)}
+        </th>
+    ));
 
     const printEl = arr.map((el, i) => {
-        const value = Object.values(el).map((value: string | number) => <td>{value}</td>)
+        return (
+            <tr key={i} className="m-2">
+                {keys.map((key, j) => (
+                    <td key={j} className="p-2 text-center">
+                        {String(el[key])}
+                    </td>
+                ))}
+            </tr>
+        );
+    });
 
-        return <tr key={i}>{value}</tr>
-    })
-
-    const printHeader = Object.keys(arr[0]).map((el: string) => <th>{el}</th>)
-
-    return (<div className=" mb-10">
-        <h3 className="text-xl text-center bg-green-600 text-white rounded-t"> {title} </h3>
-        <table className="w-full">
-            <tr className="bg-green-600 text-white hover:bggre">{printHeader}</tr>
-            {printEl}
-        </table>
-    </div>
-    )
-
+    return (
+        <Panel className="my-4 overflow-hidden ">
+            {title && (
+                <h3 className="text-l p-2">
+                    <span className="rounded-full">{title}</span>
+                </h3>
+            )}
+            <table className="w-full border-separate border-spacing-2  ">
+                <thead>
+                    <tr className=" ">
+                        {printHeader}
+                    </tr>
+                </thead>
+                <tbody>
+                    {printEl}
+                </tbody>
+            </table>
+        </Panel>
+    );
 }

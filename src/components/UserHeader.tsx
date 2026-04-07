@@ -17,7 +17,7 @@ function UserHeader() {
 
     return (
         <>
-            <div className=" text-white bg-green-600 h-[7vh] w-full rounded-b-4xl rounded-l-4xl pr-6  pl-2 flex items-center text-sm">
+            <div className=" text-white bg-green-600 md:h-[7vh] h-[10vh] w-full rounded-b-4xl rounded-l-4xl pr-6 overflow-hidden pl-2 flex items-center text-sm">
 
                 <div className=" rounded-full h-[80%] aspect-square flex items-center justify-center overflow-hidden">
                     <img className="w-full " src={defaultAva} alt="" />

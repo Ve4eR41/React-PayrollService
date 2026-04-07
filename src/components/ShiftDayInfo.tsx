@@ -15,7 +15,7 @@ export default function ShiftDayInfo({ revenue, cheks, id, hours }: ShiftDayInfo
     const Params = (data: string | number | undefined | null, label: string) =>
         <div className={classesParams}>
             <label className='z-1 absolute text-gray-400 rounded-2xl bg-2 text-[0.6rem] top-[-0.5rem] last'>{label}</label>
-            <span>{data || '-'}</span>
+            <span className="text-[10px] md:text-[16px]">{data || '-'}</span>
         </div>
         ;
 
@@ -23,12 +23,11 @@ export default function ShiftDayInfo({ revenue, cheks, id, hours }: ShiftDayInfo
     return (
         <div className="  bg-gray-100 p-1 rounded hover:border-green-600" key={id}>
             <span className="bg-green-600 text-white grid justify-center rounded mb-3">{id}</span>
-
             {Params(revenue, 'Выручка')}
             {Params(cheks, 'Чеки')}
             {Params(Math.round(revenue / cheks), 'Ср.Чек')}
             {Params(Math.round(hours / 3600000), 'Часы')}
-            {Params(cheks, '%Списания')}
+            {Params(cheks, '%Спис-я')}
             {Params(cheks, 'Списание')}
         </div>
     )

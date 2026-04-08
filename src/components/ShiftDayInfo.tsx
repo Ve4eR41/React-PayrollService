@@ -15,7 +15,7 @@ export default function ShiftDayInfo({ revenue, cheks, id, hours }: ShiftDayInfo
     const Params = (data: string | number | undefined | null, label: string) =>
         <div className={classesParams}>
             <label className='z-1 absolute text-gray-400 rounded-2xl bg-2 text-[0.6rem] top-[-0.5rem] last'>{label}</label>
-            <span className="text-[10px] md:text-[16px]">{data || '-'}</span>
+            <span className="text-[10px] md:text-[16px]">{data ? data.toLocaleString('ru-RU') : '-'}</span>
         </div>
         ;
 

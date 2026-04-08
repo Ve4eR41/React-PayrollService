@@ -11,38 +11,22 @@ interface SummaryShiftPanelProps {
 }
 
 function SummaryShiftPanel({ className, summary }: SummaryShiftPanelProps) {
+    const { cheks, q, revenue, workTime } = summary
+
+    const el = (icon: string, label: string, value: number) => {
+        return <span className="bg-green rounded-full py-1 px-3">
+            <div className="text-center">{icon}</div>
+            {label}:
+            <div className="text-center">{value.toLocaleString('ru-RU')}</div>
+        </span>
+    }
     return (
         <Panel className={`flex justify-around gap-4 my-4 text-xs sm:text-[16px] ${className || ''}`}>
-
-            <span className="bg-green rounded-full py-1 px-3">
-                <div className="text-center">📆</div>
-                Смен:
-                <div className="text-center">{summary.q}</div>
-            </span>
-
-            <span className="bg-green rounded-full py-1 px-3">
-                <div className="text-center">⌛</div>
-                Время:
-                <div className="text-center"> {Math.round(summary.workTime / (1000 * 60 * 60))}ч.</div>
-            </span>
-
-            <span className="bg-green rounded-full py-1 px-3">
-                <div className="text-center"> 💲</div>
-                Выркучка:
-                <div className="text-center">{summary.revenue}</div>
-            </span>
-
-            <span className="bg-green rounded-full py-1 px-3">
-                <div className="text-center">📚</div>
-                Чеков:
-                <div className="text-center">{summary.cheks}</div>
-            </span>
-
-            <span className="bg-green rounded-full py-1 px-3">
-                <div className="text-center">📄</div>
-                Ср.Чек:
-                <div className="text-center">{Math.round(summary.revenue / summary.cheks)}</div>
-            </span>
+            {el('📆', 'Смен', q)}
+            {el('⌛', 'Время', workTime)}
+            {el('💲', 'Выркучка', revenue)}
+            {el('📚', 'Чеков', cheks)}
+            {el('📄', 'Ср.Чек', Math.round(revenue / cheks))}
         </Panel>
     );
 }

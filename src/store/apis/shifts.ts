@@ -14,7 +14,7 @@ const shiftsApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['Shift', 'ShiftShop'],
+    tagTypes: ['Shift', 'ShiftShop', 'openshift'],
     endpoints(builder) {
         return {
 
@@ -128,6 +128,33 @@ const shiftsApi = createApi({
 
 
 
+            isOpen: builder.query<IsOpenDetail, unknown>({
+                query: () => ({ url: 'openshift/isOpen', method: 'GET' }),
+                providesTags: [`openshift`],
+
+                transformResponse: (response: IsOpenDetail) => {
+                    return {
+                        ...response,
+                        timeStart: new Date(response.timeStart)
+                    }
+                },
+            }),
+
+
+
+            open: builder.mutation<IsOpenDetail, null>({
+                query: () => ({ url: 'openshift/open', method: 'POST' }),
+                invalidatesTags: [`openshift`],
+            }),
+
+
+
+            close: builder.mutation<IsOpenDetail, null>({
+                query: () => ({ url: 'openshift/close', method: 'POST' }),
+                invalidatesTags: [`openshift`, `Shift`],
+            }),
+
+
 
 
         }
@@ -139,7 +166,10 @@ export const {
     useDeleteShiftMutation,
     useGetShiftsQuery,
     useEditShiftMutation,
-    useShiftsByShopQuery
+    useShiftsByShopQuery,
+    useIsOpenQuery,
+    useOpenMutation,
+    useCloseMutation
 } = shiftsApi
 
 export { shiftsApi }
@@ -149,6 +179,10 @@ export { shiftsApi }
 
 
 
+interface IsOpenDetail {
+    isOpen: boolean;
+    timeStart: Date;
+}
 
 
 

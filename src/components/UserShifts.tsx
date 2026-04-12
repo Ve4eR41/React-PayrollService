@@ -7,6 +7,7 @@ import Shift from "./Shift";
 import Error from "./Error";
 import MonthToggle from "./input/MonthToggle";
 import SummaryShiftPanel from "./SummaryShiftPanel";
+import { useCloseMutation, useIsOpenQuery, useOpenMutation } from "../store/apis/shifts";
 
 
 interface UserShiftsProps {
@@ -25,7 +26,10 @@ interface UserShiftsProps {
 
 function UserShifts({ shifts, setSelectedDate, selectedDate }: UserShiftsProps) {
     const [isVisibleAddForm, setIsVisibleAddForm] = useState(false);
-
+    const { data: isOpen, isLoading: isLoadIsOpen } = useIsOpenQuery('');
+    const [openShift, { isLoading: isOpening }] = useOpenMutation();
+    const [closeShift, { isLoading: isClosing }] = useCloseMutation();
+    const isLoading = isLoadIsOpen || isOpening || isClosing;
     if (!shifts) return <Error />
 
     const summary = { workTime: 0, revenue: 0, cheks: 0, q: 0, }
@@ -42,17 +46,20 @@ function UserShifts({ shifts, setSelectedDate, selectedDate }: UserShiftsProps) 
         })
 
 
-
     return (
         <Panel className={"border-0 relative"}>
-
             <MonthToggle setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
 
             <SummaryShiftPanel summary={summary} />
 
             {printShifts}
-
-            <Button className="text-center m-0 rounded w-full" onClick={() => { setIsVisibleAddForm(!isVisibleAddForm) }}>{isVisibleAddForm ? "Закрыть окно" : "Добавить смену"}</Button>
+            {!isOpen?.isOpen ?
+                <Button loading={isLoading} className="text-center m-0 rounded w-full" onClick={() => { openShift(null) }}>Открыть смену</Button>
+                :
+                <Button loading={isLoading} className="text-center m-0 rounded w-full" onClick={() => { closeShift(null) }}>Закрыть смену
+                    <span className="text-xs mx-1"> ({isOpen.timeStart.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })})</span>
+                </Button>
+            }
 
             <FormCreateShift visibleToggle={setIsVisibleAddForm} isVisible={isVisibleAddForm} />
         </Panel >

@@ -1,6 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { backend } from "../../../const";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 // import { getShopId } from "../../utils/getShopName";
+
+interface AuthState {
+    isAdmin: boolean;
+}
+
+const authSlice = createSlice({
+    name: "authslice",
+    initialState: { isAdmin: false } as AuthState,
+    reducers: {
+        setIsAdmin(state, action: PayloadAction<boolean>) {
+            state.isAdmin = action.payload;
+        },
+    },
+});
+
+export const { setIsAdmin } = authSlice.actions;
+
+export const useIsAdmin = () => useSelector((state: RootState) => state[authSlice.name].isAdmin);
 
 const authApi = createApi({
     reducerPath: 'auth',
@@ -59,7 +80,7 @@ const authApi = createApi({
 export const { useLoginMutation, useRegistrationMutation } = authApi
 // console.log(authApi);
 
-export { authApi }
+export { authApi, authSlice }
 
 
 export interface UserAuthDetail {

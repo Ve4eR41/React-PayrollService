@@ -5,6 +5,8 @@ import Options from "../../input/Options";
 import { Shift } from "../../../store/apis/shifts";
 import { RxCross2 } from "react-icons/rx";
 import { ReactNode, useEffect } from "react";
+import { useIsAdmin } from "../../../store/store";
+
 
 
 interface FormCreateShiftProps<T> {
@@ -19,18 +21,19 @@ interface FormCreateShiftProps<T> {
 }
 
 
+
 function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setShiftParams, title, children, disabled }: FormCreateShiftProps<Shift>) {
+    const isAdmin = useIsAdmin();
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (!isVisible) return;
-
             if (event.key === 'Escape') visibleToggle(false);
-
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => { window.removeEventListener('keydown', handleKeyDown); };
     },);
+
 
 
     return (
@@ -41,26 +44,25 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) => { if (disabled) return; e.preventDefault(); visibleToggle(false); onSub() }}
                 className={'bg-white p-4 flex flex-col w-[90%] left-0 mx-[5%] mt-4 shadow-md rounded-md z-60 max-w-100 '}>
 
-
-
                 <h3 className="text-xl mb-2 relative">
                     {title || "Добавление смены"}
                     <RxCross2 size={24} className="hover:text-green-500 cursor-pointer absolute right-0 top-0" onClick={() => { visibleToggle(false) }} />
                 </h3>
 
-                <Input
+                {isAdmin && <Input
                     disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
                     label="Приход" />
+                }
 
-                <Input
+                {isAdmin && <Input
                     disabled={disabled}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
                     textInput={shiftParams.timeEnd}
                     type="DateInput"
-                    label="Уход" />
+                    label="Уход" />}
 
                 <Options
                     disabled={disabled}
@@ -84,13 +86,10 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                     label="Чеки"
                 />
 
-                {
-                    disabled ||
-                    <Button
-                        className="text-center bg-green-100 m-0  border-green-700 text-green-700 rounded-md w-full">
-                        Подтвердить
-                    </Button>
-                }
+                {disabled || <Button
+                    className="text-center bg-green-100 m-0  border-green-700 text-green-700 rounded-md w-full">
+                    Подтвердить
+                </Button>}
 
                 {children}
 

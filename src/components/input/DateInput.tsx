@@ -12,7 +12,12 @@ interface DateInputProps {
 }
 
 export function DateInput({ onInput, dateDefault, className, wrapperClassName, disabled }: DateInputProps) {
-    const classes = classNames(className, 'w-24 rounded  hover:bg-green-100')
+    const classes = classNames(className, 'w-24 rounded ',
+        {
+            'hover:bg-green-100': !disabled,
+            'bg-gray-200': disabled,
+        },
+    )
 
     return <DatePicker
         disabled={disabled}

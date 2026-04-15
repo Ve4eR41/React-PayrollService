@@ -49,16 +49,16 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                     <RxCross2 size={24} className="hover:text-green-500 cursor-pointer absolute right-0 top-0" onClick={() => { visibleToggle(false) }} />
                 </h3>
 
-                {isAdmin && <Input
-                    disabled={disabled}
+                {<Input
+                    disabled={disabled || !isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
                     label="Приход" />
                 }
 
-                {isAdmin && <Input
-                    disabled={disabled}
+                {<Input
+                    disabled={disabled || !isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
                     textInput={shiftParams.timeEnd}
                     type="DateInput"

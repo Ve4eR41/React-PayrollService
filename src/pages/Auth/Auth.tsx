@@ -1,10 +1,10 @@
 import Panel from "../../components/Panel";
 import Button from "../../components/Button";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Input from "../../components/input/Input";
 import logo from "../../assets/logo.png"
 import { useLoginMutation } from "../../store/store";
+import { useThisUser } from "../../hook/useUserRole";
 
 interface RequestLogin {
     data: { token: string };
@@ -17,9 +17,7 @@ function Auth() {
     const [password, setPassword] = useState("");
     const [err, setErr] = useState("");
     const [Login, login_result] = useLoginMutation()
-    const navigate = useNavigate()
-
-
+    useThisUser();
 
     const onSub = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -32,7 +30,6 @@ function Auth() {
 
         setErr("")
         localStorage.setItem("token", res.data.token)
-        return navigate('/Main')
     };
 
 

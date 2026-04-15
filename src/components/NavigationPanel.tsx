@@ -1,21 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useGetThisUserQuery } from "../store/apis/users";
 import { Link } from "react-router-dom";
-import { setIsAdmin, useIsAdmin } from "../store/apis/authApi";
+import { useIsAdmin } from "../store/apis/authApi";
+import { useThisUser } from "../hook/useUserRole";
 
 function NavigationPanel() {
-    const dispatch = useDispatch();
     const isAdmin = useIsAdmin();
-    const token = localStorage.getItem('token');
-    const { data: userData, isLoading, isError } = useGetThisUserQuery(undefined, { skip: !token });
+    const { data: userData, isLoading, isError } = useThisUser();
 
-    useEffect(() => {
-        if (userData?.roles) {
-            const admin = userData.roles.some(role => role.value === "ADMIN");
-            dispatch(setIsAdmin(admin));
-        }
-    }, [userData, dispatch]);
 
     if (isLoading) return <div className="bg-gray-200 p-4 rounded">Загрузка...</div>;
     if (isError || !userData) return <div className="bg-red-100 p-4 rounded">Ошибка загрузки навигации</div>;

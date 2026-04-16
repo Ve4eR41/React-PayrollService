@@ -6,6 +6,7 @@ import { Shift } from "../../../store/apis/shifts";
 import { RxCross2 } from "react-icons/rx";
 import { ReactNode, useEffect } from "react";
 import { useIsAdmin } from "../../../store/store";
+import OptionShiftType from "../../input/options/OptionShiftType";
 
 
 
@@ -49,20 +50,25 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                     <RxCross2 size={24} className="hover:text-green-500 cursor-pointer absolute right-0 top-0" onClick={() => { visibleToggle(false) }} />
                 </h3>
 
-                {<Input
+                <Input
                     disabled={disabled || !isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
                     label="Приход" />
-                }
 
-                {<Input
+
+                <Input
                     disabled={disabled || !isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
                     textInput={shiftParams.timeEnd}
                     type="DateInput"
-                    label="Уход" />}
+                    label="Уход" />
+
+                <OptionShiftType
+                    disabled={false}
+                    value='Смена'
+                    callback={() => { }} />
 
                 <Options
                     disabled={disabled}

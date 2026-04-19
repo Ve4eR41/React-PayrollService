@@ -20,7 +20,10 @@ export default function InputWrapper({ children, className, classesNameInput, la
     return (
         <div className={classes}>
             <div className={classesInput}>
-                {label && <label className='z-2 select-none absolute text-gray-400 bg-white rounded-2xl bg-2 text-xs left-3 top-[-0.5rem]'>{label}</label>}
+                {label && <label className='z-2 select-none absolute text-gray-400 rounded-2xl text-xs left-3 top-[-0.5rem]'>
+                    <div className="w-[110%] h-0.5 z-1 bg-white absolute left-[-5%] top-2 rounded-full"></div>
+                    <span className="z-2 relative">{label}</span>
+                </label>}
                 {children}
             </div>
         </div>

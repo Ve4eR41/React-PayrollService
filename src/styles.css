@@ -11,7 +11,13 @@
   display: inline;
 }
 
-
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 /* ButtonIcon */
 div:hover>.ButtonIcon {

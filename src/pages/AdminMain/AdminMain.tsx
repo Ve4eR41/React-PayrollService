@@ -1,11 +1,13 @@
 import PageWrapper from "../../components/PageWrapper";
 import Panel from "../../components/Panel";
-import UserControl from "../../components/UserControlPanel";
+import ShiftsControlPanel from "../../components/Admin/ShiftsControlPanel";
+// import UserControl from "../../components/UserControlPanel";
 
 export default function AdminMain() {
     return (
         <PageWrapper>
-            <UserControl  />
+            {/* <UserControl  /> */}
+            <ShiftsControlPanel  />
             <Panel className="h-[90vh] my-5" />
         </PageWrapper>
     );

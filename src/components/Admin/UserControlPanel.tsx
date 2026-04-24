@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useGetUserQuery, User } from "../store/apis/users";
-import Button from "./Button";
-import Panel from "./Panel";
-import FormUserEdit from "./Form/User/FormUserEdit";
-import FormUserCreate from "./Form/User/FormUserCreate";
-import UserItem from "./UserItem";
-import SkeletPanel from "./Loader/SkeletPanel";
-import { getStatusFetch } from "../utils/utils";
+import { useGetUserQuery, User } from "../../store/apis/users";
+import Button from "../Button";
+import Panel from "../Panel";
+import FormUserEdit from "../Form/User/FormUserEdit";
+import FormUserCreate from "../Form/User/FormUserCreate";
+import UserItem from "../UserItem";
+import SkeletPanel from "../Loader/SkeletPanel";
+import { getStatusFetch } from "../../utils/utils";
 
 export default function UserControl() {
     const { data, isLoading: isLoadingUsers, error } = useGetUserQuery('');

@@ -14,7 +14,7 @@ const shiftsApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['Shift', 'ShiftShop', 'openshift'],
+    tagTypes: ['Shift', 'ShiftShop', 'openshift', `ShiftsFullInfo`],
     endpoints(builder) {
         return {
 
@@ -99,9 +99,27 @@ const shiftsApi = createApi({
             }),
 
 
-            // ShiftShop
-            // ShiftShop
-            // ShiftShop
+
+            getShiftsFullInfo: builder.query<ShiftFull[], GetShiftsFullInfoDetail>({
+                query: ({ startDate, endDate }) => {
+                    return {
+                        url: '/getShiftsFullInfo',
+                        method: 'POST',
+                        body: { startDate, endDate },
+                    }
+                },
+
+                transformResponse: (response: ShiftFull[]) => {
+                    return response.map((shift) => ({
+                        ...shift,
+                        timeStart: new Date(shift.timeStart),
+                        timeEnd: new Date(shift.timeEnd),
+                    }));
+                },
+
+                providesTags: ['ShiftsFullInfo']
+            }),
+
 
 
             shiftsByShop: builder.query<Shift[], GetShiftsByShopDetail>({
@@ -162,6 +180,7 @@ const shiftsApi = createApi({
 })
 
 export const {
+    useGetShiftsFullInfoQuery,
     useCreateShiftMutation,
     useDeleteShiftMutation,
     useGetShiftsQuery,
@@ -212,6 +231,10 @@ export interface GetShiftsByShopDetail {
     endDate: Date
     shopName: number
 }
+export interface GetShiftsFullInfoDetail {
+    startDate: Date
+    endDate: Date
+}
 export interface CreateShiftDetail {
     timeStart: Date
     timeEnd: Date
@@ -239,6 +262,8 @@ export interface ShiftRaw {
     cheks: number
 }
 
+
+//
 export interface Shift {
     id: number
     timeStart: Date
@@ -246,4 +271,19 @@ export interface Shift {
     shopName: string
     revenue: number
     cheks: number
+}
+
+interface ShiftFull {
+    id: number;
+    timeStart: Date;
+    userId: number;
+    shiftTypeId: number;
+    timeEnd: Date;
+    shopName: string;
+    revenue: number;
+    cheks: number;
+    createdAt: string;
+    updatedAt: string;
+    fio: string;
+    shiftTypeName: string;
 }

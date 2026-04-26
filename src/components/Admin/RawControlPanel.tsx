@@ -9,11 +9,11 @@ interface ParamFilter<K> {
 
 interface RawControlPanelProps<T extends Array<object>> {
     title: string
-    buttonLabel: string
+    buttonLabel?: string
     items?: T
     paramFilter: Partial<{ [K in keyof T[0]]: ParamFilter<T[0][K]> }>,
-    buttonCallback: () => void,
-    itemClickCallback: () => void,
+    buttonCallback?: () => void,
+    itemClickCallback: (item: T[0]) => void,
 }
 
 export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback }: RawControlPanelProps<T>) {
@@ -27,7 +27,6 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
             const index = indexes.indexOf(k)
             if (settings) acc[index] = <span
                 className="[&:not(:first-child)]:text-center whitespace-nowrap"
-                onClick={itemClickCallback}
                 style={{ width }}
             >{`${settings.transform ? settings.transform(p) : p}`}
             </span>
@@ -37,14 +36,14 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
 
         return <div
             // key={id}
-            // onClick={() => { onClick() }}
-            className='relative flex items-center text-[14px] justify-between p-4 h-9 hover:bg-green-100 rounded cursor-pointer'>
+            onClick={() => { itemClickCallback(i); console.log(i); }}
+            className='relative flex items-center text-[14px] justify-between p-2 h-9 hover:bg-green-100 rounded cursor-pointer'>
             {params}
         </div>
     })
 
     const headers = <div
-        className='relative flex text-xs items-center justify-between p-1 h-3'>
+        className='relative flex text-xs items-center justify-between px-2 py-1 h-3'>
         {head.map(([k, settings]) => {
             if (!settings) return null;
             const { name } = settings;
@@ -58,7 +57,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
             <h3 className="w-full text-center bg-green-600 text-white p-2 text-xl rounded">{title}</h3>
             {headers}
             {elements}
-            <Button onClick={buttonCallback} className="w-full rounded" >{buttonLabel}</Button>
+            {buttonLabel && <Button onClick={buttonCallback} className="w-full rounded" >{buttonLabel}</Button>}
         </div>
     </Panel>
 }

@@ -14,7 +14,7 @@ const shiftsApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['Shift', 'ShiftShop', 'openshift', `ShiftsFullInfo`],
+    tagTypes: ['Shift', 'ShiftShop', 'openshift', `ShiftsFullInfo`, `OpenShifts`],
     endpoints(builder) {
         return {
 
@@ -161,6 +161,22 @@ const shiftsApi = createApi({
 
 
 
+            getOpenShifts: builder.query<OpenShiftDetail[], unknown>({
+                query: () => ({ url: 'openshift/getAll', method: 'GET' }),
+                providesTags: [`OpenShifts`],
+
+                transformResponse: (response: OpenShiftDetail[]) => {
+                    return response.map((openshift) => (
+                        {
+                            ...openshift,
+                            timeStart: new Date(openshift.timeStart)
+                        }
+                    ))
+                },
+            }),
+
+
+
             open: builder.mutation<IsOpenDetail, null>({
                 query: () => ({ url: 'openshift/open', method: 'POST' }),
                 invalidatesTags: [`openshift`],
@@ -181,6 +197,7 @@ const shiftsApi = createApi({
 })
 
 export const {
+    useGetOpenShiftsQuery,
     useGetShiftsFullInfoQuery,
     useCreateShiftMutation,
     useDeleteShiftMutation,
@@ -204,6 +221,13 @@ interface IsOpenDetail {
     timeStart: Date;
 }
 
+interface OpenShiftDetail {
+    userid: number;
+    timeStart: Date;
+    createdAt: string;
+    updatedAt: string;
+    fio: string;
+}
 
 
 

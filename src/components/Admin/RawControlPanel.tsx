@@ -37,6 +37,10 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
         })
     })()
 
+
+    console.log(`sortedItems`, sortedItems);
+
+
     const elements = sortedItems.map((i) => {
         const params = Object.entries(i).reduce<JSX.Element[]>((acc, [k, p]) => {
             const settings = paramFilter[k as keyof T[0]]

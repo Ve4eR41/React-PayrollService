@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { getShopId, isMoreDaysLimit } from "../../utils/utils";
-import { useDeleteShiftMutation, useEditShiftMutation } from "../../store/apis/shifts";
+import { Shift, useDeleteShiftMutation, useEditShiftMutation } from "../../store/apis/shifts";
 import RawFormCreateShift from "./RawForm/RawFormCreateShift";
 import Button from "../Button";
 import { BiTrash } from "react-icons/bi";
 import Alert from "../Alert";
+import { useIsAdmin } from "../../store/store";
 
 
 
 interface FormCreateShiftProps {
     isVisible: boolean;
     visibleToggle: React.Dispatch<React.SetStateAction<boolean>>;
-    shift: { timeStart: Date, timeEnd: Date, shopName: string, revenue: number, cheks: number, id: number }
+    shift: Shift
 }
 
 
@@ -19,7 +20,8 @@ function FormEditShift({ visibleToggle, isVisible, shift }: FormCreateShiftProps
     const [shiftParams, setShiftParams] = useState(shift);
     const [editShift, editStatus] = useEditShiftMutation()
     const [deleteShift, deleteStatus] = useDeleteShiftMutation();
-    const disabled = !isMoreDaysLimit(shift.timeStart)
+    const isAdmin = useIsAdmin();
+    const disabled = !(isMoreDaysLimit(shift.timeStart) || isAdmin)
 
     const handlerDelete = async () => { await deleteShift({ shiftId: shift.id }) }
 

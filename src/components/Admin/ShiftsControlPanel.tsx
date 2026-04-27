@@ -15,7 +15,6 @@ export default function ShiftsControlPanel() {
         startDate: getStartMouth(date),
         endDate: getEndMouth(date),
     }, {
-        refetchOnFocus: true,
         refetchOnReconnect: true,
         skip: false,
     });

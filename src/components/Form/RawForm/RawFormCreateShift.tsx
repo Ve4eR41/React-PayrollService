@@ -51,7 +51,7 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
                 </h3>
 
                 <Input
-                    disabled={disabled || !isAdmin}
+                    disabled={!isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeStart: e as Date })}
                     textInput={shiftParams.timeStart}
                     type="DateInput"
@@ -59,16 +59,16 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
 
 
                 <Input
-                    disabled={disabled || !isAdmin}
+                    disabled={!isAdmin}
                     onInput={(e) => setShiftParams({ ...shiftParams, timeEnd: e as Date })}
                     textInput={shiftParams.timeEnd}
                     type="DateInput"
                     label="Уход" />
 
                 <OptionShiftType
-                    disabled={false}
-                    value='Смена'
-                    callback={() => { }} />
+                    disabled={disabled}
+                    value={shiftParams.shiftTypeId}
+                    callback={(e) => setShiftParams({ ...shiftParams, shiftTypeId: +e })} />
 
                 <Options
                     disabled={disabled}
@@ -79,14 +79,14 @@ function RawFormCreateShift({ visibleToggle, isVisible, onSub, shiftParams, setS
 
                 <Input
                     disabled={disabled}
-                    onInput={(e) => setShiftParams({ ...shiftParams, revenue: Number(e) })}
+                    onInput={(e) => setShiftParams({ ...shiftParams, revenue: +e })}
                     textInput={shiftParams.revenue}
                     type="number"
                     label="Выручка" />
 
                 <Input
                     disabled={disabled}
-                    onInput={(e) => setShiftParams({ ...shiftParams, cheks: Number(e) })}
+                    onInput={(e) => setShiftParams({ ...shiftParams, cheks: +e })}
                     textInput={shiftParams.cheks}
                     type="number"
                     label="Чеки"

@@ -8,6 +8,7 @@ interface ParamFilter<K> {
 }
 
 interface RawControlPanelProps<T extends Array<object>> {
+    sortBy?: keyof T[0]
     title: string
     buttonLabel?: string
     items?: T
@@ -16,12 +17,27 @@ interface RawControlPanelProps<T extends Array<object>> {
     itemClickCallback: (item: T[0]) => void,
 }
 
-export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback }: RawControlPanelProps<T>) {
+export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy }: RawControlPanelProps<T>) {
     const indexes = Object.keys(paramFilter);
     const width = 100 / indexes.length + `%`;
     const head = Object.entries(paramFilter) as [keyof typeof paramFilter, ParamFilter<unknown> | undefined][];;
 
-    const elements = items && items.map((i) => {
+    const sortedItems = (() => {
+        if (!items) return []
+        if (!sortBy) return items
+
+        return [...items].sort((a, b) => {
+            const valueA = a[sortBy];
+            const valueB = b[sortBy];
+
+            if (typeof valueA == "number" && typeof valueB == "number") return valueA - valueB
+            if (typeof valueA === "string" && typeof valueB === "string") return valueA.toLowerCase().localeCompare(valueB.toLowerCase())
+            if (valueA instanceof Date && valueB instanceof Date) return valueA.getTime() - valueB.getTime()
+            return 0
+        })
+    })()
+
+    const elements = sortedItems.map((i) => {
         const params = Object.entries(i).reduce<JSX.Element[]>((acc, [k, p]) => {
             const settings = paramFilter[k as keyof T[0]]
             const index = indexes.indexOf(k)

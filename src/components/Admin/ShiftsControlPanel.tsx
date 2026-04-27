@@ -26,12 +26,11 @@ export default function ShiftsControlPanel() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
     return <>
-
-
         <RawControlPanel
             title="Смены"
             items={shiftsData}
             itemClickCallback={(i) => { setShift(i); setisVisible(true) }}
+            sortBy="timeStart"
             paramFilter={{
                 'fio': {
                     name: 'Фамилия',

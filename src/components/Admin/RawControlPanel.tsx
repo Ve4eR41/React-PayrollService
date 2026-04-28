@@ -77,7 +77,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
         })}
     </div >
 
-    return <Panel>
+    return <Panel className="my-4">
         <div className='flex flex-col gap-4'>
             <h3 className="w-full text-center bg-green-600 text-white p-2 text-xl rounded">{title}</h3>
             {headers}

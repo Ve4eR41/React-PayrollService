@@ -9,6 +9,7 @@ interface ParamFilter<K> {
 
 interface RawControlPanelProps<T extends Array<object>> {
     sortBy?: keyof T[0]
+    isAsc?: boolean
     title: string
     buttonLabel?: string
     items?: T
@@ -17,7 +18,7 @@ interface RawControlPanelProps<T extends Array<object>> {
     itemClickCallback: (item: T[0]) => void,
 }
 
-export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy }: RawControlPanelProps<T>) {
+export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy, isAsc }: RawControlPanelProps<T>) {
     const indexes = Object.keys(paramFilter);
     const width = 100 / indexes.length + `%`;
     const head = Object.entries(paramFilter) as [keyof typeof paramFilter, ParamFilter<unknown> | undefined][];;
@@ -30,10 +31,14 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
             const valueA = a[sortBy];
             const valueB = b[sortBy];
 
-            if (typeof valueA == "number" && typeof valueB == "number") return valueA - valueB
-            if (typeof valueA === "string" && typeof valueB === "string") return valueA.toLowerCase().localeCompare(valueB.toLowerCase())
-            if (valueA instanceof Date && valueB instanceof Date) return valueA.getTime() - valueB.getTime()
-            return 0
+            const comparison = (() => {
+                if (typeof valueA == "number" && typeof valueB == "number") return valueA - valueB
+                else if (typeof valueA === "string" && typeof valueB === "string") return valueA.toLowerCase().localeCompare(valueB.toLowerCase())
+                else if (valueA instanceof Date && valueB instanceof Date) return valueA.getTime() - valueB.getTime()
+                else return 0
+            })()
+
+            return isAsc ? comparison : -comparison;
         })
     })()
 

@@ -23,6 +23,7 @@ export default function OpenShiftsControlPanel() {
             title="Открытые смены"
             items={openShiftsData}
             sortBy="timeStart"
+            isAsc={true}
             paramFilter={{
                 'fio': {
                     name: 'Фамилия',

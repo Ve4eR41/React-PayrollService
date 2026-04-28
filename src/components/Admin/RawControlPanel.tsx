@@ -23,6 +23,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
     const width = 100 / indexes.length + `%`;
     const head = Object.entries(paramFilter) as [keyof typeof paramFilter, ParamFilter<unknown> | undefined][];;
 
+
     const sortedItems = (() => {
         if (!items) return []
         if (!sortBy) return items
@@ -43,10 +44,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
     })()
 
 
-    console.log(`sortedItems`, sortedItems);
-
-
-    const elements = sortedItems.map((i) => {
+    const Elements = sortedItems.map((i) => {
         const params = Object.entries(i).reduce<JSX.Element[]>((acc, [k, p]) => {
             const settings = paramFilter[k as keyof T[0]]
             const index = indexes.indexOf(k)
@@ -67,7 +65,8 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
         </div>
     })
 
-    const headers = <div
+
+    const Headers = <div
         className='relative flex text-xs items-center justify-between px-2 py-1 h-3'>
         {head.map(([k, settings]) => {
             if (!settings) return null;
@@ -77,11 +76,13 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
         })}
     </div >
 
+
+
     return <Panel className="my-4">
         <div className='flex flex-col gap-4'>
             <h3 className="w-full text-center bg-green-600 text-white p-2 text-xl rounded">{title}</h3>
-            {headers}
-            {elements}
+            {Headers}
+            {Elements}
             {buttonLabel && <Button onClick={buttonCallback} className="w-full rounded" >{buttonLabel}</Button>}
         </div>
     </Panel>

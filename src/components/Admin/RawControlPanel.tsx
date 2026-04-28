@@ -67,7 +67,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
 
 
     const Headers = <div
-        className='relative flex text-xs items-center justify-between px-2 py-1 h-3'>
+        className='relative flex text-xs items-center border-x-green-100 border-x-2 justify-between px-2 py-1 h-3'>
         {head.map(([k, settings]) => {
             if (!settings) return null;
             const { name } = settings;
@@ -80,7 +80,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
 
     return <Panel className="my-4">
         <div className='flex flex-col gap-4'>
-            <h3 className="w-full text-center bg-green-600 text-white p-2 text-xl rounded">{title}</h3>
+            <h3 className="w-full font-extrabold border-l-8 border-green-100 text-green-600 p-2 text-xl rounded">{title}</h3>
             {Headers}
             {Elements}
             {buttonLabel && <Button onClick={buttonCallback} className="w-full rounded" >{buttonLabel}</Button>}

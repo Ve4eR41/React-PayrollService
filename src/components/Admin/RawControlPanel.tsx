@@ -39,7 +39,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
                 else return 0
             })()
 
-            return isAsc ? comparison : -comparison;
+            return isAsc ? -comparison : comparison;
         })
     })()
 

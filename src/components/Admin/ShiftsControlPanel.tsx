@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Shift, useGetShiftsFullInfoQuery } from "../../store/apis/shifts";
 import SkeletPanel from "../Loader/SkeletPanel";
 import { RawControlPanel } from "./RawControlPanel";
-import { getEndMouth, getStartMouth, getStatusFetch } from "../../utils/utils";
+import { diffInHours, getEndMouth, getStartMouth, getStatusFetch, timeInHourAndMin } from "../../utils/utils";
 import FormEditShift from "../Form/FormEditShift";
 
 
@@ -19,6 +19,11 @@ export default function ShiftsControlPanel() {
         skip: false,
     });
 
+    const extendsShiftsData = shiftsData && shiftsData.map((s) => ({
+        ...s,
+        avgCheck: Math.round(s.revenue / s.cheks) || 0,
+        workHours: timeInHourAndMin(diffInHours(s.timeStart, s.timeEnd))
+    }));
 
     const formateDate = (v: Date) => v.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })
 
@@ -28,19 +33,25 @@ export default function ShiftsControlPanel() {
     return <>
         <RawControlPanel
             title="Смены"
-            items={shiftsData}
+            items={extendsShiftsData}
             itemClickCallback={(i) => { setShift(i); setisVisible(true) }}
-            sortBy="timeStart"
+            isAsc sortBy="timeStart"
             paramFilter={{
                 'fio': {
                     name: 'Фамилия',
                     transform: (v) => v.replace(/( .).+/g, '$1.')
                 },
                 'cheks': {
-                    name: 'Чеки'
+                    name: 'Чеки',
+                    transform: v => v.toLocaleString(`ru-Ru`)
                 },
                 'revenue': {
-                    name: 'Выручка'
+                    name: 'Выручка',
+                    transform: v => v.toLocaleString(`ru-Ru`)
+                },
+                'avgCheck': {
+                    name: 'Ср.чек',
+                    transform: v => v.toLocaleString(`ru-Ru`)
                 },
                 'timeStart': {
                     name: 'Начало',
@@ -49,6 +60,9 @@ export default function ShiftsControlPanel() {
                 'timeEnd': {
                     name: 'Конец',
                     transform: formateDate
+                },
+                'workHours': {
+                    name: 'часов',
                 },
                 'shiftTypeName': {
                     name: 'Тип',

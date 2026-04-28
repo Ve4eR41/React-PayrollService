@@ -71,3 +71,20 @@ export function getStatusFetch(error: unknown) {
     if (isFetchBaseQueryError) return error.status as number
     return 0
 }
+
+
+
+export function diffInHours(date1: Date, date2: Date) {
+    const diffInMs = Math.abs(+date2 - +date1);
+    return diffInMs / (1000 * 60 * 60)
+}
+
+
+
+export function timeInHourAndMin(diffInMs: number) {
+    const totalMinutes = Math.floor(diffInMs / (1000 * 60));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    return `${hours}ч. ${minutes}м.`
+}

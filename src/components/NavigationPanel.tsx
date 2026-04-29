@@ -25,13 +25,20 @@ function NavigationPanel() {
                     </Link>
                 </li>
 
-                {isAdmin && (
+                {isAdmin && <>
                     <li>
                         <Link to="/AdminMain" className="hover:text-green-200 transition-colors ">
                             Админ панель
                         </Link>
                     </li>
-                )}
+
+                    <li>
+                        <Link to="/ShiftsAdministration" className="hover:text-green-200 transition-colors ">
+                            Управление сменами
+                        </Link>
+                    </li>
+                </>
+                }
             </ul>
         </nav>
     );

@@ -8,6 +8,7 @@ import loaderUserMain from "./pages/UserMain/loaderUserMain.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import ErrorBoundary from "./pages/ErrorBoundary/ErrorBoundary.tsx";
+import PageShiftsAdministration from "./pages/ShiftsAdministration/ShiftsAdministration.tsx";
 
 const router = createBrowserRouter(
   [{
@@ -30,6 +31,13 @@ const router = createBrowserRouter(
         path: "/AdminMain",
         index: true,
         element: <AdminMain />,
+        // loader: ...Loader,
+        
+      },
+      {
+        path: "/ShiftsAdministration",
+        index: true,
+        element: <PageShiftsAdministration />,
         // loader: ...Loader,
       },
       {

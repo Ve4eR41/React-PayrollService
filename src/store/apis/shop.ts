@@ -16,6 +16,7 @@ const shopApi = createApi({
         return {
 
 
+
             shopList: builder.query<ShopDetail[], unknown>({
                 query: () => ({ url: '', method: 'GET' }),
                 providesTags: ['shop']
@@ -23,11 +24,16 @@ const shopApi = createApi({
 
 
 
+            createShop: builder.mutation<ShopDetail[], CreateShopProps>({
+                query: (body) => ({ url: '', method: 'POST', body }),
+                invalidatesTags: ['shop']
+            }),
+
         }
     },
 })
 
-export const { useShopListQuery } = shopApi
+export const { useShopListQuery, useCreateShopMutation } = shopApi
 
 export { shopApi }
 
@@ -39,5 +45,7 @@ interface ShopDetail {
     updatedAt: string;
 }
 
-
+export interface CreateShopProps {
+    name: string;
+}
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { generatePassword } from "../../../utils/utils";
 import Button from "../../Button";
 import Input from "../../input/Input";
-import FormBase from "../FormBase";
+import FormBase from "../RawForm/FormBase";
 import { useCreateUserMutation } from "../../../store/apis/users";
 
 interface FormUserControl {

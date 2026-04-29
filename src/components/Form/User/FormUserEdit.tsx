@@ -4,7 +4,7 @@ import { SHOP_NAMES } from "../../../utils/utils";
 import Button from "../../Button";
 import Input from "../../input/Input";
 import Options from "../../input/Options";
-import FormBase from "../FormBase";
+import FormBase from "../RawForm/FormBase";
 import { useJobListQuery } from "../../../store/apis/job";
 import { useRoleListQuery } from "../../../store/apis/role";
 import { useCreateList } from "../../../hook/useCreateList";

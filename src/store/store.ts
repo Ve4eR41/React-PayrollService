@@ -4,6 +4,7 @@ import { authApi, authSlice } from "./apis/authApi.ts";
 import { shiftsApi } from "./apis/shifts.ts";
 import { userApi } from "./apis/users.ts";
 import { jobApi } from "./apis/job.ts";
+import { shopApi } from "./apis/shop.ts";
 import { roleApi } from "./apis/role.ts";
 import { shiftTypeApi } from "./apis/shiftType.ts";
 
@@ -17,6 +18,7 @@ export const store = configureStore(
             [jobApi.reducerPath]: jobApi.reducer,
             [roleApi.reducerPath]: roleApi.reducer,
             [shiftTypeApi.reducerPath]: shiftTypeApi.reducer,
+            [shopApi.reducerPath]: shopApi.reducer,
         },
         middleware: (grtDefaulMiddleware) => {
             return grtDefaulMiddleware()
@@ -24,6 +26,7 @@ export const store = configureStore(
                 .concat(shiftsApi.middleware)
                 .concat(userApi.middleware)
                 .concat(jobApi.middleware)
+                .concat(shopApi.middleware)
                 .concat(roleApi.middleware)
                 .concat(shiftTypeApi.middleware)
         }

@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import ErrorBoundary from "./pages/ErrorBoundary/ErrorBoundary.tsx";
 import PageShiftsAdministration from "./pages/ShiftsAdministration/ShiftsAdministration.tsx";
+import PageRetailPlaning from "./pages/RetailPlaning/PageRetailPlaning.tsx";
 
 const router = createBrowserRouter(
   [{
@@ -38,6 +39,12 @@ const router = createBrowserRouter(
         path: "/ShiftsAdministration",
         index: true,
         element: <PageShiftsAdministration />,
+        // loader: ...Loader,
+      },
+      {
+        path: "/retailPlaning",
+        index: true,
+        element: <PageRetailPlaning />,
         // loader: ...Loader,
       },
       {

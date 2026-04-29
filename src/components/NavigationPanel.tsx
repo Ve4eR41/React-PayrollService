@@ -37,6 +37,12 @@ function NavigationPanel() {
                             Управление сменами
                         </Link>
                     </li>
+
+                    <li>
+                        <Link to="/retailPlaning" className="hover:text-green-200 transition-colors ">
+                            Планирование продаж
+                        </Link>
+                    </li>
                 </>
                 }
             </ul>

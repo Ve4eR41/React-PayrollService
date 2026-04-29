@@ -62,7 +62,7 @@ export default function ShiftsControlPanel() {
                     transform: formateDate
                 },
                 'workHours': {
-                    name: 'часов',
+                    name: 'Часов',
                 },
                 'shiftTypeName': {
                     name: 'Тип',

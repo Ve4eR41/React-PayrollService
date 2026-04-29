@@ -67,12 +67,11 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
 
 
     const Headers = <div
-        className='relative flex text-xs items-center border-x-green-100 border-x-2 justify-between px-2 py-1 h-3'>
+        className='relative flex text-xs items-center justify-between px-2 py-1 h-3'>
         {head.map(([k, settings]) => {
             if (!settings) return null;
             const { name } = settings;
-            return <div key={String(k)} className='text-center' style={{ width }}> {`${name}`
-            }</div>
+            return <div key={String(k)} className='text-center border-x-gray-100 border-x-1 last:border-r-2 first:border-l-2' style={{ width }}> {`${name}`}</div>
         })}
     </div >
 

@@ -11,7 +11,7 @@ import { useCreateList } from "../../../hook/useCreateList";
 
 interface FormUserControl {
     userData: User;
-    userCallback: React.Dispatch<React.SetStateAction<boolean | User>>;
+    userCallback: React.Dispatch<React.SetStateAction<User | undefined>>;
 }
 
 export default function FormUserEdit({ userData, userCallback }: FormUserControl) {
@@ -35,7 +35,7 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
         title: 'Редактирование пользователя',
         disabled: disabled,
         isVisible: !!userData,
-        visibleToggle: () => { userCallback(false) },
+        visibleToggle: () => { userCallback(undefined) },
         onSub: handleSubmit,
     }}>
         <span className="absolute left-1 bottom-0.5 opacity-50 text-[8px] select-none">id {id}</span>

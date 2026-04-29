@@ -32,7 +32,9 @@ function Button({
 }: ButtonProps) {
   const classes = classNames(
     className,
-    'flex justify-center bg-green-600 items-center border cursor-pointer ',
+    `flex justify-center bg-green-600 items-center rounded-full border cursor-pointer
+     text-green-500 font-bold
+     border-2 border-green-100 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500`,
     {
       'opacity-80 bg-gray': loading,
       'bg-white text-green-700': secondary,

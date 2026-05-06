@@ -38,7 +38,7 @@ export const { useShopListQuery, useCreateShopMutation } = shopApi
 export { shopApi }
 
 
-interface ShopDetail {
+export interface ShopDetail {
     id: number;
     name: string;
     createdAt: string;

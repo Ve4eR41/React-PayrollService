@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, ReactNode } from "react";
 import Button from "../Button";
 import Panel from "../Panel";
 
@@ -16,9 +16,10 @@ interface RawControlPanelProps<T extends Array<object>> {
     paramFilter: Partial<{ [K in keyof T[0]]: ParamFilter<T[0][K]> }>,
     buttonCallback?: () => void,
     itemClickCallback: (item: T[0]) => void,
+    children?: ReactNode | string
 }
 
-export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy, isAsc }: RawControlPanelProps<T>) {
+export function RawControlPanel<T extends Array<object>>({ title, children, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy, isAsc }: RawControlPanelProps<T>) {
     const indexes = Object.keys(paramFilter);
     const width = 100 / indexes.length + `%`;
     const head = Object.entries(paramFilter) as [keyof typeof paramFilter, ParamFilter<unknown> | undefined][];;
@@ -59,7 +60,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
 
         return <div
             // key={id}
-            onClick={() => { itemClickCallback(i); console.log(i); }}
+            onClick={() => { itemClickCallback(i); }}
             className='relative flex items-center text-[14px] justify-between p-2 h-9 hover:bg-green-100 rounded cursor-pointer'>
             {params}
         </div>
@@ -80,6 +81,7 @@ export function RawControlPanel<T extends Array<object>>({ title, buttonLabel, i
     return <Panel className="my-4">
         <div className='flex flex-col gap-4'>
             <h3 className="w-full font-extrabold border-l-8 border-green-100 text-green-600 p-2 text-xl rounded">{title}</h3>
+            {children}
             {Headers}
             {Elements}
             {buttonLabel && <Button onClick={buttonCallback} className="w-full rounded" >{buttonLabel}</Button>}

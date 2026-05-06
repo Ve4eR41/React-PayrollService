@@ -81,6 +81,14 @@ export function diffInHours(date1: Date, date2: Date) {
 
 
 
+export function startDateInMonth(date: Date): Date {
+    const result = new Date(date);
+    result.setDate(2);
+    result.setHours(0, 0, 0, 0);
+    return result;
+}
+
+
 export function timeInHourAndMin(diffInMs: number) {
     const totalMinutes = Math.floor(diffInMs / (1000 * 60));
     const hours = Math.floor(totalMinutes / 60);

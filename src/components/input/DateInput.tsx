@@ -4,7 +4,7 @@ import classNames from "classnames";
 registerLocale('ru', ru)
 
 interface DateInputProps {
-    onInput: (e: string | number | Date) => void;
+    onInput: (e: Date) => void;
     dateDefault: Date;
     className?: string;
     wrapperClassName?: string;

@@ -30,22 +30,24 @@ function Button({
   onClick,
   ...rest
 }: ButtonProps) {
+  //    text-green-500 font-medium
+  //   bg-gradient-to-r from-green-500 to-green-400 hover:from-green-300 hover:to-green-400`,
+
   const classes = classNames(
     className,
-    `flex justify-center bg-green-600 items-center rounded-full border cursor-pointer
-     text-green-500 font-bold
-     border-2 border-green-100 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500`,
-    {
-      'opacity-80 bg-gray': loading,
-      'bg-white text-green-700': secondary,
-      'text-white': !secondary,
-      'bg-green-200': success,
-      'h-full w-full rounded-full px-0 py-0': circle,
-      'px-3 py-1.5': !circle,
-      'rounded-full': rounded,
-      'opacity-50': disable,
-      'hover:bg-green-500 hover:text-white': !disable && !loading,
-    },
+    `flex justify-center bg-green-700 items-center rounded-full border cursor-pointer
+      border-2 border-green-800 shadow-xl
+`, {
+    'opacity-80 bg-gray': loading,
+    'bg-white text-green-700': secondary,
+    'text-white': !secondary,
+    'bg-green-200': success,
+    'h-full w-full rounded-full px-0 py-0': circle,
+    'px-3 py-1.5': !circle,
+    'rounded-full': rounded,
+    'opacity-50': disable,
+    'hover:bg-green-500 hover:text-white': !disable && !loading,
+  },
   );
 
   return <button {...rest} disabled={loading || disable} className={classes} onClick={onClick}>

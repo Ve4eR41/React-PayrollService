@@ -24,7 +24,7 @@ function FormEditRetailPlan({ visibleToggle, isVisible, retailplan, date }: Form
         setRetailPlanParams(retailplan);
     }, [retailplan]);
 
-    const onSub = async () => { await createRetailPlan({ ...retailplanParams, date, shopId: retailplanParams.id }) }
+    const onSub = async () => { await createRetailPlan({ ...retailplanParams, date}) }
 
 
     return (<>

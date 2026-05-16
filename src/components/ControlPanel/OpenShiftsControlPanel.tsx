@@ -1,7 +1,7 @@
 
 import { useGetOpenShiftsQuery } from "../../store/apis/shifts";
 import SkeletPanel from "../Loader/SkeletPanel";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 import { getStatusFetch } from "../../utils/utils";
 
 
@@ -18,7 +18,7 @@ export default function OpenShiftsControlPanel() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
     return <>
-        <RawControlPanel
+        <ControlPanelBase
             itemClickCallback={() => { }}
             title="Открытые смены"
             items={openShiftsData}

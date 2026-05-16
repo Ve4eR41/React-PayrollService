@@ -1,6 +1,6 @@
 
 import SkeletPanel from "../Loader/SkeletPanel";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 import { getStatusFetch } from "../../utils/utils";
 import { useShopListQuery } from "../../store/apis/shop";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function ShopControlPanel() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
     return <>
-        <RawControlPanel
+        <ControlPanelBase
             itemClickCallback={() => { }}
             buttonLabel="Добавить"
             buttonCallback={() => { setisVisible(true) }}

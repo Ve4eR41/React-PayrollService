@@ -7,7 +7,7 @@ interface ParamFilter<K> {
     transform?: (value: K) => string | number
 }
 
-interface RawControlPanelProps<T extends Array<object>> {
+interface ControlPanelBaseProps<T extends Array<object>> {
     sortBy?: keyof T[0]
     isAsc?: boolean
     title: string
@@ -19,7 +19,7 @@ interface RawControlPanelProps<T extends Array<object>> {
     children?: ReactNode | string
 }
 
-export function RawControlPanel<T extends Array<object>>({ title, children, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy, isAsc }: RawControlPanelProps<T>) {
+export function ControlPanelBase<T extends Array<object>>({ title, children, buttonLabel, items, paramFilter, buttonCallback, itemClickCallback, sortBy, isAsc }: ControlPanelBaseProps<T>) {
     const indexes = Object.keys(paramFilter);
     const width = 100 / indexes.length + `%`;
     const head = Object.entries(paramFilter) as [keyof typeof paramFilter, ParamFilter<unknown> | undefined][];;

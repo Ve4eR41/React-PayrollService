@@ -4,7 +4,7 @@ import FormUserEdit from "../Form/User/FormUserEdit";
 import FormUserCreate from "../Form/User/FormUserCreate";
 import SkeletPanel from "../Loader/SkeletPanel";
 import { getStatusFetch } from "../../utils/utils";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 
 export default function UserControl() {
     const { data, isLoading: isLoadingUsers, error } = useGetUserQuery('');
@@ -16,7 +16,7 @@ export default function UserControl() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
 
-    return <> <RawControlPanel
+    return <> <ControlPanelBase
         title="Пользователи"
         itemClickCallback={(user) => { setSelectedUser(user) }}
         buttonCallback={() => visibleToggle(true)}

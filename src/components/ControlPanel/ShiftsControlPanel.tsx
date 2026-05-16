@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Shift, useGetShiftsFullInfoQuery } from "../../store/apis/shifts";
 import SkeletPanel from "../Loader/SkeletPanel";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 import { diffInHours, getEndMouth, getStartMouth, getStatusFetch, timeInHourAndMin } from "../../utils/utils";
 import FormEditShift from "../Form/FormEditShift";
 
@@ -31,7 +31,7 @@ export default function ShiftsControlPanel() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
     return <>
-        <RawControlPanel
+        <ControlPanelBase
             title="Смены"
             items={extendsShiftsData}
             itemClickCallback={(i) => { setShift(i); setisVisible(true) }}

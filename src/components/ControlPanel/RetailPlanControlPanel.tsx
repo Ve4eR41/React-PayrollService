@@ -1,6 +1,6 @@
 
 import SkeletPanel from "../Loader/SkeletPanel";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 import { getStatusFetch, startDateInMonth } from "../../utils/utils";
 import { ShopDetail, useShopListQuery } from "../../store/apis/shop";
 import { RetailPlanDetail, useGetRetailPlanByDateQuery } from "../../store/apis/retailPlan";
@@ -33,7 +33,7 @@ export default function RetailPlanControlPanel() {
 
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
-    return <RawControlPanel
+    return <ControlPanelBase
         itemClickCallback={(i) => { setRetailPlan(i); setisVisible(true); }}
         title="План продаж на месяц"
         items={data}
@@ -56,6 +56,6 @@ export default function RetailPlanControlPanel() {
     >
         <MonthToggle selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
         {retailPlan && <FormEditRetailPlan isVisible={isVisible} visibleToggle={setisVisible} retailplan={retailPlan} date={startDateInMonth(selectedDate)} />}
-    </RawControlPanel>
+    </ControlPanelBase>
 
 }

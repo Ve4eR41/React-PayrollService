@@ -1,6 +1,6 @@
 
 import SkeletPanel from "../Loader/SkeletPanel";
-import { RawControlPanel } from "./RawControlPanel";
+import { ControlPanelBase } from "./ControlPanelBase";
 import { getStatusFetch } from "../../utils/utils";
 import { useJobListQuery } from "../../store/apis/job";
 
@@ -17,7 +17,7 @@ export default function JobControlPanel() {
     if (isLoading) return <SkeletPanel />
     if ([403, 401].includes(getStatusFetch(error))) return <></>
     return <>
-        <RawControlPanel
+        <ControlPanelBase
             itemClickCallback={() => { }}
             title="Должности"
             items={data}

@@ -9,6 +9,7 @@ import { roleApi } from "./apis/role.ts";
 import { shiftTypeApi } from "./apis/shiftType.ts";
 import { retailplanApi } from "./apis/retailPlan.ts";
 import { payrollApi } from "./apis/payroll.ts";
+import { checklistApi } from "./apis/checklist.ts";
 
 export const store = configureStore(
     {
@@ -19,6 +20,7 @@ export const store = configureStore(
             [retailplanApi.reducerPath]: retailplanApi.reducer,
             [userApi.reducerPath]: userApi.reducer,
             [jobApi.reducerPath]: jobApi.reducer,
+            [checklistApi.reducerPath]: checklistApi.reducer,
             [payrollApi.reducerPath]: payrollApi.reducer,
             [roleApi.reducerPath]: roleApi.reducer,
             [shiftTypeApi.reducerPath]: shiftTypeApi.reducer,
@@ -31,6 +33,7 @@ export const store = configureStore(
                 .concat(retailplanApi.middleware)
                 .concat(userApi.middleware)
                 .concat(jobApi.middleware)
+                .concat(checklistApi.middleware)
                 .concat(payrollApi.middleware)
                 .concat(shopApi.middleware)
                 .concat(roleApi.middleware)

@@ -4,6 +4,7 @@ import FormBase from "./RawForm/FormBase";
 import Input from "../input/Input";
 import Button from "../Button";
 import { ChecklistDetailProps, useAddChecklistMutation } from "../../store/apis/checklist";
+import { getStartMouth } from "../../utils/utils";
 
 
 
@@ -24,7 +25,7 @@ function FormEditChecklist({ visibleToggle, isVisible, data, date }: FormEditChe
         setRetailPlanParams(data);
     }, [data]);
 
-    const onSub = async () => { await createRetailPlan({ ...checklist, date, description: checklist.description === 'нет плана' ? '' : checklist.description }) }
+    const onSub = async () => { await createRetailPlan({ ...checklist, date: getStartMouth(date), description: checklist.description === 'нет плана' ? '' : checklist.description }) }
 
 
     return (<>

@@ -5,6 +5,7 @@ import { getStatusFetch } from "../../utils/utils";
 import { ControlPanelBase } from "./ControlPanelBase";
 import { ChecklistDetail, ChecklistDetailProps, useGetChecklistQuery } from "../../store/apis/checklist";
 import FormEditChecklist from "../Form/FormEditChecklist";
+import FormBaseV2 from "../Form/RawForm/FormBaseV2";
 
 export default function ChecklistControlPanel() {
     const { data: users, isLoading: isLoadingUsers, error } = useGetUserQuery('');
@@ -60,6 +61,12 @@ export default function ChecklistControlPanel() {
             },
         }}
     />
+
+        <FormBaseV2
+            data={{ a: 1, b: 2 }}
+            inputsSettings={{ a: { name: 'бов', type: 'text' } }}
+            formSettings={{ isVisible: true, onSub: () => { }, }}
+        />
         {selectedUser && <FormEditChecklist data={selectedUser} date={new Date()} isVisible={isVisible} visibleToggle={setisVisible} />}
     </>
 }

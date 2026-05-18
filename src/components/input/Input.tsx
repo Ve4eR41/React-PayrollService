@@ -7,7 +7,7 @@ interface InputTextProps<T> {
     textInput?: T;
     onInput: (v: T) => void;
     label?: string;
-    type: HTMLInputTypeAttribute | 'DateInput' | 'Options';
+    type: HTMLInputTypeAttribute | 'DateInput';
     disabled?: boolean;
     className?: string;
     classesNameInput?: string;

@@ -4,12 +4,12 @@ import InputWrapper from "./InputWrapper";
 
 
 interface OptionsProps {
-    callback: (e: string | number | number) => void;
-    value: string | number;
+    callback: (e: string | number | boolean) => void;
+    value: string | number | boolean;
     label?: string;
     classesNameInput?: string;
     valueClassName?: string;
-    options: (string | number)[] | { [key: string | number]: string | number | boolean };
+    options: (string | number | boolean)[] | { [key: string | number]: string | number | boolean };
     disabled?: boolean
     isLoading?: boolean
 }

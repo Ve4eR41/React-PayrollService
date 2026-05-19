@@ -27,7 +27,6 @@ export default function FormUserEdit({ userData, userCallback }: FormUserControl
     const roleList = useCreateList(_roleList, 'id', 'value')
 
     const handleSubmit = () => {
-        console.log('userData:', userData);
         editUser(userData);
     }
 

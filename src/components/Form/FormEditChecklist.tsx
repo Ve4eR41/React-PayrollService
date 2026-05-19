@@ -5,6 +5,7 @@ import Input from "../input/Input";
 import Button from "../Button";
 import { ChecklistDetailProps, useAddChecklistMutation } from "../../store/apis/checklist";
 import { getStartMouth } from "../../utils/utils";
+import Options from "../input/Options";
 
 
 
@@ -25,7 +26,16 @@ function FormEditChecklist({ visibleToggle, isVisible, data, date }: FormEditChe
         setRetailPlanParams(data);
     }, [data]);
 
-    const onSub = async () => { await createRetailPlan({ ...checklist, date: getStartMouth(date), description: checklist.description === 'нет плана' ? '' : checklist.description }) }
+    const onSub = async () => {
+        await createRetailPlan({
+            isCompleat: checklist.isCompleat,
+            userId: checklist.userId,
+            date: getStartMouth(date),
+            description: checklist.description === 'нет плана' ? '' : checklist.description
+        })
+    }
+
+    const checklistStatus = { 1: `Выполнен`, 0: `Не выполнен` }
 
 
     return (<>
@@ -40,13 +50,13 @@ function FormEditChecklist({ visibleToggle, isVisible, data, date }: FormEditChe
             }}>
 
 
-            <Input label="План по выручке"
-                onInput={(v) => { setRetailPlanParams({ ...checklist, isCompleat: !!v }) }}
-                textInput={checklist.isCompleat}
-                type="checkbox"
+            <Options label="Чеклист"
+                options={checklistStatus}
+                value={checklistStatus[checklist.isCompleat ? 1 : 0]}
+                callback={(v) => { setRetailPlanParams({ ...checklist, isCompleat: v == 1 }) }}
             />
 
-            <Input label="Описание"
+            < Input label="Описание"
                 onInput={(v) => { setRetailPlanParams({ ...checklist, description: String(v) }) }}
                 textInput={checklist.description}
                 type="text"

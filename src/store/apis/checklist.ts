@@ -17,8 +17,8 @@ const checklistApi = createApi({
 
 
 
-            getChecklist: builder.query<ChecklistDetail[], unknown>({
-                query: () => ({ url: '', method: 'GET' }),
+            getChecklist: builder.query<ChecklistDetail[], getChecklistByDate>({
+                query: (body) => ({ url: '/getByDate', method: 'POST', body }),
                 providesTags: ['checklist']
             }),
 
@@ -39,6 +39,10 @@ export const { useGetChecklistQuery, useAddChecklistMutation } = checklistApi
 
 export { checklistApi }
 
+
+interface getChecklistByDate {
+    date: Date
+}
 
 export interface ChecklistDetail {
     description: string;
